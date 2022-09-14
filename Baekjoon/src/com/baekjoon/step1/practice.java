@@ -1,4 +1,4 @@
-package src.com.baekjoon.step1;
+package com.baekjoon.step1;
 
 import java.util.Scanner;
 
@@ -12,5 +12,9 @@ public class practice {
         b = sc.nextInt();
 
         System.out.println(a-b);
+        System.out.println();
+
+
+
     }
 }
