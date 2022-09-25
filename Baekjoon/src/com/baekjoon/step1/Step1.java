@@ -261,17 +261,16 @@ public class Step1{
 //        int num3 = 0;
 //        int num4 = 0;
 
-        Scanner sc = new Scanner(System.in);
-
-        int[] arr = {};
-        String a = null;
-        String b = null;
-        int[] a2 = {};
-        int[] b2 = {};
-
-        a = sc.nextLine();
-        b = sc.nextLine();
-        System.out.println(Arrays.toString(a.split(" "))); // String클래스 split은 배열로 반환
+//        Scanner sc = new Scanner(System.in);
+//        int[] arr = {};
+//        String a = null;
+//        String b = null;
+//        int[] a2 = {};
+//        int[] b2 = {};
+//
+//        a = sc.nextLine();
+//        b = sc.nextLine();
+//        System.out.println(Arrays.toString(a.split(" "))); // String클래스 split은 배열로 반환
         // 472가 입력됐을 때, 다 붙어서 나오기 때문에 구분자를 사용할 게 없다...
 
 
@@ -279,32 +278,76 @@ public class Step1{
         // http://mwultong.blogspot.com/2007/05/java-1-string-one-char-at-time.html
 
 //        int[] a2 = {Integer.parseInt(a)};
-
-
-
-
 //        arr[i] = a.split(" ");
 
+
+        Scanner sc = new Scanner(System.in);
+        int aa = sc.nextInt();
+        String bb = sc.next();
+
+        System.out.println(aa * (bb.charAt(2)-'0'));      // 일의 자리수와 472 곱
+        System.out.println(aa * (bb.charAt(1)-'0'));      // 십의 자리수와 472 곱
+        System.out.println(aa * (bb.charAt(0)-'0'));      // 백의 자리수와 472 곱
+        System.out.println(aa * (Integer.parseInt(bb)));
+
+/*
+    정답
+세 숫자를 chatAt()으로 하나씩 받아서 곱할 수 있게하는 방법
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int aa = sc.nextInt();
+        String bb = sc.next(); //
+
+        // -'0'을 해주는건 아스키코드 자동변환을 방지하기 위함
+        System.out.println(aa * (bb.charAt(2)-'0'));        // 일의 자리수와 472 곱
+        System.out.println(aa * (bb.charAt(1)-'0'));        // 십의 자리수와 472 곱
+        System.out.println(aa * (bb.charAt(0)-'0'));        // 백의 자리수와 472 곱
+        System.out.println(aa * (Integer.parseInt(bb)));    // 전체 계산
+    }
+}
+
+ */
 
     }
 
     // Step1-13 10171번 : 고양이
     public void method11(){
-
-        System.out.println();
+        // 포인트 : 이스케이프 코드
+        // 해당 문자를 문자열로 출력 해주는 코드 : \
+        System.out.println("\\    /\\");
+        System.out.println(" )  ( ')");
+        System.out.println("(  /  )");
+        System.out.println(" \\(__)|");
 
     }
 
     // Step1-14 10172번 : 개
     public void method12(){
-
-
+        // 포인트 : 이스케이프 코드
+        // 해당 문자를 문자열로 출력 해주는 코드 : \
+        System.out.println("|\\_/|");
+        System.out.println("|q p|   /}");
+        System.out.println("( 0 )\"\"\"\\");
+        System.out.println("|\"^\"`    |");
+        System.out.println("||_/=\\\\__|");
 
     }
 
     // Step1-15 25083번 : 새싹
     public void method13(){
 
+        // 포인트 : 이스케이프 코드
+        // 해당 문자를 문자열로 출력 해주는 코드 : \
+        System.out.println("         ,r'\"7");
+        System.out.println("r`-_   ,'  ,/");
+        System.out.println(" \\. \". L_r'");
+        System.out.println("   `~\\/");
+        System.out.println("      |");
+        System.out.println("      |");
 
 
     }

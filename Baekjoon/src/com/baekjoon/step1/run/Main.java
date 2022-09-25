@@ -14,7 +14,7 @@ public class Main {
 //        s1.method07();
 //        s1.method08();
 //        s1.method09();
-//        s1.method10();
+        s1.method10();
 //        s1.method11();
 //        s1.method12();
 //        s1.method13();

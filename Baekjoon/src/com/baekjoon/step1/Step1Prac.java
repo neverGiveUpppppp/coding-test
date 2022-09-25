@@ -2,7 +2,7 @@ package com.baekjoon.step1;
 
 import java.util.Scanner;
 
-public class practice {
+public class Step1Prac {
     public static void main(String[] args) {
         int a = 0;
         int b = 0;
