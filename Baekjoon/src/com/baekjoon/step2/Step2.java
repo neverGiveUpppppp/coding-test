@@ -1,4 +1,6 @@
 package com.baekjoon.step2;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 import java.io.BufferedReader;
 
@@ -74,9 +76,60 @@ public class Main {
     }
 
     // Step2-2 9498번 : 시험 성적
-    public void method02(){
+    public void method02() throws IOException {
+
+        // brain Storming
+        // 스캐너 혹은 버퍼드리더로 점수 받고, if문으로 나누면 될 듯
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int score = Integer.parseInt(br.readLine());
+
+//        System.out.println(score);
+        if(score >= 90){
+            System.out.println("A");
+        }else if(score >= 80){
+            System.out.println("B");
+        }else if(score >= 70){
+            System.out.println("C");
+        }else if(score >= 60){
+            System.out.println("D");
+        }else{
+            System.out.println("F");
+        }
+
+/*
+정답
+
+풀이
+스캐너 혹은 버퍼드리더로 숫자를 받는다
+  - 버퍼드는 str만 받으므로 int로 형변환해야함
+  - 또한, import문 넣을 때도 IOException도 같이 넣어줘야 컴파일 에러 안남
+각 점수대 별로 if문으로 점수 분배
+
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int score = Integer.parseInt(br.readLine());
 
 
+        if(score >= 90){
+            System.out.println("A");
+        }else if(score >= 80){
+            System.out.println("B");
+        }else if(score >= 70){
+            System.out.println("C");
+        }else if(score >= 60){
+            System.out.println("D");
+        }else{
+            System.out.println("F");
+        }
+    }
+}
+
+ */
 
 
     }
@@ -84,12 +137,50 @@ public class Main {
     // Step2-3 2753번 : 윤년
     public void method03(){
 
+        // brain Storming
+        //
+
+
+/*
+정답
+
+풀이
+
+
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+
+
+ */
+
 
     }
 
     // Step2-4 14681번 : 사분면 고르기
     public void method04(){
 
+        // brain Storming
+        //
+
+
+
+/*
+정답
+
+풀이
+
+
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+
+
+ */
 
     }
 
@@ -97,16 +188,75 @@ public class Main {
     public void method05(){
 
 
+        // brain Storming
+        //
+
+
+/*
+정답
+
+풀이
+
+
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+
+
+ */
+
     }
 
     // Step2-6 2525번 : 오븐 시계
     public void method06(){
+
+        // brain Storming
+        //
+
+
+/*
+정답
+
+풀이
+
+
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+
+
+ */
 
 
     }
 
     // Step2-7 2480번 : 주사위 세개
     public void method07(){
+
+
+        // brain Storming
+        //
+
+
+
+/*
+정답
+
+풀이
+
+
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+
+
+ */
 
 
     }
