@@ -71,7 +71,34 @@ public class Main {
     }
 }
 
+
  */
+/*
+
+BufferedReader + StringTokenizer
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+
+        int[] num = new int[2];
+        for(int i=0; i < num.length;i++){
+            num[i] = Integer.parseInt(st.nextToken());
+        }
+//        System.out.println(Arrays.toString(num));
+
+        int num1 = num[0];
+        int num2 = num[1];
+
+        if(num1 > num2){
+            System.out.println(">");
+        }else if(num1 < num2){
+            System.out.println("<");
+        }else{
+            System.out.println("==");
+        }
+
+*/
+
 
     }
 
