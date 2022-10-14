@@ -15,7 +15,7 @@ public class Main {
 //        s.method01();
 //        s.method02();
 //        s.method03();
-//        s.method04();
+        s.method04();
 //        s.method05();
 //        s.method06();
 //        s.method07();
@@ -23,10 +23,13 @@ public class Main {
 
         Step2Prac sp = new Step2Prac();
 //        sp.method01();
-        sp.method02();
+//        sp.method02();
 //        sp.method03();
 //        sp.method04();
 //        sp.method05();
+//        sp.method06();
+//        sp.method07();
+
 
 
     }
