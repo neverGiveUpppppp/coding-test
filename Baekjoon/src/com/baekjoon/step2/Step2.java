@@ -356,15 +356,114 @@ public class Main {
     }
 
     // Step2-5 2884번 : 알람 시계
-    public void method05(){
+    public void method05() throws IOException {
 
+        // 문제 조건
+        // 입력 첫 줄 : int 2ea
+        //      h : hour    0~23
+        //      m : minute  0~59
+        // 시간표시 : 24시간 형태
+        //           불필요한 0표시 x
+        // 첫째 줄에 상근이가 창영이의 방법을 사용할 때, 설정해야 하는 알람 시간을 출력한다
 
-        // brain Storming
-        //
 
 
 /*
+        // brain Storming
+        // 입력된 설정 시간보다 시간이 빨라야함(값이 작아야함)
+        // -45 한다고하면 hour가 -1되는 경우와 -1시가 되는 경우가 고려되어야함
+      1. 분(min)이 -1이하가 되는 경우
+        - 0분에서 -되면 59부터 시작해야함 ex)2시30분-45분=1시45분가 되게 해야함
+      +60하면 된다
+        30-45=45 // 30-45=-15+60 = 45
+        20-45=35 // 20-45=-25+60 = 35
+        10-45=25 // 10-45=-35+60 = 25
+        00-45=15 // 00-45=-45+60 = 15
+      2. 시(hour)에 -1해야되는 경우 고려
+        - if로 min을 -45해서 h의값이 0이하일 때 -1이면, 23으로 가게해야함
+        0:30-45=23:45 // 
+
+        h값 범위 0~23
+        0-1 = -1 + 24 = 23
+        1-1 = 0 + 24 = 24 // 24시는 0시로 표시해야함
+        2-1 = 1 + 24 = 25 // 여기부터는 실질적으로 1시이므로 +24 할 필요 없음
+        3-1 = 2 + 24 = 26
+        ...
+        23-1 = 22 + 24 = 46
+
+        hour -1해서 값이 -인 경우에만 +24하면 될 듯
+
+*/
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+
+        int hour = 0;
+        int min = 0;
+
+        while(st.hasMoreTokens()){
+            hour = Integer.parseInt(st.nextToken());
+            min = Integer.parseInt(st.nextToken());
+        }
+//        System.out.println("h = "+hour);
+//        System.out.println("m = "+min);
+
+        if((min-45) < 0 ){
+            hour = hour-1;
+            min = min - 45 + 60;
+            if(hour < 0){
+               hour = hour + 24;
+            }
+        }
+        System.out.println(hour+" "+min);
+
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        StringTokenizer st = new StringTokenizer(br.readLine(),",");
+//        // 첫줄 정수x 다음줄 정수y주어진다고 해서 StringTokenizer로 받으면 오답처리 될지도 모름
+//        // 오답 처리시, BufferedReader 2개로 받자
+//        // 양수 구분 : 0초과  ex) x > 0
+//        // 음수 구분 : 0미만  ex) x < 0
+//
+//        int x = 0;
+//        int y = 0;
+//        while(st.hasMoreTokens()){
+//            x = Integer.parseInt(st.nextToken());
+//            y = Integer.parseInt(st.nextToken());
+//        }
+
+/*
 정답
+
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+public class Main {
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+
+        int hour = 0;
+        int min = 0;
+
+        while(st.hasMoreTokens()){
+            hour = Integer.parseInt(st.nextToken());
+            min = Integer.parseInt(st.nextToken());
+        }
+
+        if((min-45) < 0 ){
+            hour = hour-1;
+            min = min - 45 + 60;
+            if(hour < 0){
+               hour = hour + 24;
+            }
+        }
+        System.out.println(hour+" "+min);
+
+    }
+}
+
 
 풀이
 
