@@ -391,7 +391,9 @@ public class Main {
         ...
         23-1 = 22 + 24 = 46
 
-        hour -1해서 값이 -인 경우에만 +24하면 될 듯
+        hour -1해서 값이 -인 경우에만 +24하거나 그냥 hour를 if조건줘서 23으로 지정하면 됨
+
+
 
 */
 
@@ -414,26 +416,28 @@ public class Main {
             if(hour < 0){
                hour = hour + 24;
             }
+            System.out.println(hour+" "+min);
+        }else {
+            System.out.println(hour + " " + (min - 45));
         }
-        System.out.println(hour+" "+min);
 
-//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        StringTokenizer st = new StringTokenizer(br.readLine(),",");
-//        // 첫줄 정수x 다음줄 정수y주어진다고 해서 StringTokenizer로 받으면 오답처리 될지도 모름
-//        // 오답 처리시, BufferedReader 2개로 받자
-//        // 양수 구분 : 0초과  ex) x > 0
-//        // 음수 구분 : 0미만  ex) x < 0
-//
-//        int x = 0;
-//        int y = 0;
-//        while(st.hasMoreTokens()){
-//            x = Integer.parseInt(st.nextToken());
-//            y = Integer.parseInt(st.nextToken());
+
+        // 다른 정답
+//        if(min < 45){
+//        if((min-45) < 0 ){
+//            hour = hour-1;
+//            hour--;
+//            min = min - 45 + 60;
+//            min = 60 - (45 - min);
+//            if(hour < 0){
+//                hour = hour + 24;
+//                hour = 23;
+//            }
 //        }
+
 
 /*
 정답
-
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -458,22 +462,39 @@ public class Main {
             if(hour < 0){
                hour = hour + 24;
             }
-        }
-        System.out.println(hour+" "+min);
+			System.out.println(hour + " " + min);
+		}
+		else {
+			System.out.println(hour + " " + (min - 45));
+		}
+
 
     }
 }
 
 
+다른 정답
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 		String str = br.readLine();
+		StringTokenizer st = new StringTokenizer(str," ");
+		int H = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
+
+		if(M < 45) {
+			H--;
+			M = 60 - (45 - M);
+			if(H < 0) {
+				H = 23;
+			}
+			System.out.println(H + " " + M);
+		}
+		else {
+			System.out.println(H + " " + (M - 45));
+		}
+
+
 풀이
 
-
-import java.io.InputStreamReader;
-import java.io.BufferedReader;
-import java.io.IOException;
-
-public class Main {
-    public static void main(String[] args) throws IOException {
 
 
  */
@@ -481,10 +502,25 @@ public class Main {
     }
 
     // Step2-6 2525번 : 오븐 시계
-    public void method06(){
+    public void method06() throws IOException {
+
+        // 조건
+        // 시작 시간과 조리 시간 주어졌을 때, 요리 끝나는 시간 구하기
+        // 첫째줄 : 현재시각
+        // 둘째줄 : 필요 시간
+        // 시간의 입출력 : 정수, 시와 분 사이에 공백으로 표현할 것
+        // 24시간제 : 23시 넘어가면 0시로
 
         // brain Storming
+        // 필요 시간이 60분이 넘어가면, 끝나느 시간(hour)에 60분당 +1(최대 1000분이므로 16시간까지 +가능)
+        // 시작 시간의 분과 필요시간의 분을 더하여 끝나는 시간의 시(hour)를 도출해야함
         //
+
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+
 
 
 /*
