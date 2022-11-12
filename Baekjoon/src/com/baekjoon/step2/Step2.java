@@ -514,17 +514,37 @@ public class Main {
         // brain Storming
         // 필요 시간이 60분이 넘어가면, 끝나느 시간(hour)에 60분당 +1(최대 1000분이므로 16시간까지 +가능)
         // 시작 시간의 분과 필요시간의 분을 더하여 끝나는 시간의 시(hour)를 도출해야함
-        //
+        // BufferedReader 두줄이상 받기 : try-catch에서 try구문 안에 while문해서 배열로 받고 split("\\s")로 줄 나눠서 받기
 
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
+        String line;
+        try{
+            while((line = br.readLine()) != null){
+                String[] tokens = line.split("\\s");
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+        // 복수줄 입력받기 :https://www.techiedelight.com/ko/read-multi-line-input-console-java/
+
+        
+        int hour = Integer.parseInt(st.nextToken());
+        int min = Integer.parseInt(st.nextToken());
+        int need = Integer.parseInt(st.nextToken());
 
 
+
+        System.out.println(hour+" "+min);
+        System.out.println(need);
 
 /*
 정답
+
+
 
 풀이
 
