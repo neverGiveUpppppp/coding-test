@@ -529,9 +529,9 @@ public class Main {
             e.printStackTrace();
         }
 
-        // 복수줄 입력받기 :https://www.techiedelight.com/ko/read-multi-line-input-console-java/
+        // 복수줄 입력받기 : https://www.techiedelight.com/ko/read-multi-line-input-console-java/
 
-        
+
         int hour = Integer.parseInt(st.nextToken());
         int min = Integer.parseInt(st.nextToken());
         int need = Integer.parseInt(st.nextToken());
