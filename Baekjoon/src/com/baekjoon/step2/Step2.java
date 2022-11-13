@@ -1,6 +1,7 @@
 package com.baekjoon.step2;
 import com.baekjoon.step2.run.Main;
 
+import java.util.Arrays;
 import java.util.Scanner;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -506,56 +507,210 @@ public class Main {
 
         // 조건
         // 시작 시간과 조리 시간 주어졌을 때, 요리 끝나는 시간 구하기
-        // 첫째줄 : 현재시각
+        // 첫째줄 : 현재 시각
         // 둘째줄 : 필요 시간
         // 시간의 입출력 : 정수, 시와 분 사이에 공백으로 표현할 것
         // 24시간제 : 23시 넘어가면 0시로
+        // 두 줄을 받는데 한 줄에 공백을 처리하면서 받을 수 있어야함
+        //  - BufferedReader + StringTokenizer 불가 : 두번째 줄 입력으로 안넘어감
+        //  - BufferedReader + readline() 불가 : NumberFormatException
+        //  -
 
+
+/*
         // brain Storming
-        // 필요 시간이 60분이 넘어가면, 끝나느 시간(hour)에 60분당 +1(최대 1000분이므로 16시간까지 +가능)
-        // 시작 시간의 분과 필요시간의 분을 더하여 끝나는 시간의 시(hour)를 도출해야함
-        // BufferedReader 두줄이상 받기 : try-catch에서 try구문 안에 while문해서 배열로 받고 split("\\s")로 줄 나눠서 받기
+         필요 시간이 60분이 넘어가면, 끝나는 시간(hour)에 60분당 +1(최대 1000분이므로 16시간까지 +가능)
+         시작 시간의 분과 필요시간의 분을 더하여 끝나는 시간의 시(hour)를 도출해야함
+         BufferedReader 두줄이상 받기 : 공백 마다 기준 하나마다 st하나씩 받고 다음 줄은 br로 또 받으면 됨
+
+        min + need
+           - min 59초과시, hour +1
+           - cookTime > 60이면, +1
+
+        14 30 + 20 = 14 50
+        14 30 + 30 = 15 00 -> hour에 +1 되어야함
+
+        요리 시간 60이 넘어가면 +1해야함
+
+         60분 이상이면 hour에 +1 해줘야하는데, 2,3시간 넘어갈 경우 각각의 경우의 수를 고려해야함
+         1000분 제한이라 switch로 일일히 각 시간을 나눠서 할 수 있지만 너무 비효율적임. 다른 방법이 뭐가 있을까?
+         분 단위 계산으로 min에 cookTime을 더하고, 총 min을 60으로 나눠서 hour 더하면 될 듯...?
 
 
+        풀다 막혀서 구글링
+
+ */
+
+
+        // BufferedReader + StringTokenizer
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+////        StringTokenizer st = new StringTokenizer(br.readLine(),"\\s"); : NumberFormatException 발생
+//
+//        int hour = Integer.parseInt(st.nextToken());
+//        int min = Integer.parseInt(st.nextToken());
+//        int need = Integer.parseInt(st.nextToken());
+//
+//        System.out.println(hour+" "+min);
+//        System.out.println(need);
+//        // StringTokenizer 구분자 때문에 두번째 줄 입력을 안받는 문제
+
+
+//        // BufferedReader + readline() : 두개 받기
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        int x = Integer.parseInt(br.readLine());
+//        int y = Integer.parseInt(br.readLine());
+//        // 에러발생 : NumberFormatException: For input string: "14 30"
+//        // 공백 때문에 넘버포맷익셉션 발생함
+
+
+//       // BufferedReader + read()
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        int x = br.read();
+//        int y = br.read();
+//        System.out.println(x);
+//        System.out.println(y);
+//        // 공백 NumberFormatException 때문에 readline() 대신 read() 사용해봄
+//        // integer in the range 0 to 65535 (0x00-0xffff)로 반환 하기 때문에 char로 변환되서 난감해짐
+
+
+
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        String line;
+//        try {
+//            while ((line = br.readLine()) != null)
+//            {
+//                String[] tokens = line.split("\\s");
+//                System.out.println(Arrays.toString(tokens));
+//            }
+//            br.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+
+
+        // BufferedReader + StringTokenizer
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-
-        String line;
-        try{
-            while((line = br.readLine()) != null){
-                String[] tokens = line.split("\\s");
-            }
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-
-        // 복수줄 입력받기 : https://www.techiedelight.com/ko/read-multi-line-input-console-java/
-
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
 
         int hour = Integer.parseInt(st.nextToken());
         int min = Integer.parseInt(st.nextToken());
-        int need = Integer.parseInt(st.nextToken());
+        int cookTime = Integer.parseInt(br.readLine());
+
+        System.out.println( (min/60) % 24 );
+
+//        if(cookTime >= 60){
+//
+//            if(cookTime / 60 == 1){
+//
+//            }
+//
+//        }
+//        if(min >= 60){
+//            hour++;
+//
+//        }
 
 
 
-        System.out.println(hour+" "+min);
-        System.out.println(need);
+//        System.out.println(hour+" "+min);
+
+
+
+
+
+
+
+
+
 
 /*
 정답
 
-
-
-풀이
-
-
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.IOException;
-
+import java.util.StringTokenizer;
 public class Main {
     public static void main(String[] args) throws IOException {
 
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        int A = Integer.parseInt(st.nextToken());
+        int B = Integer.parseInt(st.nextToken());
+        int C = Integer.parseInt(br.readLine());
+
+        int min = 60 * A + B;   // 시 -> 분
+        min += C;
+
+        int hour = (min / 60) % 24;
+        int minute = min % 60;
+
+        System.out.println(hour + " " + minute);
+    }
+}
+
+다른 정답1
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        int A = Integer.parseInt(st.nextToken());
+        int B = Integer.parseInt(st.nextToken());
+        int C = Integer.parseInt(br.readLine());
+
+        int min = 60 * A + B;   // 시 -> 분
+        min += C;
+
+        int hour = (min / 60) % 24;
+        int minute = min % 60;
+
+        System.out.println(hour + " " + minute);
+
+풀이
+전체를 분으로 바뀌서 후에 60을 나누거나 나머지로 시, 분을 각각 구하는 방식
+시를 분으로 변환(변수 min)
+여기에 요리시간(분)을 더함
+이 상태에서 60으로 나눈 나머지가 시(hour)가 되는데, 23시를 넘어가는 경우를 생각해서 24로 나누고 난 나머지를 hour로 사용
+또한 분(변수 minute)도 60으로 나눈 나머지는 60이하만 나오기 때문에 자연스레 분으로 만들어진다
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        int A = Integer.parseInt(st.nextToken());
+        int B = Integer.parseInt(st.nextToken());
+        int C = Integer.parseInt(br.readLine());
+
+        int min = 60 * A + B;  // 시 -> 분                // 60 * 17 + 40 = 1060 min
+        min += C;              // 전체 분 + 요리시간 분의 합 // 1060 + 80 = 1140min
+
+        int hour = (min / 60) % 24; // 23시를 넘은 0시를 위한 처리           // (1140 / 60) % 24 = 19
+        int minute = min % 60;      // 60분 넘어가면 나머지만 구하면 분이 나옴 // (1140 % 60) = 0
+
+        System.out.println(hour + " " + minute);
+
+
+다른 정답2
+       int hour = scanner.nextInt();
+        int min = scanner.nextInt();
+        int cookTime = scanner.nextInt();
+        int wholeTime = cookTime + min;
+
+        if (min + cookTime < 60) {
+            System.out.println(hour + " " + wholeTime);
+        } else {
+            if (wholeTime % 60 == 0) {
+                if (hour + (wholeTime/60) > 23) {
+                    System.out.println(hour + (wholeTime / 60) - 24 + " " + "0");
+                } else {
+                    System.out.println(hour + (wholeTime / 60) + " " + "0");
+                }
+            } else {
+                if (hour + (wholeTime/60) > 23) {
+                    System.out.println(hour + (wholeTime / 60) - 24 + " " + (wholeTime % 60));
+                } else {
+                    System.out.println(hour + (wholeTime / 60) + " " + (wholeTime % 60));
+                }
+            }
+        }
 
  */
 
