@@ -61,8 +61,20 @@ public class Main {
 
 
 
-    public void method02() {
+    public void method02() throws IOException {
 
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+
+        int[] hor = {1,1,2,2,2,8};
+        int[] tem = new int[6];
+        String ans = "";
+
+        for(int i = 0; i < hor.length; i++){
+            tem[i] = Integer.parseInt(st.nextToken());
+            ans += hor[i] - tem[i] + " ";
+        }
+        System.out.println(ans);
 
 
 
