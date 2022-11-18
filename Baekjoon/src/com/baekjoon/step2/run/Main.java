@@ -17,14 +17,14 @@ public class Main {
 //        s.method03();
 //        s.method04();
 //        s.method05();
-        s.method06();
+//        s.method06();
 //        s.method07();
 
 
         Step2Prac sp = new Step2Prac();
 //        sp.method01();
 //        sp.method02();
-//        sp.method03();
+        sp.method03();
 //        sp.method04();
 //        sp.method05();
 //        sp.method06();
