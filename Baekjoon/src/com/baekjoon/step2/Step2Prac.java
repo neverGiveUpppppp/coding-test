@@ -80,7 +80,35 @@ public class Step2Prac {
     }
 
 
-    public void method04() {
+    public void method04() throws IOException {
+
+        // Step2-4 14681번 : 사분면 고르기
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int x = Integer.parseInt(br.readLine());
+        int y = Integer.parseInt(br.readLine());
+        int quadrant;
+
+        if(x > 0 && y > 0){
+            quadrant = 1;
+            System.out.println(quadrant);
+        }else if(x < 0 && y > 0){
+            quadrant = 2;
+            System.out.println(quadrant);
+        }else if(x < 0 && y < 0){
+            quadrant = 3;
+            System.out.println(quadrant);
+        }else if(x > 0 && y < 0){
+            quadrant = 4;
+            System.out.println(quadrant);
+        }
+
+
+
+//        System.out.println(x);
+//        System.out.println(y);
+
+
 
 
     }

@@ -1,27 +1,29 @@
-package com.baekjoon.step2.run;
+package com.baekjoon.step3.run;
+import com.baekjoon.step3.Step3;
+import com.baekjoon.step3.Step3Prac;
 
-import com.baekjoon.step2.Step2;
-import com.baekjoon.step2.Step2Prac;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        Step2 s = new Step2();
+        Step3 s = new Step3();
 
-//        s.method01();
+        s.method01();
 //        s.method02();
 //        s.method03();
 //        s.method04();
 //        s.method05();
 //        s.method06();
 //        s.method07();
+//        s.method08();
+//        s.method09();
+//        s.method10();
+//        s.method11();
+//        s.method12();
 
 
-        Step2Prac sp = new Step2Prac();
+        Step3Prac sp = new Step3Prac();
 //        sp.method01();
 //        sp.method02();
 //        sp.method03();
@@ -29,7 +31,11 @@ public class Main {
 //        sp.method05();
 //        sp.method06();
 //        sp.method07();
-
+//        sp.method08();
+//        sp.method09();
+//        sp.method10();
+//        sp.method11();
+//        sp.method12();
 
 
     }

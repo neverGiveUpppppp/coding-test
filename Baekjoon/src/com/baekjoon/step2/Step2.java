@@ -738,12 +738,69 @@ public class Main {
     }
 
     // Step2-7 2480번 : 주사위 세개
-    public void method07(){
+    public void method07() throws IOException {
+
+        // 문제조건
+        // 목표 : 주어진 주사위에 따른 상금계산
+        // 3개의 주사위
+        // 같은 눈 3 : 10000 + (three) * 1000
+        // 같은 눈 2 : 1000 + (two) * 100
+        // 같은 눈 1 : (maxNumber) * 100
 
 
         // brain Storming
+        // 조건문 카테고리니 3개의 눈의 경우의 수를 if문으로?
+        // 마지막 최대값 구하는 식 적용해야함
+        //  a :       a > b
+        //            b > c
         //
+        //  c :       a > b
+        //            c > a
+        //
+        //  b :       b > a
+        //            b > c 
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        
+        int three = Integer.parseInt(st.nextToken());
+        int two = Integer.parseInt(st.nextToken());
+        int one = Integer.parseInt(st.nextToken());
+        int total = 0;
 
+
+        if((three == two) && (three == one)){
+            // 같은 눈 3 : 10000 + (three) * 1000
+            total = 10000 + (three) * 1000;
+        }else if((three == two) && (three != one)){
+            // 같은 눈 2 : 1000 + (two) * 100
+            total = 1000 + (two) * 100;
+        }else if((three != two) && (three != one)){
+            // 같은 눈 1 : (maxNumber) * 100
+            if((three > two) && (two > one)){ // three = max
+                total = (three) * 100;
+            }else if((three > two) && (one > three)){ // one = max
+                total = (one) * 100;
+            }else if((three > two) && (one > three)){ // two = max
+                total = (two) * 100;
+            }
+
+            // 최대값 구하는 식이나 함수 구글링할 것
+            // Math.max()
+            // 향상된 포문+배열
+            // 자바 배열의 최대값 구하는 3가지방법
+            // https://wakestand.tistory.com/423
+            // 주석
+
+        }else{
+            System.out.println("잘못입력함");
+        }
+
+        System.out.println(three);
+        System.out.println(two);
+        System.out.println(one);
+
+        System.out.println(total);
 
 
 /*
