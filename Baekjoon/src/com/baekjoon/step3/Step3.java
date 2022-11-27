@@ -73,7 +73,44 @@ BufferedReader + StringTokenizer
     public void method02() throws IOException {
 
         // brain Storming
-        //
+        // 첫 줄에 하나 받고, 둘째 줄에 공백 기준으로 두개 받기
+        // BufferedReader .readLine()으로 하나 받고, StringTokenizer로 공백 기준 두개 받으면 될 듯
+
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+//
+//        int num = Integer.parseInt(br.readLine());
+////        int num = br.read();
+//        int a = Integer.parseInt(st.nextToken());
+//        int b = Integer.parseInt(st.nextToken());
+
+        // error : NumberFormatException: For input string: "1 1"
+        // 데이터형태가 잘못들어와서 나는 에러인데 뭐가 문제일까? 인티저로 바꿨는데
+/*
+        구글링 결과
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        String[] strs = bf.readLine().split(" ");
+        int a = Integer.parseInt(strs[0]);
+        int b = Integer.parseInt(strs[1]);
+        System.out.println(a+b);
+
+ */
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+
+//        String[] str = br.readLine().split(" ");
+////        String[] str = st.nextToken(" ");
+//        int a = Integer.parseInt(str[0]);
+//        int b = Integer.parseInt(str[1]);
+//        int c = Integer.parseInt(str[2]);
+//
+//        System.out.println(a);
+//        System.out.println(b);
+
+
+
+
+
 /*
 정답
 
