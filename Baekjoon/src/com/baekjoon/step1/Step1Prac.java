@@ -60,7 +60,7 @@ public class Main {
 
 
 
-
+    // Step1-10 3003번 : 킹, 퀸, 룩, 비숍, 나이트, 폰
     public void method02() throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -82,9 +82,21 @@ public class Main {
 
 
 
+    // Step1-10 3003번 : 킹, 퀸, 룩, 비숍, 나이트, 폰
+    public void method03() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
 
-    public void method03() {
+        int[] horse = {1,1,2,2,2,8};
+        int[] switching = new int[6];
 
+        String answer = "";
+
+        for(int i=0; i < horse.length; i++){
+            switching[i] = Integer.parseInt(st.nextToken());
+            answer += horse[i] - switching[i] + " ";
+        }
+        System.out.println(answer);
 
     }
 

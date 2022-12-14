@@ -24,9 +24,9 @@ public class Main {
 
 
         Step1Prac sp = new Step1Prac();
-        sp.method01();
+//        sp.method01();
 //        sp.method02();
-//        sp.method03();
+        sp.method03();
 //        sp.method04();
 //        sp.method05();
 
