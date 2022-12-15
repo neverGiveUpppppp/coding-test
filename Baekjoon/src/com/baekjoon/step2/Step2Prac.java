@@ -113,8 +113,28 @@ public class Step2Prac {
 
     }
 
+    // Step2-4 14681번 : 사분면 고르기
+    public void method05() throws IOException {
 
-    public void method05() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int x = Integer.parseInt(br.readLine());
+        int y = Integer.parseInt(br.readLine());
+        int square = 0;
+
+
+        if(x > 0 && y > 0){
+            square = 1;
+            System.out.println(square);
+        }else if(x > 0 && y < 0){
+            square = 2;
+            System.out.println(square);
+        }else if(x < 0 && y < 0){
+            square = 3;
+            System.out.println(square);
+        }else{
+            square = 4;
+            System.out.println(square);
+        }
 
 
     }
