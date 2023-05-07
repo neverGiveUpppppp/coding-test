@@ -1,7 +1,5 @@
 package com.baekjoon.step2;
-import com.baekjoon.step2.run.Main;
 
-import java.util.Arrays;
 import java.util.Scanner;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -842,4 +840,9 @@ public class Main {
 
 
 
-}
+public static class Step2_2023 {
+
+
+
+
+}}

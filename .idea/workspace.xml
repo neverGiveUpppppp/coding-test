@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6b0c597-8b1f-4dd9-86bb-3a073e6cf8ef" name="Changes" comment="" />
+    <list default="true" id="f6b0c597-8b1f-4dd9-86bb-3a073e6cf8ef" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baekjoon/out/production/Baekjoon/com/baekjoon/step2/Step2.class" beforeDir="false" afterPath="$PROJECT_DIR$/Baekjoon/out/production/Baekjoon/com/baekjoon/step2/Step2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baekjoon/out/production/Baekjoon/com/baekjoon/step2/run/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/Baekjoon/out/production/Baekjoon/com/baekjoon/step2/run/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baekjoon/src/com/baekjoon/step2/Step2.java" beforeDir="false" afterPath="$PROJECT_DIR$/Baekjoon/src/com/baekjoon/step2/Step2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baekjoon/src/com/baekjoon/step2/run/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Baekjoon/src/com/baekjoon/step2/run/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace_02codingTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/workspace_02codingTest.iml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,13 +36,37 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "D:/Dropbox/Developer/workspace_02codingTest",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="src.com.baekjoon.step1" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.baekjoon.step2.run.Main" />
+      <module name="workspace_02codingTest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.baekjoon.step2.run.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

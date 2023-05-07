@@ -2,6 +2,7 @@ package com.baekjoon.step2.run;
 
 import com.baekjoon.step2.Step2;
 import com.baekjoon.step2.Step2Prac;
+import com.baekjoon.step2.Step2_2023;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +10,15 @@ import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+
+        Step2_2023 step2_2023 = new Step2_2023();
+//        step2_2023.method01();
+//        step2_2023.method02();
+        step2_2023.method03();
+//        step2_2023.method04();
+//        step2_2023.method05();
+//        step2_2023.method06();
+//        step2_2023.method07();
 
         Step2 s = new Step2();
 
