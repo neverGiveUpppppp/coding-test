@@ -2,6 +2,8 @@
 프로그래머스
 SQL ORACLE level1 
 
+    - 문제 순서 : 정답률 높은 문제 순으로 정렬
+
 */
 
 ---- 어린 동물 찾기
@@ -180,12 +182,35 @@ FROM CAR_RENTAL_COMPANY_CAR
 WHERE CAR_TYPE = 'SUV'
 
 
+-- 최댓값 구하기
+SELECT MAX(DATETIME) AS 시간
+FROM ANIMAL_INS
+
+
+-- 과일로 만든 아이스크림 고르기
+SELECT A.FLAVOR
+FROM FIRST_HALF A
+    JOIN ICECREAM_INFO  B ON(A.FLAVOR = B.FLAVOR)
+WHERE TOTAL_ORDER > 3000
+    AND B.INGREDIENT_TYPE = 'fruit_based'
+ORDER BY TOTAL_ORDER DESC
+
+
+-- 특정 옵션이 포함된 자동차 리스트 구하기
+SELECT *
+FROM CAR_RENTAL_COMPANY_CAR 
+WHERE OPTIONS IN ('네비게이션')
+ORDER BY CAR_ID DESC
+--NOT SOLVED YET
+
+
+
 /*
 다시 풀어 볼 문제
 경기도에 위치한 식품창고 목록 출력하기
 조건에 맞는 회원수 구하기
 흉부외과 또는 일반외과 의사 목록 출력하기
-
+과일로 만든 아이스크림 고르기
 
 
 */
