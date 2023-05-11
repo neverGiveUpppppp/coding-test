@@ -199,9 +199,32 @@ ORDER BY TOTAL_ORDER DESC
 -- 특정 옵션이 포함된 자동차 리스트 구하기
 SELECT *
 FROM CAR_RENTAL_COMPANY_CAR 
-WHERE OPTIONS IN ('네비게이션')
+WHERE OPTIONS LIKE '%네비게이션%'
 ORDER BY CAR_ID DESC
---NOT SOLVED YET
+
+
+---- 자동차 대여 기록에서 장기/단기 대여 구분하기
+ -- 대여 시작일이 2022년 9월
+ -- 대여 기간이 30일 이상 '장기 대여' 그렇지 않으면 '단기 대여' 로 표시
+ -- 대여기록 출력
+ -- ID 기준 내림차순 정렬
+ /*
+ brainstorming
+ 대여시작일 22.09 : extract로 연 월 하나씩 추출 + where 2022, 9 맞추기
+ 30일이상 : case문 사용
+ 
+ */
+ 
+SELECT HISTORY_ID,CAR_ID,TO_CHAR(START_DATE, 'YYYY-MM-DD') START_DATE
+        ,TO_CHAR(END_DATE, 'YYYY-MM-DD') END_DATE 
+        --,A AS RENT_TYPE
+FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+WHERE EXTRACT(YEAR FROM START_DATE) = 2022
+    AND EXTRACT(MONTH FROM START_DATE) = 09
+    CASE 대여일30일 WHEN '장기 대여' THEN '단기대여' 
+    END RENT_TYPE
+
+
 
 
 
