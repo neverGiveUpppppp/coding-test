@@ -70,27 +70,48 @@ ORDER BY NAME ASC
 /*  
 조건
 1)이름에 'el'이 들어간
-2)아이디와 이름을 조회
-3)대소문자 구분X
-4)이름 정렬
+2)개만 조회
+3)아이디와 이름을 조회
+4)대소문자 구분X
+5)이름 정렬
 
 이름 EL 포함 : LIKE '%el%'
-대소문자 처리 : LOWER()?
+대소문자 처리 : LOWER() OR UPPER()
 
 
 */
 
 SELECT ANIMAL_ID, NAME
 FROM ANIMAL_INS
-WHERE LOWER(NAME) LIKE LOWER('%el%')
+WHERE ANIMAL_TYPE = 'Dog'
+    AND LOWER(NAME) LIKE LOWER('%el%')
 ORDER BY NAME ASC
--- NOT SOVLED YET
+
+
+
+---- NULL 처리하기
+/*  
+조건
+1)입양 게시판에 동물 정보를 게시
+2)이름 NULL -> No name
+
+NULL : NVL
+
+*/
+
+SELECT ANIMAL_TYPE, NVL(NAME,'No name') AS NAME, SEX_UPON_INTAKE
+FROM ANIMAL_INS
+ORDER BY ANIMAL_ID
+
 
 
 
 
 /*
 다시 풀어 볼 문제
+
+    이름에 el이 들어가는 동물 찾기
+
 
 
 
