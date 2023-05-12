@@ -211,18 +211,55 @@ ORDER BY CAR_ID DESC
  /*
  brainstorming
  대여시작일 22.09 : extract로 연 월 하나씩 추출 + where 2022, 9 맞추기
- 30일이상 : case문 사용
+ 30일이상 : 
+    방법1 :START_DATE - END_DATE
+    방법2 : 날짜를 총 일수로 변환하여 둘을 마이너스 EX) 782-762   
+        day + (month * 30)하면 총 일자 나오니 빼기? 근데 28일,31일 있는 날은..?
+ case문 사용
  
  */
  
-SELECT HISTORY_ID,CAR_ID,TO_CHAR(START_DATE, 'YYYY-MM-DD') START_DATE
-        ,TO_CHAR(END_DATE, 'YYYY-MM-DD') END_DATE 
-        --,A AS RENT_TYPE
+SELECT HISTORY_ID,CAR_ID,
+        TO_CHAR(START_DATE, 'YYYY-MM-DD') START_DATE,
+        TO_CHAR(END_DATE, 'YYYY-MM-DD') END_DATE, 
+        --대여일30일 
+/*        
+        --CASE TO_NUMBER(MONTHS_BETWEEN(START_DATE, END_DATE),'999,999') = 1
+        --CASE CEIL(ABS(MONTHS_BETWEEN(START_DATE, END_DATE))) >= 1
+        --CASE TO_CHAR(START_DATE,'YY-MM') - TO_CHAR(END_DATE,'YY-MM')
+        --CASE 1=1
+        --WHEN '장기 대여' THEN '단기 대여' 
+        --END RENT_TYPE
+        위의 CASE 조건절 WHEN THEN은 에러남. 왜지...?
+*/        
+        -- CASE WHEN 1=1 THEN '장기 대여' ELSE '단기 대여'
+        -- END RENT_TYPE
+        -- CASE WHEN MONTHS_BETWEEN(START_DATE, END_DATE) >= 1 -- 오답
+        -- CASE WHEN CEIL(ABS(MONTHS_BETWEEN(START_DATE, END_DATE))) >= 1 -- 오답 : 30일안넘어도 1이 나올 수 이는 경우의 수 때문인 듯
+        -- CASE WHEN 
+        --         (EXTRACT(DAY FROM START_DATE)) + ((EXTRACT(MONTH FROM START_DATE)) * 30)
+        --         -
+        --         (EXTRACT(DAY FROM END_DATE)) + ((EXTRACT(MONTH FROM END_DATE)) * 30) >= 30
+--         THEN '장기 대여' ELSE '단기 대여'
+--         END RENT_TYPE
+-- FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+-- WHERE EXTRACT(YEAR FROM START_DATE) = 2022
+--     AND EXTRACT(MONTH FROM START_DATE) = 09
+-- ORDER BY HISTORY_ID DESC
+    
+
+SELECT HISTORY_ID, CAR_ID, 
+	TO_CHAR(START_DATE, 'YYYY-MM-DD') AS START_DATE, 
+	TO_CHAR(END_DATE, 'YYYY-MM-DD') AS END_DATE, 
+	CASE WHEN (END_DATE-START_DATE) >= 29
+		THEN '장기 대여' 
+		ELSE '단기 대여' 
+		END AS RENT_TYPE 
 FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+-- WHERE TO_CHAR(START_DATE, 'YYYY-MM') = '2022-09' 
 WHERE EXTRACT(YEAR FROM START_DATE) = 2022
     AND EXTRACT(MONTH FROM START_DATE) = 09
-    CASE 대여일30일 WHEN '장기 대여' THEN '단기대여' 
-    END RENT_TYPE
+ORDER BY HISTORY_ID DESC
 
 
 
@@ -234,7 +271,8 @@ WHERE EXTRACT(YEAR FROM START_DATE) = 2022
 조건에 맞는 회원수 구하기
 흉부외과 또는 일반외과 의사 목록 출력하기
 과일로 만든 아이스크림 고르기
-
+자동차 대여 기록에서 장기/단기 대여 구분하기
+조건에 부합하는 중고거래 댓글 조회하기
 
 */
 
