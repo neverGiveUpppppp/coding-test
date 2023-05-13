@@ -105,13 +105,60 @@ ORDER BY ANIMAL_ID
 
 
 
+---- DATETIME에서 DATE로 형 변환
+SELECT ANIMAL_ID, NAME, TO_CHAR(DATETIME,'YYYY-MM-DD') AS 날씨		
+FROM ANIMAL_INS 
+ORDER BY ANIMAL_ID
+
+
+
+---- 가격이 제일 비싼 식품의 정보 출력하기
+/*  
+조건
+테이블에서 가격이 제일 비싼 식품
+*/
+-- SELECT PRODUCT_ID, PRODUCT_NAME, PRODUCT_CD, CATEGORY, PRICE
+SELECT *
+FROM FOOD_PRODUCT 
+WHERE PRICE = (SELECT MAX(PRICE)
+               FROM FOOD_PRODUCT);
+               
+SELECT * FROM FOOD_PRODUCT 
+ORDER BY PRICE DESC
+FETCH FIRST ROWS ONLY;
+
+/*
+MYSQL
+SELECT *
+FROM FOOD_PRODUCT
+ORDER BY PRICE DESC -- 가격 내림차순 
+LIMIT 1 -- 하나의 행만
+-- 즉, ORDER BY 이용해서 가장 큰 하나만 보여주는 것
+*/
+
+
+
+
+---- 고양이와 개는 몇 마리 있을까
+/*  
+조건
+ 고양이와 개가 각각 몇 마리
+ 고양이를 개보다 먼저 조회(정렬) : ASC DESC 결과에 따라 C D 순으로 하면 될 듯
+*/
+SELECT ANIMAL_TYPE, COUNT(*) AS COUNT
+FROM ANIMAL_INS  
+GROUP BY ANIMAL_TYPE
+HAVING ANIMAL_TYPE IN ('Cat', 'Dog') -- 실무 대비 LOWER()가능? 가능
+-- HAVING LOWER(ANIMAL_TYPE) IN (LOWER('Cat'), LOWER('Dog'))
+ORDER BY ANIMAL_TYPE; 
+
 
 
 /*
 다시 풀어 볼 문제
 
     이름에 el이 들어가는 동물 찾기
-
+    가격이 제일 비싼 식품의 정보 출력하기
 
 
 
