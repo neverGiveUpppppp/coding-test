@@ -1,11 +1,27 @@
 package com.baekjoon.step3.run;
 import com.baekjoon.step3.Step3;
 import com.baekjoon.step3.Step3Prac;
+import com.baekjoon.step3.Step3_2023;
 
 import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+
+
+        Step3_2023 stp = new Step3_2023();
+        stp.method01();
+//        stp.method02();
+//        stp.method03();
+//        stp.method04();
+//        stp.method05();
+//        stp.method06();
+//        stp.method07();
+//        stp.method08();
+//        stp.method09();
+//        stp.method10();
+//        stp.method11();
+//        stp.method12();
 
         Step3 s = new Step3();
 
