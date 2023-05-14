@@ -154,6 +154,11 @@ ORDER BY ANIMAL_TYPE;
 
 
 
+
+
+
+
+
 /*
 다시 풀어 볼 문제
 
