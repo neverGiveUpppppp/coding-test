@@ -10,10 +10,10 @@ public class Main {
 
 
         Step3_2023 stp = new Step3_2023();
-        stp.method01();
+//        stp.method01();
 //        stp.method02();
 //        stp.method03();
-//        stp.method04();
+        stp.method04();
 //        stp.method05();
 //        stp.method06();
 //        stp.method07();
@@ -26,7 +26,7 @@ public class Main {
         Step3 s = new Step3();
 
 //        s.method01();
-        s.method02();
+//        s.method02();
 //        s.method03();
 //        s.method04();
 //        s.method05();
