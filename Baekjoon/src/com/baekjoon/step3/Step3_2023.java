@@ -6,6 +6,8 @@ import java.util.StringTokenizer;
 
 public class Step3_2023 {
 
+    private int a;
+
     // Step3-1 2739	: 구구단
     public void method01() {
 /*
@@ -297,9 +299,35 @@ public class Main {
     조리시간 : 최대 1000분
 
 brainstorming
+맨 처음 X하나를 받고, 이후에 N 수에 따라 반복문을 돌리고 그 안에서 a,b 수를 받는다
 
 
 */
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        try{
+            int X = Integer.parseInt(br.readLine());
+            int N = Integer.parseInt(br.readLine());
+            int sum = 0;
+            for(int i = 1; i <= N; i++){
+                String[] num = br.readLine().split(" "); // split()과 함께 통째로 int로 파싱안됨
+                int a = Integer.parseInt(num[0]);       // 일단 array에 값을 받은 후, 다시 변수에 넣어줄 때 파싱해야함
+                int b = Integer.parseInt(num[1]);       // 
+
+                sum += a*b;
+            }
+            if(sum == X){
+                bw.write("Yes");
+                bw.flush();
+//                System.out.print("Yes");
+            }else{
+                bw.write("No");
+                bw.flush();
+//                System.out.print("No");
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
 
     }
 /*
@@ -307,10 +335,31 @@ brainstorming
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
 public class Main {
     public static void main(String[] args) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        try{
+            int X = Integer.parseInt(br.readLine());
+            int N = Integer.parseInt(br.readLine());
+            int sum = 0;
+            for(int i = 1; i <= N; i++){
+                String[] num = br.readLine().split(" "); // split()과 함께 통째로 int로 파싱안됨
+                int a = Integer.parseInt(num[0]);       // 일단 array에 값을 받은 후, 다시 변수에 넣어줄 때 파싱해야함
+                int b = Integer.parseInt(num[1]);       //
 
+                sum += a*b;
+            }
+            if(sum == X){
+                System.out.print("Yes");
+            }else{
+                System.out.print("No");
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 }
 
