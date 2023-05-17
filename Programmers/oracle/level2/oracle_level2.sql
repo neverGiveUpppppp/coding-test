@@ -154,7 +154,135 @@ ORDER BY ANIMAL_TYPE;
 
 
 
+---- 입양 시각 구하기(1)
+/*
+조건
+몇 시에 입양이 가장 활발하게
+09:00부터 19:59까지, 
+각 시간대별 입양 발생 건수 조회
+시간대 순으로 정렬
 
+brainstorming
+to_char로 시간만 나오게 하고 group by써서 시간대 같은거 하나로 묶고?
+    -그룹바이 문법이 아니라 오류
+group by 시간대 나온걸 count하면 될 듯?
+서브쿼리로 한번 걸르고 하는 수 밖에..(서브쿼리 성능저하 때문에 되도록 안쓰는게...)
+중복되는 시간 : DISTINCT
+*/
+
+-- SELECT TO_CHAR(DATETIME,'FMHH24') AS HOUR, DATETIME, COUNT(DATETIME) AS COUNT -- FM 공백제거, HH24 시간만 24시제로 표시
+-- FROM ANIMAL_OUTS 
+-- GROUP BY DATETIME
+-- ORDER BY DATETIME
+-- 원하는 결과물x
+
+-- SELECT HOUR, DATETIME, COUNT(DATETIME) AS COUNT -- FM 공백제거, HH24 시간만 24시제로 표시
+-- FROM (
+--     SELECT TO_CHAR(DATETIME,'FMHH24') AS HOUR, DATETIME
+--     FROM ANIMAL_OUTS
+--     GROUP BY DATETIME -- ORA-00937: not a single-group group function
+--     )
+-- ORDER BY DATETIME
+-- ORA-00937 : not a single-group group function
+-- select 리스트에 있는 컬럼명이나 표현식 중 집계함수를 제외하고 모두 gruop by 절에 작성을 해야함
+-- 위의 쿼리의 경우 COUNT() AS COUNT가 외부 쿼리에 있기에 GROUP BY도 외부에 있어야함
+
+-- SELECT HOUR -- hour 하나만 조회하면 ORA-00937 해결
+-- FROM (
+--     SELECT TO_CHAR(DATETIME,'FMHH24') AS HOUR, DATETIME
+--     FROM ANIMAL_OUTS
+--     GROUP BY DATETIME
+--     ) 
+-- ORDER BY DATETIME
+-- -- 시간이 GROUP BY안되어져서 나옴
+
+-- SELECT HOUR, DATETIME
+-- FROM (
+--     SELECT TO_CHAR(DATETIME,'FMHH24') AS HOUR, DATETIME
+--     FROM ANIMAL_OUTS    
+--     ) 
+-- GROUP BY HOUR, DATETIME
+-- ORDER BY DATETIME
+-- HOUR가 서브쿼리써도 그룹핑이 안되는 상황
+
+-- SELECT SUBSTR(TO_CHAR(DATETIME,'YYYY-MM-DD-HH'),12,2), TO_CHAR(DATETIME,'YYYY-MM-DD-HH'), DATETIME
+-- FROM ANIMAL_OUTS     
+-- GROUP BY DATETIME
+-- ORDER BY DATETIME
+-- SUBSTR을 DATE형에 쓸려면 T0_CHAR()로 한번 변환하고 써야함. 안그러면 -FE 이런 결과가 나올 수 있음
+
+-- SELECT HOUR
+-- FROM (
+--     SELECT SUBSTR(TO_CHAR(DATETIME,'YYYY-MM-DD-HH'),12,2) AS HOUR, DATETIME
+--     FROM ANIMAL_OUTS
+--     )
+-- GROUP BY HOUR -- ORA-00979: not a GROUP BY expression
+-- ORDER BY DATETIME
+-- -- 서브쿼리 안에 선언된 별칭을 밖에 group by에서 사용불가
+
+-- SELECT DATETIME AS HOUR, COUNT(DATETIME) AS COUNT
+-- FROM (
+--     SELECT SUBSTR(TO_CHAR(DATETIME,'YYYY-MM-DD-HH24'),12,2) AS DATETIME
+--     FROM ANIMAL_OUTS
+--     )
+-- GROUP BY DATETIME
+-- ORDER BY DATETIME ASC
+-- 원래 날짜 컬럼명인 DATETIME을 별칭으로 바꿨더니 가능해짐!!
+-- HOUR만 9-19까지 출력해보자
+
+
+-- SELECT DATETIME AS HOUR, COUNT(DATETIME) AS COUNT
+-- FROM (
+--     SELECT SUBSTR(TO_CHAR(DATETIME,'YYYY-MM-DD-HH24'),12,2) AS DATETIME
+--     FROM ANIMAL_OUTS
+--     )
+-- GROUP BY DATETIME
+-- ORDER BY DATETIME ASC
+-- -- 09의 0빼는 것과 7,8시 빼야함
+
+SELECT LTRIM(DATETIME,0) AS HOUR, COUNT(DATETIME) AS COUNT
+FROM (
+    SELECT SUBSTR(TO_CHAR(DATETIME,'YYYY-MM-DD-HH24'),12,2) AS DATETIME
+    FROM ANIMAL_OUTS
+    )
+GROUP BY DATETIME
+HAVING NOT(DATETIME < 9 )
+ORDER BY DATETIME ASC
+-- HAVING NOT(DATETIME < 9 ) 으로 7,8시 빼고 9시부터 출력
+-- LTRIM(DATETIME,0)으로 9시 0 지웠지만 오답처리됨
+
+
+
+------------------------------------------------------
+
+-- SELECT EXTRACT(HOUR FROM DATETIME)
+-- FROM ANIMAL_OUTS
+-- -- ORA-30076: invalid extract field for extract source
+
+-- SELECT EXTRACT(HOUR FROM CAST(DATETIME AS TIMESTAMP)) HOUR
+-- FROM ANIMAL_OUTS
+-- -- CAST()로 파싱해서 오류해결
+
+
+-- 정답1
+SELECT HOUR, COUNT(HOUR) AS COUNT
+FROM (
+    SELECT EXTRACT(HOUR FROM CAST(DATETIME AS TIMESTAMP)) HOUR, DATETIME
+    FROM ANIMAL_OUTS
+    )
+WHERE HOUR BETWEEN 9 AND 19
+GROUP BY HOUR
+ORDER BY HOUR --HOUR, DATETIME 
+-- ORDER BY DATETIME 으로 하면 에러발생. 인라인뷰에 DATETIEM이 있더라도. GROUP BY때문에 HOUR로 해야함
+-- ORA-00979: not a GROUP BY expression
+
+-- 정답2
+SELECT LTRIM(HOUR,0), COUNT(*)
+FROM (SELECT to_char(DATETIME,'hh24') hour
+     FROM ANIMAL_OUTS )
+WHERE HOUR BETWEEN 9 AND 19
+GROUP BY HOUR
+ORDER BY HOUR
 
 
 
@@ -164,7 +292,7 @@ ORDER BY ANIMAL_TYPE;
 
     이름에 el이 들어가는 동물 찾기
     가격이 제일 비싼 식품의 정보 출력하기
-
+    입양 시각 구하기(1)    
 
 
 
