@@ -285,6 +285,83 @@ GROUP BY HOUR
 ORDER BY HOUR
 
 
+---- 중성화 여부 파악하기
+/*  
+조건
+ 'Neutered' 또는 'Spayed'라는 단어 포함 : LIKE
+ 중성화O,X 표기 : SELECT절 CASE문
+*/
+-- SELECT ANIMAL_ID, NAME
+--     -- DECODE(SEX_UPON_INTAKE LIKE '%Neutered%',TRUE,'O','X') 
+--     -- CASE WHEN SEX_UPON_INTAKE IN (SEX_UPON_INTAKE LIKE 'Neutered%') THEN 'O' 
+--     --      WHEN SEX_UPON_INTAKE IN (SEX_UPON_INTAKE LIKE 'Spayed%') THEN 'O' 
+--     --     CASE WHEN SEX_UPON_INTAKE IN (SEX_UPON_INTAKE LIKE 'Neutered%') THEN 'O' 
+--     --      WHEN SEX_UPON_INTAKE IN (SEX_UPON_INTAKE LIKE 'Spayed%') THEN 'O' 
+--     -- ELSE 'X' 
+--     -- END '중성화'
+-- FROM ANIMAL_INS A
+--     JOIN (
+--         SELECT *
+--         FROM ANIMAL_INS
+--         WHERE SEX_UPON_INTAKE LIKE '%Neutered%'
+--                            OR LIKE '%Spayed%'
+--         ) B 
+--     ON (A.ANIMAL_ID = B.ANIMAL_ID)
+-- WHERE SEX_UPON_INTAKE LIKE '%Neutered%'
+--                    OR LIKE '%Spayed%'
+-- 중성화 안된 것도 보여줘야하니 WHERE조건 X
+
+-- 정답1 : SELECT절 CASE문 사용
+SELECT ANIMAL_ID
+      ,NAME
+      ,(CASE WHEN SEX_UPON_INTAKE LIKE 'Spayed%' 
+               OR SEX_UPON_INTAKE LIKE 'Neutered%' 
+        THEN 'O'
+        ELSE 'X'
+        END
+       )  AS 중성화
+FROM ANIMAL_INS
+ORDER BY ANIMAL_ID
+
+-- 정답2 : 정규식 사용
+SELECT ANIMAL_ID
+      ,NAME
+      ,CASE WHEN REGEXP_LIKE(SEX_UPON_INTAKE,'^Neutered|^Spayed') 
+       THEN 'O'
+       ELSE 'X' 
+       END AS "중성화"
+FROM ANIMAL_INS
+ORDER BY 1,2,3
+
+
+
+
+---- 카테고리 별 상품 개수 구하기
+/*  
+조건
+ 'Neutered' 또는 'Spayed'라는 단어 포함 : LIKE
+ 중성화O,X 표기 : SELECT절 CASE문
+*/
+
+-- SELECT SUBSTR(PRODUCT_CODE,0,2) AS CATEGORY--, COUNT(*) AS PRODUCTS
+-- FROM PRODUCT
+-- ORDER BY CATEGORY
+
+-- 정답1 : GROUP BY + INLINE VIEW
+ SELECT CATEGORY, COUNT(CATEGORY) AS PRODUCTS
+ FROM 
+     (SELECT SUBSTR(PRODUCT_CODE,0,2) AS CATEGORY
+      FROM PRODUCT
+      )
+ GROUP BY CATEGORY
+ ORDER BY CATEGORY
+
+-- 정답2 : DISTINCT + OVER절
+SELECT DISTINCT SUBSTR(PRODUCT_CODE,0,2) AS CATEGORY, 
+       COUNT(*) OVER(PARTITION BY SUBSTR(PRODUCT_CODE,0,2)) AS PRODUCTS 
+FROM PRODUCT
+ORDER BY CATEGORY;
+
 
 
 /*
