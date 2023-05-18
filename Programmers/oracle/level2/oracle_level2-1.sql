@@ -1,6 +1,6 @@
 /*
 프로그래머스
-SQL ORACLE level2 
+SQL ORACLE leve2-1
 
 풀이 순서, 정답률 높은 순
 
