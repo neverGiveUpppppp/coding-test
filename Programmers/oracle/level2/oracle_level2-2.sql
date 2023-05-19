@@ -118,6 +118,159 @@ ORDER BY CAR_TYPE
 
 
 
+---- 상품 별 오프라인 매출 구하기
+/* 
+조건
+    상품코드 별 매출액(판매가 * 판매량) 합계
+    매출액을 기준으로 내림차순 정렬, 매출액이 같다면 상품코드를 기준
+
+    
+brainstorming
+    1)B.제품별 총 판매량 구하기
+        OFFLINE_SALE의 PRODUCT_ID별 SALES_AMOUNT 구하기
+    2)B.제품별 총 판매량 * A.가격 = 판매가
+    
+    OFFLINE_SALE의 PRODUCT_ID 별로 GROUP BY로 그루핑
+    
+*/
+
+-- -- OFFLINE_SALE의 PRODUCT_ID별 SALES_AMOUNT 구하기
+-- SELECT PRODUCT_ID, SALES_AMOUNT
+-- FROM OFFLINE_SALE 
+-- GROUP BY PRODUCT_ID, SALES_AMOUNT
+-- ORDER BY PRODUCT_ID
+
+-- SELECT PRODUCT_ID--, SALES_AMOUNT
+-- FROM OFFLINE_SALE 
+-- GROUP BY PRODUCT_ID--, SALES_AMOUNT
+-- ORDER BY PRODUCT_ID
+
+-- SELECT PRODUCT_CODE, SALES
+-- FROM PRODUCT A
+--     JOIN OFFLINE_SALE B ON A.PRODUCT_ID = B.PRODUCT_ID
+-- GROUB B.PRODUCT_ID
+
+-- 전체 컬럼이 어떻게 나오나 체크 -> 감잡기
+-- SELECT *
+-- FROM PRODUCT A
+--     JOIN OFFLINE_SALE B ON A.PRODUCT_ID = B.PRODUCT_ID
+    
+-- SELECT A.PRODUCT_CODE, SUM(B.SALES_AMOUNT) * A.PRICE AS SALES
+-- FROM PRODUCT A
+--     JOIN OFFLINE_SALE B ON A.PRODUCT_ID = B.PRODUCT_ID 
+-- GROUP BY A.PRODUCT_CODE
+-- ORDER BY A.PRODUCT_CODE
+----ORA-00979: not a GROUP BY expression
+
+
+
+-- -- 정답1
+SELECT PRODUCT_CODE, (PRICE * HAP) AS SALES 
+FROM (
+    SELECT P.PRODUCT_ID, P.PRODUCT_CODE, P.PRICE
+          ,SUM(SALES_AMOUNT) AS HAP 
+    FROM OFFLINE_SALE O, PRODUCT P -- 오라클 전용 JOIN구문
+    WHERE O.PRODUCT_ID = P.PRODUCT_ID -- INNER JOIN
+    GROUP BY P.PRODUCT_ID, P.PRODUCT_CODE, P.PRICE
+)
+ORDER BY SALES DESC, PRODUCT_CODE ASC
+
+-- SELECT P.PRODUCT_ID, P.PRODUCT_CODE, P.PRICE
+--           ,SUM(SALES_AMOUNT) AS HAP 
+--     FROM OFFLINE_SALE O, PRODUCT P -- 오라클 전용 JOIN구문
+--     WHERE O.PRODUCT_ID = P.PRODUCT_ID -- INNER JOIN
+--     GROUP BY P.PRODUCT_ID, P.PRODUCT_CODE, P.PRICE
+-- -- 정답1의 내부에 있는 인라인뷰 결과 돌려보기
+
+-- 정답2
+ SELECT P.PRODUCT_CODE, SUM(P.PRICE * OFFS.SALES_AMOUNT) AS "SALES"
+ FROM PRODUCT P, OFFLINE_SALE OFFS
+ WHERE P.PRODUCT_ID = OFFS.PRODUCT_ID
+ GROUP BY P.PRODUCT_CODE
+ ORDER BY 2 DESC, 1 ASC;
+
+
+-- --정답3
+SELECT A.PRODUCT_CODE
+       , SUM(A.PRICE * B.SALES_AMOUNT) AS SALES
+FROM PRODUCT A
+    JOIN OFFLINE_SALE B ON (A.PRODUCT_ID = B.PRODUCT_ID)
+GROUP BY B.PRODUCT_ID, A.PRODUCT_CODE -- B.PRODUCT_ID를 빼도 정답. WHY?
+-- A.Id는 일련번호 code는 종류라고 생각해보면, 
+-- Id보다 code가 더 크기때문에 id 그룹후 code 그룹화 하면 id 그룹화가 의미가 없음
+ORDER BY SALES DESC, PRODUCT_CODE ASC
+
+-- -- OVER(PARTITION BY 컬럼) 한번 써보자!
+-- -- 결과가 다름. GROUP BY처럼 묶여서 안나오고 같은게 중복되서 나오고 매출액은 잘나옴
+-- SELECT A.PRODUCT_CODE
+--        , SUM(A.PRICE * B.SALES_AMOUNT) OVER(PARTITION BY B.PRODUCT_ID) AS SALES
+-- FROM PRODUCT A
+--     JOIN OFFLINE_SALE B ON (A.PRODUCT_ID = B.PRODUCT_ID)
+-- ORDER BY SALES DESC, PRODUCT_CODE ASC
+
+
+
+---- 루시와 엘라 찾기
+/* 
+조건
+    Lucy, Ella, Pickle, Rogan, Sabrina, Mitty인 동물
+    아이디와 이름, 성별 및 중성화 여부를 조회
+    아이디 순으로 조회
+
+brainstorming
+    1)이름 조건 : IN, 
+    
+*/
+-- 정답1 : IN() 사용
+SELECT ANIMAL_ID, NAME, SEX_UPON_INTAKE
+FROM ANIMAL_INS 
+WHERE NAME IN('Lucy','Ella','Pickle','Rogan','Sabrina', 'Mitty')
+ORDER BY ANIMAL_ID
+
+-- 정답2 : 정규식 사용
+SELECT ANIMAL_ID, NAME, SEX_UPON_INTAKE
+FROM ANIMAL_INS 
+WHERE REGEXP_LIKE(NAME, '^(Lucy|Ella|Pickle|Rogan|Sabrina|Mitty)$')
+ORDER BY ANIMAL_ID
+
+
+
+
+
+
+
+---- 조건에 맞는 도서와 저자 리스트 출력하기
+/* 
+조건
+    경제 카테고리
+    도서 ID(BOOK_ID), 저자명(AUTHOR_NAME), 출판일(PUBLISHED_DATE) 리스트 출력
+    출판일을 기준으로 오름차순
+    PUBLISHED_DATE의 데이트 포맷
+
+brainstorming
+    1)경제 카테고리 : CASE, LIKE
+    2)JOIN
+    3)PUBLISHED_DATE의 데이트 포맷 : TO_CHAR()
+*/
+
+
+-- SELECT A.BOOK_ID, B.AUTHOR_NAME, TO_CHAR(A.PUBLISHED_DATE,'YYYY-MM-DD') AS PUBLISHED_DATE
+-- FROM BOOK A
+--     JOIN AUTHOR B ON (A.AUTHOR_ID = B.AUTHOR_ID)
+-- ORDER BY PUBLISHED_DATE
+-- 조건에 따라 하나씩 살 붙이면서, 제대로 조회되는지와 결과 확인해가면서 쿼리짜기
+
+
+-- 정답1 : LIKE
+SELECT A.BOOK_ID, B.AUTHOR_NAME, TO_CHAR(A.PUBLISHED_DATE,'YYYY-MM-DD') AS PUBLISHED_DATE
+FROM BOOK A
+    JOIN AUTHOR B ON (A.AUTHOR_ID = B.AUTHOR_ID)
+WHERE CATEGORY LIKE '%경제%'
+--WHERE B.CATEGORY='경제'
+ORDER BY PUBLISHED_DATE
+
+
+
 
 
 
