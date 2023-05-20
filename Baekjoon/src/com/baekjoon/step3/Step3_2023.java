@@ -1,6 +1,8 @@
 package com.baekjoon.step3;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -370,23 +372,73 @@ public class Main {
     public void method05() {
 /*
 조건
-    조리시간 : 최대 1000분
+    long int = 4byte
+    long이 앞에 하나 씩 붙을 때마다 4바이트 추가
+    새로 붙는 long이 앞에 붙어야함
 
 brainstorming
+    반복문 사용 필요
+    4인 long int를 찍고 그 앞으로 나오는 방법...? 없는 듯. 그럼 숫자에 따라 한번에 계산해야함
+    입력 받은 값(4배수)를 4로 나눠서 몫의 수에 따라 long을 찍고 뒤에 int를 +해보는 건?
 
-
+    long 개수에 따라 찍기
+        1000까지 case문 불가능
+        long개수에 따라 *로 long을 찍어봐야할 것 같은데 String long * 5? 형이 달라서 무리
+        long개수에 따라 for문 찍기
 */
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
+        try{
+            int input = Integer.parseInt(br.readLine());
+            int long_ea = 0;
+            String word = "long ";
+            String words = "";
+            if(input%4 == 0){   // 4배수 유효성체크
+                long_ea = input / 4;
+
+                for(int i = 1; i <= long_ea; i++){
+                    words += word;    // "long "을 4로 나눈 몫의 개수만큼 words에 이어붙이기
+                }
+                bw.write(words+"int");
+                bw.close();
+//                System.out.println(words+"int");
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
+
 /*
     정답
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
+import java.io.*;
 public class Main {
     public static void main(String[] args) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
+        try{
+            int input = Integer.parseInt(br.readLine());
+            int long_ea = 0;
+            String word = "long ";
+            String words = "";
+            if(input%4 == 0){   // 4배수 유효성체크
+                long_ea = input / 4;
+
+                for(int i = 1; i <= long_ea; i++){
+                    words += word;    // "long "을 4로 나눈 몫의 개수만큼 words에 이어붙이기
+                }
+                bw.write(words+"int");
+                bw.close();
+//                System.out.println(words+"int");
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 }
 
@@ -397,23 +449,73 @@ public class Main {
     public void method06() {
 /*
 조건
-    조리시간 : 최대 1000분
+    입력값 : 첫째 수, 둘째줄부터 가로 2개
+    첫수에 따라 가로 줄 수가 정해지고 연산이 결정됨
 
 brainstorming
 
 
 */
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
+        try{
+//            int testCaseNum = Integer.parseInt(br.readLine());
+//
+//            for(int i = 0; i < testCaseNum; i++){
+//                String[] arrStr = br.readLine().split(" ");
+//                int num1 = Integer.parseInt(arrStr[0]);
+//                int num2 = Integer.parseInt(arrStr[1]);
+//                System.out.println(num1+num2);
+//            } // 시간초과 & 하나받고 찍고 하나 받고 찍고라 아닌 듯
+
+            int testCaseNum = Integer.parseInt(br.readLine());
+            int num1 = 0;
+            int num2 = 0;
+            for(int i = 0; i < testCaseNum; i++){
+                String[] arrStr = br.readLine().split(" ");
+                num1 = Integer.parseInt(arrStr[0]);
+                num2 = Integer.parseInt(arrStr[1]);
+                int sum = num1+num2;
+                bw.write(String.valueOf(sum));
+                bw.newLine();
+            }
+//            bw.flush();
+            bw.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 /*
     정답
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
+import java.io.*;
 public class Main {
     public static void main(String[] args) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
+        try{
+            int testCaseNum = Integer.parseInt(br.readLine());
+            int num1 = 0;
+            int num2 = 0;
+            for(int i = 0; i < testCaseNum; i++){
+                String[] arrStr = br.readLine().split(" ");
+                num1 = Integer.parseInt(arrStr[0]);
+                num2 = Integer.parseInt(arrStr[1]);
+                int sum = num1+num2;
+                bw.write(String.valueOf(sum));
+                bw.newLine();
+            }
+            bw.flush();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 }
 
@@ -430,17 +532,73 @@ brainstorming
 
 
 */
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        try{
+            List<String> answers = new ArrayList<>();
+            int count = Integer.parseInt(br.readLine());
+            String prefix = "Case #";
+            for(int i=1; i<= count; i++){
+                String[] temp = br.readLine().split(" ");
+                int A = Integer.parseInt(temp[0]);
+                int B = Integer.parseInt(temp[1]);
 
+                String answer = prefix + i + ": " + (A+B);
+                answers.add(answer);
+            }
+            answers.forEach(System.out::println);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 /*
     정답
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
 public class Main {
     public static void main(String[] args) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        try{
+            int testCaseTimes = Integer.parseInt(br.readLine());
+            String word = "Case #";
+            for(int i = 1; i <= testCaseTimes; i++) {
+                String[] arrStr = br.readLine().split(" ");
+                int num1 = Integer.parseInt(arrStr[0]);
+                int num2 = Integer.parseInt(arrStr[1]);
 
+                int sum = num1 + num2;
+                bw.write(word+i+": "+String.valueOf(sum));
+                bw.newLine();
+            }
+            bw.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+}
+
+    정답2 : List + ArrayList + 메소드 참조
+import java.util.List;
+import java.util.ArrayList;
+import java.io.*;
+public class Main {
+    public static void main(String[] args) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        try{
+            List<String> answers = new ArrayList<>();
+            int count = Integer.parseInt(br.readLine());
+            String prefix = "Case #";
+            for(int i=1; i<= count; i++){
+                String[] temp = br.readLine().split(" ");
+                int A = Integer.parseInt(temp[0]);
+                int B = Integer.parseInt(temp[1]);
+
+                String answer = prefix + i + ": " + (A+B);
+                answers.add(answer);
+            }
+            answers.forEach(System.out::println);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 }
 
@@ -464,7 +622,10 @@ brainstorming
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
+import java.io.*;
 public class Main {
     public static void main(String[] args) {
 
@@ -491,7 +652,10 @@ brainstorming
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
+import java.io.*;
 public class Main {
     public static void main(String[] args) {
 
@@ -518,7 +682,10 @@ brainstorming
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
+import java.io.*;
 public class Main {
     public static void main(String[] args) {
 
@@ -545,7 +712,10 @@ brainstorming
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
+import java.io.*;
 public class Main {
     public static void main(String[] args) {
 
@@ -572,7 +742,10 @@ brainstorming
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
+import java.io.*;
 public class Main {
     public static void main(String[] args) {
 
