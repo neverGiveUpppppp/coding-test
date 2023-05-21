@@ -609,26 +609,107 @@ public class Main {
     public void method08() {
 /*
 조건
-    조리시간 : 최대 1000분
+    위와 동
 
 brainstorming
-
+     List ArrayList forEach 메소드참조 사용해보기
+     BufferedWriter말고 문자열 이어붙이는 StringBuilder 사용해보기!
 
 */
 
+        // 풀이과정
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+//        StringBuilder sb = new StringBuilder();
+//
+//        List<String> list = new ArrayList<>();
+//        try{
+//
+//            int testCaseTimes = Integer.parseInt(br.readLine());
+//            String word = "Case #";
+//            for(int i = 1; i <= testCaseTimes; i++){
+//                String[] arrStr = br.readLine().split(" ");
+//                int a = Integer.parseInt(arrStr[0]);
+//                int b = Integer.parseInt(arrStr[1]);
+//
+//                String formula = i + ": " + a + " + " + b + " = ";
+//                int compute = a + b;
+//                String all = word + formula + compute;
+////                sb.append(word + formula + compute+"\n");
+////                sb.append(word + i + ": ");
+////                sb.append(i + " + " + i + " = ");
+////                sb.append(compute+"\n");
+////                sb.append(word + formula + compute+"\n");
+////                String str = sb.toString();
+////                bw.write(word + formula + compute+"\n");
+//                list.add(all);
+////                list.add(sb.toString());
+//            }
+////            System.out.println(sb.toString());
+////            bw.flush();
+////            bw.close();
+////            list.forEach(System.out::println);
+//            for(String str : list){    // 위의 list.forEach()와 같은 구문
+//                System.out.println(str);
+//            }
+////            sb.append(list);
+////            System.out.println(sb.toString()); // [Case #1: 1 + 2 = 3, Case #2: 3 + 4 = 7, Case #3: 4 + 5 = 9] 리스트 형태 그대로 출력됨
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        List<String> list = new ArrayList<>();
+        try{
+            int testCaseTimes = Integer.parseInt(br.readLine());
+            String word = "Case #";
+            for(int i = 1; i <= testCaseTimes; i++){
+                String[] arrStr = br.readLine().split(" ");
+                int a = Integer.parseInt(arrStr[0]);
+                int b = Integer.parseInt(arrStr[1]);
+
+                String formula = i + ": " + a + " + " + b + " = ";
+                int compute = a + b;
+                String all = word + formula + compute;
+
+                list.add(all);
+            }
+//            list.forEach(System.out::println);
+            for(String str : list){    // 위의 list.forEach()와 같은 구문
+                System.out.println(str);
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 /*
     정답
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.BufferedWriter;
-import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.io.*;
 public class Main {
     public static void main(String[] args) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        List<String> list = new ArrayList<>();
+        try{
+            int testCaseTimes = Integer.parseInt(br.readLine());
+            String word = "Case #";
+            for(int i = 1; i <= testCaseTimes; i++){
+                String[] arrStr = br.readLine().split(" ");
+                int a = Integer.parseInt(arrStr[0]);
+                int b = Integer.parseInt(arrStr[1]);
 
+                String formula = i + ": " + a + " + " + b + " = ";
+                int compute = a + b;
+                String all = word + formula + compute;
+
+                list.add(all);
+            }
+            list.forEach(System.out::println);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 }
 
@@ -639,16 +720,58 @@ public class Main {
     public void method09() {
 /*
 조건
-    조리시간 : 최대 1000분
+    N의 수에따라 *이 1부터 하나씩 우측에 추가
 
 brainstorming
-
+    for문 i해서 star += i처럼?
+    문자열 덧붙이는거니 StringBuilder 응용해볼 수도?
 
 */
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        try{
+//            int num = Integer.parseInt(br.readLine());
+//            String star = "";
+//            for(int i = 1; i <= num; i++){
+////                System.out.println(star);
+//            }
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        try{
+            int num = Integer.parseInt(br.readLine());
+            String star = "*";
+            for(int i = 1; i <= num; i++){
+//                star += "*";
+                sb.append(star);
+                System.out.println(sb.toString());
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+/*
+StringBuilder 사용 시, 별표가 아래처럼 찍히는 이유
+star += "*";
+sb.append(star);
+System.out.println(sb.toString());
+StringBuilder에서는 문자열이 변경되면 재생성하는 게 아닌 기존거에 덧붙이기 때문에
+for문 첫바퀴 때 별 하나가 저장되면서 프린트되고 두번째 돌때 첫번째 때 별 하나가 남아있기 때문에 * + **이 되면서 3개가 찍히는 것
+
+ *
+ ***
+ ******
+ **********
+ ***************
+
+ */
+
 
     }
 /*
-    정답
+    정답1 : println
+    14228kb	128ms
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -658,7 +781,59 @@ import java.util.StringTokenizer;
 import java.io.*;
 public class Main {
     public static void main(String[] args) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        try{
+            int num = Integer.parseInt(br.readLine());
+            String star = "";
+            for(int i = 1; i <= num; i++){
+               star += "*";
+               System.out.println(star);
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+}
 
+
+    정답2 : StringBuilder 사용
+    14192kb	124ms
+import java.io.*;
+public class Main {
+    public static void main(String[] args) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        try{
+            int num = Integer.parseInt(br.readLine());
+            String star = "*";
+            for(int i = 1; i <= num; i++){
+//                star += "*";
+                sb.append(star);
+                System.out.println(sb.toString());
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+}
+
+    정답3 : 이중for문
+    14904kb 228ms
+import java.io.*;
+public class Main {
+    public static void main(String[] args) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            int num = Integer.parseInt(br.readLine());
+            for (int i = 1; i <= num; i++) {
+                for (int j = 0; j < i; j++) {
+                    System.out.print("*");
+                }
+                System.out.println("");
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 }
 
@@ -669,26 +844,148 @@ public class Main {
     public void method10() {
 /*
 조건
-    조리시간 : 최대 1000분
+    총 5칸 중 for문에 따라 여백이 별표로 치환
 
 brainstorming
-
+    여백을 *로 치환 replace()
+    5칸 설정 : printf(),
+    trim(),
 
 */
 
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        try{
+//            int num = Integer.parseInt(br.readLine());
+//            String str = "";
+//
+//            for(int i = 1; i <= num; i++){
+//                str += "*";
+//                System.out.printf("%5s%n",str); // 오답 : 출력 형식이 잘못되었습니다
+//            }
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        try{
+//            int num = Integer.parseInt(br.readLine());
+//            String str = "";
+//            for(int i = 1; i <= num; i++){
+//                String a = str.replace(" ","*");
+//                System.out.println(a);
+//            }
+////                System.out.printf("%5s%n",str); // 오답 : 출력 형식이 잘못되었습니다
+////                str += "*";
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+
+        // 방법1
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        try {
+//            int num = Integer.parseInt(br.readLine());
+//
+//            for (int i = 1; i <= num; i++) {
+//                for (int j = num; j > 0; j--) {
+//                    if(i < j) {
+//                        System.out.print(" ");
+//                    }else{
+//                        System.out.print("*");
+//                    }
+//                }
+//                System.out.println("");
+//            }
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+
+
+        // 방법2
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        try {
+            int num = Integer.parseInt(br.readLine());
+
+            for (int i = 1; i <= num; i++) {
+                for (int j = num; j > 0; j--) {
+                    if(i < j) {
+                        bw.write(" ");
+//                        System.out.print(" ");
+                    }else{
+                        bw.write("*");
+//                        System.out.print("*");
+                    }
+                }
+                bw.newLine();
+//                System.out.println("");
+            }
+            bw.flush();
+            bw.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 /*
-    정답
+    정답1 :  이중for문
+    15272kb	268ms
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
 import java.io.*;
 public class Main {
     public static void main(String[] args) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            int num = Integer.parseInt(br.readLine());
 
+            for (int i = 1; i <= num; i++) {
+                for (int j = num; j > 0; j--) {
+                    if(i < j) {
+                        System.out.print(" ");
+                    }else{
+                        System.out.print("*");
+                    }
+                }
+                System.out.println("");
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+}
+
+
+    방법2 : BufferedWriter 사용
+    14296kb	136ms
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
+public class Main {
+    public static void main(String[] args) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        try {
+            int num = Integer.parseInt(br.readLine());
+
+            for (int i = 1; i <= num; i++) {
+                for (int j = num; j > 0; j--) {
+                    if(i < j) {
+                        bw.write(" ");
+                    }else{
+                        bw.write("*");
+                    }
+                }
+                bw.newLine();
+            }
+            bw.flush();
+            bw.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 }
 
