@@ -996,28 +996,237 @@ public class Main {
     public void method11() {
 /*
 조건
-    조리시간 : 최대 1000분
+    두 정수 A와 B를 입력값 & 한 줄 값 2개
+    입력값 범위(0 < A, B < 10) : a,b 둘다 1~9사이 값만 들어옴
+    A+B를 출력 & 범위값 이외에 0같은게 들어오면 프로그램 종료
+    입력의 마지막에는 0 두 개
 
 brainstorming
-
+    입력6줄 출력5줄 고정인 듯?
+    마지막 0 2개는 입력만 받고 출력안하면 될 듯
+        마지막 0을 넣으면 0은 예외처리해서 출력안하게끔 처리해야하는 듯. nullpointer 뜨는게 왠지 수상
+        그럼 6줄 다 받고 if문으로 유효성체크해서 0이면 값 안나가게 처리?
+    한 줄 값 2개 받기 코드 한 세트 말고 그 상위 카테고리로 6번 돌려서 입력값 6번 받기
 
 */
+//        try {
+//            StringBuilder sb = new StringBuilder();
+//            for(int j = 0; j < 5; j++){
+//                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//                StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+//
+//                // 한 줄 값 2개 받기
+//                int[] input = new int[st.countTokens()];
+//                for(int i = 0; i < input.length; i++){
+//                    input[i] = Integer.parseInt(st.nextToken());
+//                }
+//                int a = input[0];
+//                int b = input[1];
+//                sb.append(a + " "+ b + "\n"); // 스트링빌더, 마지막 줄바꿈이 2개 추가로 떠서 오답될 듯
+//            }
+//            System.out.println(sb.toString());
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+// 스트링빌더, 마지막 줄바꿈이 2개 추가로 떠서 오답될 듯
+
+//        try {
+//            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+//            Scanner sc = new Scanner(System.in);
+//            for(int j = 0; j < 5; j++){
+//                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//                StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+//
+//                // 한 줄 값 2개 받기
+//                int[] input = new int[st.countTokens()];
+//                for(int i = 0; i < input.length; i++){
+//                    input[i] = Integer.parseInt(st.nextToken());
+//                }
+//                int a = input[0];
+//                int b = input[1];
+////                bw.write(Integer.toString(a + b));  // toString() 대신 => valueOf() 사용
+//                bw.write(String.valueOf(a + b));  // toString() 대신 => valueOf() 사용
+//                bw.newLine();
+//            }
+//            int lastNum = sc.nextInt();
+//            bw.flush();
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+// 널포인터 발생
+// 마지막 0을 넣으면 0은 예외처리해서 출력안하게끔 처리해야하는 듯. nullpointer 뜨는게 왠지 수상
+
+//        try {
+//            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+//            // 입력값 6줄 받기
+//            for(int j = 0; j < 6; j++){
+//                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//                StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+//
+//                // 한 줄 값 2개 받기
+//                int[] input = new int[st.countTokens()];
+//                for(int i = 0; i < input.length; i++){
+//                    input[i] = Integer.parseInt(st.nextToken());
+//                }
+//                int a = input[0];
+//                int b = input[1];
+//                // 0이면 출력 안하게끔 if 유효성 추가
+//                if(a != 0 && b != 0) {  // a 또는 b로 줘서 에러나면 a and b로도 한번 더 해보자
+//                    //                bw.write(Integer.toString(a + b));  // toString() 대신 => valueOf() 사용
+//                    bw.write(String.valueOf(a + b));  // toString() 대신 => valueOf() 사용
+//                    bw.newLine();
+//                }
+//            }
+//            bw.flush();
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+// 여전히 널포인터 발생
+
+//        try {
+//            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+//            // 입력값 6줄 받기
+//            for(int j = 0; j < 6; j++){
+//                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//                StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+//
+//                // 한 줄 값 2개 받기
+//                int[] input = new int[st.countTokens()];
+//                for(int i = 0; i < input.length; i++){
+//                    input[i] = Integer.parseInt(st.nextToken());
+//                }
+//                int a = input[0];
+//                int b = input[1];
+//                // 0이면 출력 안하게끔 if 유효성 추가
+//                if( 0 < a && b < 10) {  // a 또는 b로 줘서 에러나면 a and b로도 한번 더 해보자
+//                    //                bw.write(Integer.toString(a + b));  // toString() 대신 => valueOf() 사용
+//                    bw.write(String.valueOf(a + b));  // toString() 대신 => valueOf() 사용
+//                    bw.newLine();
+//                }
+//            }
+//            bw.flush();
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+// 여전히 널포인터 발생 : 한 줄 값 2개받기 코드를 while hasmore로 바꿔보자. 얘도 널포인터...
+
+//        try {
+//            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+//            // 입력값 6줄 받기
+//            while(true){
+//                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//                StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+//
+//                // 한 줄 값 2개 받기
+//                int a = 0;
+//                int b = 0;
+//                while(st.hasMoreTokens()){
+//                    a = Integer.parseInt(st.nextToken());
+//                    b = Integer.parseInt(st.nextToken());
+//                }
+//
+//                // 0이면 출력 안하게끔 if 유효성 추가
+//                if( (0 < a && a < 10) && (0 < b && b < 10) ) {  // a 또는 b로 줘서 에러나면 a and b로도 한번 더 해보자
+//                    //                bw.write(Integer.toString(a + b));  // toString() 대신 => valueOf() 사용
+////                    bw.write(String.valueOf(a + b)+"\n");  // toString() 대신 => valueOf() 사용
+////                    bw.write(a + b);
+//                    bw.write((a + b) + "\n");
+////                    bw.newLine();
+//                }else{
+//                    break;
+//                }
+//            }
+//            bw.flush();
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+            StringTokenizer st;
+
+            while (true) {
+                st = new StringTokenizer(br.readLine(), " ");
+
+                int x = Integer.parseInt(st.nextToken());
+                int y = Integer.parseInt(st.nextToken());
+
+                if (x == 0 && y == 0) {
+                    break;
+                }
+                bw.write((x + y) + "\n");
+            }
+            br.close();
+            bw.flush();
+            bw.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+// 입력값 범위(0 < A, B < 10) : A 1이상, B 9이하
 
     }
 /*
-    정답
-import java.io.IOException;
+    정답1 : StringTokenizer 위치
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
-import java.io.*;
 public class Main {
-    public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-    }
+		while (true) {
+			String str = br.readLine();
+			StringTokenizer st = new StringTokenizer(str);
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
+			if (a == 0 && b == 0) {
+				break;
+			} else {
+				bw.write(a + b +"\n");
+			}
+		}
+		br.close();
+		bw.flush();
+		bw.close();
+	}
 }
+
+
+    정답2 : StringTokenizer
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+public class Main {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		StringTokenizer st;
+
+		while (true) {
+			st = new StringTokenizer(br.readLine(), " ");
+
+			int x = Integer.parseInt(st.nextToken());
+			int y = Integer.parseInt(st.nextToken());
+
+			if (x == 0 && y == 0) {
+				break;
+			}
+			bw.write((x + y) + "\n");
+		}
+		br.close();
+		bw.flush();
+		bw.close();
+	}
+}
+
 
  */
 
@@ -1033,6 +1242,8 @@ brainstorming
 
 */
 
+
+
     }
 /*
     정답
@@ -1051,6 +1262,15 @@ public class Main {
 
  */
 
+
+
+/*
+다시 풀 문제
+
+    2439	별 찍기 - 2
+    10952	A+B - 5
+
+ */
 
 
 
