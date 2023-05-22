@@ -1197,7 +1197,7 @@ public class Main {
 }
 
 
-    정답2 : StringTokenizer
+    정답2 : StringTokenizer 위치
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -1235,13 +1235,37 @@ public class Main {
     public void method12() {
 /*
 조건
-    조리시간 : 최대 1000분
+    두 정수 A와 B를 입력값 & 한 줄 값 2개
+    입력값 범위(0 < A, B < 10) : a,b 둘다 1~9사이 값만 들어옴
 
 brainstorming
-
+    br.readLine()이 EOF를 만나면 null을 반환하기에 StringTokenizer 선언 시 NullPointer 에러가 생김
+    이를 방지하기 위한 코드
+    String str;
+    while((str = br.readLine()) != null) {
 
 */
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+            StringTokenizer st = null;
+            String input = "";
+            while((input = br.readLine()) != null) {
+                st = new StringTokenizer(input," ");
+                int a = Integer.parseInt(st.nextToken());
+                int b = Integer.parseInt(st.nextToken());
 
+                if( (0 < a && a < 10) && (0 < b && b < 10) ) {
+//                bw.write(String.valueOf(a + b + "\n"));
+                    bw.write(a + b + "\n");
+                }
+            }
+            br.close();
+            bw.flush();
+            bw.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
 
 
     }

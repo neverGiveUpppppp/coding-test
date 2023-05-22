@@ -20,8 +20,8 @@ public class Main {
 //        stp.method08();
 //        stp.method09();
 //        stp.method10();
-        stp.method11();
-//        stp.method12();
+//        stp.method11();
+        stp.method12();
 
         Step3 s = new Step3();
 
