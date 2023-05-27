@@ -8,7 +8,6 @@ import java.util.StringTokenizer;
 
 public class Step3_2023 {
 
-    private int a;
 
     // Step3-1 2739	: 구구단
     public void method01() {
