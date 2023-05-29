@@ -273,6 +273,33 @@ ORDER BY PUBLISHED_DATE
 
 
 
+---- 성분으로 구분한 아이스크림 총 주문량
+/* 
+조건
+   각 아이스크림 성분 타입과 성분 아이스크림의 총주문량
+     sugar_based, fruit_based 두개만 조회
+     총주문량 작은 순서대로 조회
+     총주문량 별칭 : TOTAL_ORDER
+    
+brainstorming
+    1)TOTAL_ORDER 합계 : SUM()
+*/
+
+
+-- SELECT B.INGREDIENT_TYPE--, TOTAL_ORDER AS TOTAL_ORDER
+-- FROM FIRST_HALF A
+--     JOIN ICECREAM_INFO  B ON A.FLAVOR = B.FLAVOR
+-- GROUP BY B.INGREDIENT_TYPE--, A.TOTAL_ORDER
+
+
+-- 정답1
+SELECT B.INGREDIENT_TYPE, SUM(A.TOTAL_ORDER) AS TOTAL_ORDER
+FROM FIRST_HALF A
+    JOIN ICECREAM_INFO  B ON A.FLAVOR = B.FLAVOR
+GROUP BY B.INGREDIENT_TYPE
+
+
+
 
 
 
@@ -282,7 +309,7 @@ ORDER BY PUBLISHED_DATE
 
     진료과별 총 예약 횟수 출력하기   
     상품 별 오프라인 매출 구하기★
-
+    성분으로 구분한 아이스크림 총 주문량
 
 
 */
