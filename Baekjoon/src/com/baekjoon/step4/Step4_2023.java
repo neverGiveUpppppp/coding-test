@@ -479,19 +479,85 @@ public class Main {
 
 
 
+
+
     // Step4-5 	10810	공 넣기
     public void method05() {
 /*
 조건
-    숫자 범위 1-9
+    N : 바구니 개수
+    M : 공의 개수
+    출력 : 각 바구니에 들은 공(M)의 개수
+
+    N개의 바구니가 있고, 각 바구니에는 1개의 공만 넣을 수 있음
+    N개의 바구니는 1번부터 N번까지 있고, M번 공을 집어넣게 됨
+    각 회차마다 공을 넣는데, i번 바구니 부터 j번 바구니에 k번 번호가 적힌 공을 넣음
+        (이미 공이 들어있는 경우, 공을 빼고 새로운 공을 넣음)
+    M번 반복 후 1번 바구니부터 N번 바구니까지 마지막으로 들어있는 공의 번호를 출력 (없으면 0 출력)
 
 brainstorming
-    a
-*/
+    바스켓 번호가 있으니 array나 list로 관리
+    i부터 j까지 k수를 넣어야함 : ex) 1-4에 3넣기
+        1 2 3 4
+        3 3 3 3        list [3, 3, 3, 3]
 
+*/
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+            // 1) 바구니와 공 받기
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            int basketN = 0;
+            int ballM = 0;
+
+            while(st.hasMoreTokens()){
+                basketN = Integer.parseInt(st.nextToken());
+                ballM = Integer.parseInt(st.nextToken());
+            }
+
+            // 2) i,j,k 값 받기
+            int basketA = 0;
+            int basketB = 0;
+            int ballK = 0;
+//            ArrayList<Integer> listInt = new ArrayList<>(); // 배열로 미리 공간을 지정해놓지 않으면 바구니 넣을 떄 0부터 차례로 넣는 게 아니므로 IndexOutOfBoundsException 에러발생
+            // 배열로 미리 공간 만들어두고어서 바구니가 있는 것 같이 구현
+            int[] baskets = new int[basketN];
+            for(int i = 0; i < ballM; i++){
+                st = new StringTokenizer(br.readLine(), " ");
+                basketA = Integer.parseInt(st.nextToken());
+                basketB = Integer.parseInt(st.nextToken());
+                ballK = Integer.parseInt(st.nextToken());
+
+                // 3) i,j,k의 범위 유효성 체크 : (1 <= i,j <= N), (0 < k <= N)
+                if((0 < basketA && basketA <= basketN)
+                        && (0 < basketB && basketB <= basketN)
+                        && (0 < ballK && ballK <= basketN)){
+                    // 4) m넣기
+                    for(int j = basketA-1; j < basketB; j++) {
+//                        listInt.add(j, ballM);
+                        baskets[j] = ballK;
+                    }
+                }
+            }
+            // 5) 바구니에 남은 마지막 번호들 출력
+            for(int q = 0; q < baskets.length; q++){
+                bw.write(baskets[q]+" ");
+            }
+            bw.flush();
+            br.close();
+            bw.close();
+            // foreach문
+//            for(int l : baskets){
+//                System.out.print(l+" ");
+//            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 /*
     정답
+    	14304	124
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -500,7 +566,50 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) {
         try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
+            // 1) 바구니와 공 받기
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            int basketN = 0;
+            int ballM = 0;
+
+            while(st.hasMoreTokens()){
+                basketN = Integer.parseInt(st.nextToken());
+                ballM = Integer.parseInt(st.nextToken());
+            }
+
+            // 2) i,j,k 값 받기
+            int basketA = 0;
+            int basketB = 0;
+            int ballK = 0;
+//            ArrayList<Integer> listInt = new ArrayList<>(); // 배열로 미리 공간을 지정해놓지 않으면 바구니 넣을 떄 0부터 차례로 넣는 게 아니므로 IndexOutOfBoundsException 에러발생
+            // 배열로 미리 공간 만들어두고어서 바구니가 있는 것 같이 구현
+            int[] baskets = new int[basketN];
+            for(int i = 0; i < ballM; i++){
+                st = new StringTokenizer(br.readLine(), " ");
+                basketA = Integer.parseInt(st.nextToken());
+                basketB = Integer.parseInt(st.nextToken());
+                ballK = Integer.parseInt(st.nextToken());
+
+                // 3) i,j,k의 범위 유효성 체크 : (1 <= i,j <= N), (0 < k <= N)
+                if((0 < basketA && basketA <= basketN)
+                        && (0 < basketB && basketB <= basketN)
+                        && (0 < ballK && ballK <= basketN)){
+                    // 4) m넣기
+                    for(int j = basketA-1; j < basketB; j++) {
+//                        listInt.add(j, ballM);
+                        baskets[j] = ballK;
+                    }
+                }
+            }
+            // 5) 바구니에 남은 마지막 번호들 출력
+            for(int q = 0; q < baskets.length; q++){
+               bw.write(baskets[q]+" ");
+            }
+            bw.flush();
+            br.close();
+            bw.close();
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -515,11 +624,144 @@ public class Main {
     public void method06() {
 /*
 조건
-    숫자 범위 1-9
+    각 바구니에 부여 받은 기존의 번호를 지정된 조건의 번호와 바꾸는 로직
+    첫째 줄 : N (1 ≤ N ≤ 100) // M (1 ≤ M ≤ 100)
+    둘째 줄 : i,j (1 ≤ i ≤ j ≤ N)
 
 brainstorming
-    a
+    처음에는 바구니에 적혀있는 번호와 같은 번호가 적힌 공이 들어있다
+        N=5 : [1 2 3 4 5]
+            2 1 3 4 5   - 1과 2번 바구니 교환
+            2 1 4 3 5   - 3과 4번 바구니 교환
+            3 1 4 2 5   - 1과 4번 바구니 교환
+            3 1 4 2 5   - 2와 2번 바구니 교환
+            예제 출력처럼 나옴
+    두 수를 바꾸는 로직
+        a,b를 교환하려면,
+          c = a    a를 c에 임시 저장하고
+          a = b    b를 a에 넣고
+          b = c    a값을 임시 저장해두었던 c를 b에 넣으면 a,b값 교환 완성
+              a = 1     a = 1
+              b = 2     b = 2
+              c = 0
+              c = a     c = 1
+              a = b     a = 2
+              b = c     b = 1
+
 */
+
+/*
+    풀이 과정
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+            // 1) 입력값 받기(바구니와 공 받기)
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            int basketN = 0;
+            int ballM = 0;
+            while(st.hasMoreTokens()){
+                basketN = Integer.parseInt(st.nextToken());
+                ballM = Integer.parseInt(st.nextToken());
+            }
+
+            // 2) 바구니 초기 번호깔기 : [1 2 3 4 N]
+            // Array or list
+            ArrayList<Integer> listInt = new ArrayList<>();
+            for(int i = 0; i < basketN; i++){
+                listInt.add(i, i + 1);
+            }
+
+            // 3) M값 수만큼 i,j값들 받기
+//            ArrayList<Integer> listInt = new ArrayList<>();
+            for(int j = 0; j < ballM; j++){
+                st = new StringTokenizer(br.readLine(), " ");
+                int basketA = 0;
+                int basketB = 0;
+                while(st.hasMoreTokens()){
+                    basketA = Integer.parseInt(st.nextToken());  // 1 <- 인덱스 번호
+                    basketB = Integer.parseInt(st.nextToken());  // 2
+                    // 4) i,j값 바꾸기
+                    //      [1 2 3 4 5]
+                    //      해당 인덱스를 통해 해당 값을 꺼내와 바꾸기
+                    int chgeNum1 = listInt.get(basketA-1);
+                    int chgeNum2 = listInt.get(basketB-1);
+
+                    System.out.println("변경 전 : " + listInt);
+                    int temp = chgeNum1;
+                    chgeNum1 = chgeNum2;
+                    chgeNum2 = temp;
+
+                    System.out.println("basketA : "+ basketA);
+                    System.out.println("basketB : "+ basketB);
+                    System.out.println("chgeNum1 : "+ chgeNum1);
+                    System.out.println("chgeNum2 : "+ chgeNum2);
+                    listInt.set( (basketA - 1), chgeNum1);
+                    listInt.set( (basketB - 1), chgeNum2);
+                    System.out.println("변경 후 : " + listInt);
+//                    listInt.indexOf(basketA);
+                }
+            }
+            for(int j : listInt){
+                System.out.print(j + " ");
+            }
+
+            // 4) i와 j의 공번호 바꾸기
+            //    초기 바구니 번호 : [1 2 3 4 5]
+            //    바꾸는 로직을 값 받는 곳에서 해야할까?
+            //          첫째 줄, 둘째 줄 넘어가면서 값을 받는데 따로 저장해두는게 아닌 이상 값을 못가져오고
+            //          값을 저장한다해도 하나씩 나눠서 가져오는게 골치아프고 현 문제 상항에서는 요구하지 않기에 자원낭비임
+
+*/
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+            // 1. 입력값 받기(바구니와 공 받기)
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            int basketN = 0;
+            int ballM = 0;
+            while(st.hasMoreTokens()){
+                basketN = Integer.parseInt(st.nextToken());
+                ballM = Integer.parseInt(st.nextToken());
+            }
+
+            // 2. 바구니 초기 번호깔기 : [1 2 3 4 N]
+            ArrayList<Integer> listInt = new ArrayList<>();             // Array or list
+            for(int i = 0; i < basketN; i++){
+                listInt.add(i, i + 1);
+            }
+
+            // 3. M값 수만큼 i,j값들 받기
+            for(int j = 0; j < ballM; j++){
+                st = new StringTokenizer(br.readLine(), " ");
+                int basketA = 0;
+                int basketB = 0;
+                while(st.hasMoreTokens()){
+                    basketA = Integer.parseInt(st.nextToken());  // 1 <- 인덱스 번호
+                    basketB = Integer.parseInt(st.nextToken());  // 2
+                    // 4. i,j값 바꾸기
+                    //      1)해당 인덱스를 통해 해당 값을 꺼내오기
+                    int chgeNum1 = listInt.get(basketA-1);
+                    int chgeNum2 = listInt.get(basketB-1);
+                    //      2)값 교환
+                    int temp = chgeNum1;
+                    chgeNum1 = chgeNum2;
+                    chgeNum2 = temp;
+                    //      3)교환한 값 다시 list로 넣기
+                    listInt.set( (basketA - 1), chgeNum1);
+                    listInt.set( (basketB - 1), chgeNum2);
+                }
+            }
+            for(int j : listInt){
+                bw.write(j + " ");
+            }
+            bw.flush();
+            bw.close();
+            br.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
 
     }
 /*
@@ -527,12 +769,56 @@ brainstorming
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.io.*;
 public class Main {
     public static void main(String[] args) {
         try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
+            // 1. 입력값 받기(바구니와 공 받기)
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            int basketN = 0;
+            int ballM = 0;
+            while(st.hasMoreTokens()){
+                basketN = Integer.parseInt(st.nextToken());
+                ballM = Integer.parseInt(st.nextToken());
+            }
+
+            // 2. 바구니 초기 번호깔기 : [1 2 3 4 N]
+            ArrayList<Integer> listInt = new ArrayList<>();             // Array or list
+            for(int i = 0; i < basketN; i++){
+                listInt.add(i, i + 1);
+            }
+
+            // 3. M값 수만큼 i,j값들 받기
+            for(int j = 0; j < ballM; j++){
+                st = new StringTokenizer(br.readLine(), " ");
+                int basketA = 0;
+                int basketB = 0;
+                while(st.hasMoreTokens()){
+                    basketA = Integer.parseInt(st.nextToken());  // 1 <- 인덱스 번호
+                    basketB = Integer.parseInt(st.nextToken());  // 2
+                    // 4. i,j값 바꾸기
+                    //      1)해당 인덱스를 통해 해당 값을 꺼내오기
+                    int chgeNum1 = listInt.get(basketA-1);
+                    int chgeNum2 = listInt.get(basketB-1);
+                    //      2)값 교환
+                    int temp = chgeNum1;
+                    chgeNum1 = chgeNum2;
+                    chgeNum2 = temp;
+                    //      3)교환한 값 다시 list로 넣기
+                    listInt.set( (basketA - 1), chgeNum1);
+                    listInt.set( (basketB - 1), chgeNum2);
+                }
+            }
+            for(int j : listInt){
+                bw.write(j + " ");
+            }
+            bw.flush();
+            bw.close();
+            br.close();
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -540,6 +826,7 @@ public class Main {
 }
 
  */
+
 
 
 
