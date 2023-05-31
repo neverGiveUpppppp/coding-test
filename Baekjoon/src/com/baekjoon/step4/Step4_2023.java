@@ -727,7 +727,7 @@ brainstorming
             }
 
             // 2. 바구니 초기 번호깔기 : [1 2 3 4 N]
-            ArrayList<Integer> listInt = new ArrayList<>();             // Array or list
+            ArrayList<Integer> listInt = new ArrayList<>();             // Array or ArrayList
             for(int i = 0; i < basketN; i++){
                 listInt.add(i, i + 1);
             }
@@ -834,24 +834,227 @@ public class Main {
     public void method07() {
 /*
 조건
-    숫자 범위 1-9
+    1-30 순차적 출석번호(인덱스) 중복x (1 ≤ n ≤ 30)
+    출력 세로 두 줄 : 제출안한 학생 오름차순
 
 brainstorming
-    a
+    중복x : Set? List?
+    1-30까지 비교할 기준으로 배열을 깔아놓고 하나씩 랜덤으로 받는 입력값과 비교?
+        가능은 하지만 성능이 안좋을 듯... 풀스캔이 될테니 아직은 이진검색 같은..? 자료구조 공부는 음...
+    특정값 포함 여부 :
+        1)컬렉션의 contains(), indexOf(), 반복문, Iterator사용 반복문, StreamAPI
+            - List,Set, Map 다 가능(Map은 containsValue,key)
+        2)equals()
+    binarySearch() + Arrays.sort() 사용해보기
+
 */
+//   풀이과정
+//        try{
+//            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+//            // 1. 입력값 받기 : 28줄 고정
+//            int[] arrInt  = new int[28];
+//            for(int i = 0; i < 5; i++){
+//                arrInt[i] = Integer.parseInt(br.readLine());
+//            }
+//
+//            // 2.비교 대상 배열
+//            int[] arrCompare = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28};
+//
+//            // 3. 두 배열 비교
+//            for(int j = 0; j < 5; j++){
+//                arrInt[j] = Integer.parseInt(br.readLine());
+//            }
+//             구구단처럼 A가 1일 때 B를 1-28까지 체크하고 2일 때 1-28까지 체크해야하니 이중포문..?
+//
+//        try{
+//            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+//
+//            // 1.비교 대상 배열
+//            int[] arrCompare = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30};
+//
+//            // 2. 입력값 받기 : 28줄 고정
+//            int[] arrInt  = new int[28];
+//            int num = 0;
+//            for(int s = 0; s < 5; s++){         // 답안 제출 시, 28로 고칠 것!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//                num = Integer.parseInt(br.readLine());
+////                arrInt[s] = num;
+//                // 유효성 검사 : (1 ≤ n ≤ 30)
+//                if( 1 <= num && num <= 30){
+//                    arrInt[s] = num;
+//                }
+////                if( 1 <= (num = Integer.parseInt(br.readLine()))
+////                        && (num = Integer.parseInt(br.readLine())) <= 30){
+////                    arrInt[s] = num;
+////                } // 값이 무한으로 입력되는 코드
+////                arrInt[s] = Integer.parseInt(br.readLine());
+//            }
+//            System.out.println(Arrays.toString(arrInt));
+//            System.out.println("arrInt[27] : "+arrInt[27]);
+//            System.out.println("==============");
+//
+//            // 3. 두 배열 비교
+////            ArrayList<Integer> listInt = new ArrayList<>();
+////            for(int i = 0; i < 5; i++){
+////                for(int j = 0; j < 5; j++){
+////                    if(arrInt[i] == arrCompare[j]){
+////                        listInt.add(arrInt[j]);
+////                    }
+////                }
+////            }
+////            // equals()
+////            ArrayList<Integer> listInt = new ArrayList<>();
+////            for(int i = 0; i < 28; i++){
+////                if(!arrInt.equals(arrCompare[i])){
+////                    listInt.add(i,arrInt[i]);
+////                }
+////            }
+//
+//
+//
+//            System.out.println("arrCom : "+Arrays.toString(arrCompare));
+//            System.out.println("arrInt : "+Arrays.toString(arrInt));
+//            System.out.println(listInt);
+//
+//            // 4. 추출된 수의 대소비교
+////            if(listInt.get(0) < listInt.get(1)){
+////                bw.write(listInt.get(0)+"");
+////                bw.newLine();
+////                bw.write(listInt.get(1)+"");
+////            }else{
+////                bw.write(listInt.get(1).toString());
+////                bw.newLine();
+////                bw.write(listInt.get(0).toString());
+////            }
+////            bw.flush();
+////            bw.close();
+////            br.close();
+//        try{
+//            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//
+//            // 1.비교 대상 배열
+//            int[] arrStandard = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30};
+//
+//            // 2. 입력값 받기 : 28줄 고정
+//            int[] arrInt  = new int[5];
+//            int num = 0;
+//            for(int s = 0; s < 5; s++){         // 답안 제출 시, 28로 고칠 것!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//                num = Integer.parseInt(br.readLine());
+////                arrInt[s] = num;
+//                // 유효성 검사 : (1 ≤ n ≤ 30)
+//                if( 1 <= num && num <= 30){
+//                    arrInt[s] = num;
+//                }
+//            }
+//            System.out.println(Arrays.toString(arrInt));
+////            System.out.println("arrInt[27] : "+arrInt[27]);
+//            System.out.println("==============");
+//
+//
+//            // 3. 두 배열 비교
+//            //      1)기준 set 선언 및 중복제거
+//            Set<Integer> setStandard = new HashSet<>();
+//            for(int i : arrStandard){
+//                setStandard.add(i);  // set에 arrCompare의 배열 요소들 넣기
+//            }
+//
+//            //      2)두 배열 비교 후 결과값 set선언(자동 중복제거)
+//            Set<Integer> setInput = new HashSet<>();
+//            for(int o : arrInt){
+//                System.out.println("int o : "+o);
+//                System.out.println("arrInt : "+Arrays.toString(arrInt));
+//                if(!setStandard.contains(o)) {
+//                    setInput.add(o);
+//                }
+//            }
+//            System.out.println("setInput"+setInput);
+//
+////            setInput.forEach(System.out::println);
+//
+//            for(int p : setInput){
+//                System.out.println("없는 수 : "+p);
+//            }
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+//        // 출석한 학생은 1이 들어가는 구조. 즉, 1이 없으면 결석이고 1이 아닌 학생만 추출하면 됨
+//        // 인덱스 == key값이라 가능한 구조
+//
+//        // 1.출석한 학생 출결 체크
+//        int[]arr = new int[30];
+//        for(int i = 0; i < 28; i++) {
+//            arr[Integer.parseInt(br.readLine())-1] = 1; // 출석한 학생 index에 1을 기록
+//        }
+//
+//        // 2.결석한 학생 뽑아내기
+//        for(int i = 0; i < 30; i++) {
+//            if(arr[i] == 0)
+//                bw.write(String.valueOf(i + 1));
+//        }
+//        bw.flush();
+//        bw.close();
+//        br.close();
+
+        // 정답2
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            boolean[] arr = new boolean[31];
+            //온 사람은 출석 체크
+            for (int i = 0; i < 28; i++) {
+                int n = Integer.parseInt(br.readLine());
+                arr[n] = true;
+            }
+            for (int i = 1; i <= 30; i++) {
+                if (!arr[i]) System.out.println(i);  //불리지 않은 사람 출력
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
 
     }
 /*
-    정답
+    정답1 Scanner
+        	17672	208
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.io.*;
+public class Main {
+    public static void main(String[] args) {
+        // 방법1
+        Scanner scan = new Scanner(System.in);
+        // 30명, 1<=n<=28
+        int[] address = new int[31];
+        for(int i=1; i<29; i++)
+            address[scan.nextInt()] ++;
+
+        for(int i=1; i<address.length; i++) {
+            if(address[i] == 0)
+                System.out.println(i);
+        }
+        scan.close();
+    }
+}
+
+    정답2 boolean 사용 + br
+        14088	124
+import java.util.*;
 import java.io.*;
 public class Main {
     public static void main(String[] args) {
         try{
-
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            boolean[] arr = new boolean[31];
+            //온 사람은 출석 체크
+            for (int i = 0; i < 28; i++) {
+                int n = Integer.parseInt(br.readLine());
+                arr[n] = true;
+            }
+            for (int i = 1; i <= 30; i++) {
+                if (!arr[i]) System.out.println(i);  //불리지 않은 사람 출력
+            }
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -871,7 +1074,14 @@ public class Main {
 brainstorming
     a
 */
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String num = br.readLine();
 
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 /*
     정답
@@ -923,6 +1133,13 @@ public class Main {
 }
 
  */
+
+
+/*
+못 푼 문제
+    Step4-7 5597	과제 안 내신 분..?
+
+*/
 
 
 
