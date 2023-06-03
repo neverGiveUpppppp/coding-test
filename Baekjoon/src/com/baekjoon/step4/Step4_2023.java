@@ -1069,31 +1069,137 @@ public class Main {
     public void method08() {
 /*
 조건
-    숫자 범위 1-9
+    열 줄 랜덤수( 0 <= num <= 1000 )
+    랜덤수를 42로 나눈 나머지의 값이 10개 중 다른 값이 몇 개나 있는 지
+        ex) 42로 나누고 난 후 나머지가 1,2,1,1이라면 다른 값은 2 하나이므로 답은 1
 
 brainstorming
-    a
+    배열 하나씩 비교하고 값이 다른건 따로 변수 하나 만들어서 빼서 ++하기
+    나눈 값을 변수 remainder에 저장하고 이 값을 다음 값과 비교하여 다른 것은 answer에 ++하면?
+    boolean처리로 다른 값 true주고 카운트?
+
+    42로 나눈 나머지를 구하고 중복제거 set 사용!
+    중복제거 및 중복제거로 Set사용이 핵심!(다른 중복제거 방법이 있다면 해보자)
+
+    성능고려
+        값 받아 arraylist에 넣기 전에 %42연산이랑 서로 다른 값 개수를 구하면 배열 생성삭제가 없어서 더 빠르긴 할 듯
+
+
 */
+        
+    // 풀이과정
+//        try {
+//            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+//
+//            // 1.세로 열 줄 받기
+//            ArrayList<Integer> listInt = new ArrayList<>();
+//            for (int i = 1; i <= 10; i++) {
+//                listInt.add(Integer.parseInt(br.readLine()));
+//            }
+//
+//            // 2.42로 나누고 나머지 값 구하기
+//            ArrayList<Integer> listRemainder = new ArrayList<>();
+//            for (int i = 0; i < 10; i++) {
+//                listRemainder.add(listInt.get(i) % 42);
+//            }
+//
+//            // 3.서로 다른 값 개수 도출
+//            int answer = 0;
+//            for(int i = 1; i < 10; i++){
+//                if(listRemainder.get(0) != listRemainder.get(i)) { // 0 1 2 3 4 5
+//                // get(i) == get(i+1)을 한다면 마지막 수 9 == 10 비교에서 에러 발생
+//                // 그럼 if를 줘서 막수 일때 스톱시키기?
+//                    answer++;
+//                }
+//                // 이러면 첫째수랑만 비교라 2,3번째가 다르면 카운트 안됨. 각각 다 달라야하는데 어떻게 비교?
+//                // 이중 포문으로 i j 하나씩 다 비교하면 되려나
+//            }
+//            for (int i = 0; i < 10; i++) {
+//                for (int j = 1; j < 10; j++) {
+//                    if (listRemainder.get(0) != listRemainder.get(j)) { // 0 1 2 3 4 5
+//                        // get(i) == get(i+1)을 한다면 마지막 수 9 == 10 비교에서 에러 발생
+//                        // 그럼 if를 줘서 막수 일때 스톱시키기?
+//                        answer++;
+//                    }
+//                    // 이러면 첫째수랑만 비교라 2,3번째가 다르면 카운트 안됨. 각각 다 달라야하는데 어떻게 비교?
+//                    // 이중 포문으로 i j 하나씩 다 비교하면 되려나
+//                }
+//            }
+//
+//            // 3.서로 다른 값 개수 도출
+//            int answer = 0;
+//            for(int i = 0; i < 10; i++) {
+//                if(i < 9) {
+//                    if (listRemainder.get(i) != listRemainder.get(i + 1)) {
+//                        answer++;
+//                    }
+//                }
+//            }
+            // 오답
+
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            String num = br.readLine();
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+            // 1.세로 열 줄 받기
+            ArrayList<Integer> listInt = new ArrayList<>();
+            for (int i = 1; i <= 10; i++) {
+                listInt.add(Integer.parseInt(br.readLine()));
+            }
+
+            // 2.42로 나누고 나머지 값 구하기
+            ArrayList<Integer> listRemainder = new ArrayList<>();
+            for (int i = 0; i < 10; i++) {
+                listRemainder.add(listInt.get(i) % 42);
+            }
+
+            // 3.서로 다른 값 개수 도출
+            Set<Integer> setInt = new HashSet<>(listRemainder);
+            bw.write(setInt.size()+"");
+            bw.flush();
+            bw.close();
+            br.close();
+
+        // for문 안에서 arraylist에 넣기 전에 %42 연산하고 시간이 얼마나 단축되는 지 해보자
 
 
-        } catch (IOException e) {
+        } catch(IOException e){
             e.printStackTrace();
         }
     }
 /*
-    정답
+    정답 ArrayList + Set
+        14172	124
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.io.*;
 public class Main {
     public static void main(String[] args) {
         try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
+            // 1.세로 열 줄 받기
+            ArrayList<Integer> listInt = new ArrayList<>();
+            for (int i = 1; i <= 10; i++) {
+                listInt.add(Integer.parseInt(br.readLine()));
+            }
+
+            // 2.42로 나누고 나머지 값 구하기
+            ArrayList<Integer> listRemainder = new ArrayList<>();
+            for (int i = 0; i < 10; i++) {
+                listRemainder.add(listInt.get(i) % 42);
+            }
+
+            // 3.서로 다른 값 개수 도출
+            Set<Integer> setInt = new HashSet<>(listRemainder);
+            bw.write(setInt.size()+"");
+            bw.flush();
+            bw.close();
+            br.close();
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -1108,29 +1214,314 @@ public class Main {
     public void method09() {
 /*
 조건
-    숫자 범위 1-9
+    1-N 바구니 일렬 & 세로 N열 번호 받기
+    입력값 범위 1-N까지 받을 수 있음
+    M은 세로 받을 줄 수
+
+    M번부터 역순 나열
+    역순 시, 역순으로 만들 범위를 지정하고 그 범위에서 역순으로 생성
+    i,j를 받을 때마다 두 수의 인덱스 순서 변경하기
 
 brainstorming
-    a
+    ArrayList로 1-N 나열
+    역순 : reverse() 사용
+    값 바꾸기 list.set() 가능
+    값 교체 알고리즘 :
+        c = a   ex) ? = 5    a = 5, b = 4
+        a = b       5 = 4
+        b = c       4 = 5 -> a = 4, b = 5
+
+    역순 배열 범위 계산 : ABS(a-b)
+        ex) int[] arr = new int[Math.abs(a-b)]
+
 */
 
+/*
+    풀이과정
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            StringBuilder sb = new StringBuilder();
+
+            // 1.N,M 값 받기
+            int n = 0;
+            int m = 0;
+            while (st.hasMoreTokens()) {
+                n = Integer.parseInt(st.nextToken());
+                m = Integer.parseInt(st.nextToken());
+            }
+
+            // 2.N 배열 값 생성
+//            int[] whole = new int[n];
+            ArrayList<Integer> list = new ArrayList<>();
+            int loop = 1;
+            while(loop <= n){
+                list.add(loop);
+                loop++;
+            }
+            // 3.M만큼 세로 값 받기
+//            ArrayList<Integer> listInt = new ArrayList<>();
+//            for (int i = 0; i < m; i++) {
+//                st = new StringTokenizer(br.readLine(), " ");
+//                int firstNum = 0;
+//                int secndNum = 0;
+//                while (st.hasMoreTokens()) {
+//                    firstNum = Integer.parseInt(st.nextToken());
+//                    secndNum = Integer.parseInt(st.nextToken());
+//
+//                    listInt.add(firstNum);
+//                    listInt.add(secndNum);
+//                }
+//
+//                // 3. 값 교환하기
+//                int bskt1 = firstNum;
+//                int bskt2 = secndNum;
+//                int temp = 0;
+//                temp = bskt1;
+//                bskt1 = bskt2;
+//                bskt2 = temp;
+//
+//                listInt.set()
+////                listInt.set()
+//
+//                listInt.add(bskt1);
+//                listInt.add(bskt2);
+//                System.out.println("bskt1 : " + bskt1);
+//                System.out.println("bskt2 : " + bskt2);
+//            }
+            // 3.M만큼 세로 값 받기
+            ArrayList<Integer> listInt = new ArrayList<>();
+            for (int i = 0; i < m; i++) {
+                st = new StringTokenizer(br.readLine(), " ");
+                int firstNum = 0; // 1
+                int secndNum = 0; // 2
+                int temp = 0;
+                while (st.hasMoreTokens()) {
+                    firstNum = Integer.parseInt(st.nextToken());
+                    secndNum = Integer.parseInt(st.nextToken());
+                }
+                temp = list.get(firstNum-1);
+                list.set(firstNum-1, list.get(secndNum-1));
+                list.set(secndNum-1, temp);
+            }
+            sb.append(list);
+            System.out.print(sb.toString());
+
+
+
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+                StringBuilder sb = new StringBuilder();
+
+                // 1.N,M 값 받기
+                int n = 0;
+                int m = 0;
+                while (st.hasMoreTokens()) {
+                    n = Integer.parseInt(st.nextToken());
+                    m = Integer.parseInt(st.nextToken());
+                }
+
+                // 2.N 배열 값 생성
+                ArrayList<Integer> list = new ArrayList<>();
+                int loop = 1;
+                while(loop <= n){
+                    list.add(loop);
+                    loop++;
+                }
+                // 3.M만큼 세로 값 받기
+                for (int i = 0; i < m; i++) {
+                    st = new StringTokenizer(br.readLine(), " ");
+                    int firstNum = 0; // 1
+                    int secndNum = 0; // 2
+                    int temp = 0;
+                    while (st.hasMoreTokens()) {
+                        firstNum = Integer.parseInt(st.nextToken());
+                        secndNum = Integer.parseInt(st.nextToken());
+                    }
+                    temp = list.get(firstNum-1);
+                    list.set(firstNum-1, list.get(secndNum-1));
+                    list.set(secndNum-1, temp);
+                }
+
+                // 4.list에서 엘리먼트 꺼내서 출력하기
+                for(int i : list){
+//                    sb.append(i+ " ");
+                    System.out.print(i + " ");
+                }
+//                System.out.print(sb.toString());
+
+*/
+//        try{
+//            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//            StringTokenizer st = new StringTokenizer(br.readLine());
+//            StringBuilder sb = new StringBuilder();
+//
+//            // 1.N,M 값 받기
+//            int N = Integer.parseInt(st.nextToken());
+//            int M = Integer.parseInt(st.nextToken());
+//
+//            // 2.N 배열 값 생성
+//            int[] arr = new int[N+1];
+//            for(int i = 1; i <= N; i++)
+//                arr[i] = i;
+//            System.out.println(Arrays.toString(arr)); // [0, 1, 2, 3, 4, 5]
+//
+//            // 3.M만큼 세로 값 받기
+//            for (int n = 0; n < M; n++){  // 0~3
+//                st = new StringTokenizer(br.readLine());
+//                int i = Integer.parseInt(st.nextToken());
+//                int j = Integer.parseInt(st.nextToken());
+//
+//                // 4.값 교환
+//                while(i < j){  // 4 < 3 // 3 < 4    4 < 5
+//                    int tmp = arr[i];  // arr[3]
+//                    arr[i++] = arr[j]; // arr3 = arr4 // arr4 = arr5
+//                    arr[j--] = tmp;     // arr4 = arr3 // arr5 = arr4
+//                }
+//            }
+//
+//            // 5.값 출력
+//            for(int i = 1; i <= N; i++)
+//                sb.append(arr[i]).append(" ");
+//            System.out.print(sb);
+//            br.close();
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            StringBuilder sb = new StringBuilder();
+
+            // 1.N,M 값 받기
+            int n = 0;
+            int m = 0;
+            while (st.hasMoreTokens()) {
+                n = Integer.parseInt(st.nextToken());
+                m = Integer.parseInt(st.nextToken());
+            }
+
+            // 2.N 배열 값 생성
+            ArrayList<Integer> list = new ArrayList<>();
+            int loop = 1;
+            while(loop <= n){
+                list.add(loop);
+                loop++;
+            }
+            // 3.M만큼 세로 값 받기
+            for (int i = 0; i < m; i++) {
+                st = new StringTokenizer(br.readLine(), " ");
+                int firstNum = Integer.parseInt(st.nextToken()) - 1;
+                int secndNum = Integer.parseInt(st.nextToken()) - 1;
+                int temp = 0;
+//                while (st.hasMoreTokens()) {
+//                    firstNum = Integer.parseInt(st.nextToken()) - 1;
+//                    secndNum = Integer.parseInt(st.nextToken()) - 1;
+//                }
+                while(firstNum < secndNum) {    // 이해 안된 부분
+                    temp = list.get(firstNum);
+                    list.set(firstNum++, list.get(secndNum));
+                    list.set(secndNum--, temp);
+                }
+            }
+
+            // 4.list에서 엘리먼트 꺼내서 출력하기
+            for(int i : list){
+                sb.append(i+ " ");
+            }
+            System.out.print((sb.toString()).trim());
+            System.out.print((sb.toString())); // .trim()안해도 정답
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 /*
-    정답
+    정답1 : 스캐너
+        17932	232
 import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+		Scanner sc = new Scanner(System.in);
+
+		int[] arr = new int[sc.nextInt()];
+		for (int i = 0; i < arr.length; i++) { // 기본배열 생성
+			arr[i] = i + 1;
+		}
+
+		int N = sc.nextInt();
+		for (int i = 0; i < N; i++) {
+			int order1 = sc.nextInt() - 1;
+			int order2 = sc.nextInt() - 1;
+
+			while (order1 < order2) {
+				int temp = arr[order1];
+				arr[order1++] = arr[order2];
+				arr[order2--] = temp;
+			}
+		}
+		String ret = "";
+		for (int j = 0; j < arr.length; j++) {
+			ret += arr[j] + " ";
+		}
+		System.out.print(ret.trim());
+		sc.close();
+	}
+}
+
+    정답2 : BufferedReader + StringBuilder
+        14252	128
+import java.util.*;
 import java.io.*;
 public class Main {
     public static void main(String[] args) {
         try{
 
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            StringBuilder sb = new StringBuilder();
+
+            // 1.N,M 값 받기
+            int n = 0;
+            int m = 0;
+            while (st.hasMoreTokens()) {
+                n = Integer.parseInt(st.nextToken());
+                m = Integer.parseInt(st.nextToken());
+            }
+
+            // 2.N 배열 값 생성
+            ArrayList<Integer> list = new ArrayList<>();
+            int loop = 1;
+            while(loop <= n){
+                list.add(loop);
+                loop++;
+            }
+            // 3.M만큼 세로 값 받기
+            for (int i = 0; i < m; i++) {
+                st = new StringTokenizer(br.readLine(), " ");
+                int firstNum = Integer.parseInt(st.nextToken()) - 1;
+                int secndNum = Integer.parseInt(st.nextToken()) - 1;
+                int temp = 0;
+
+                while(firstNum < secndNum) {
+                    temp = list.get(firstNum);
+                    list.set(firstNum++, list.get(secndNum));
+                    list.set(secndNum--, temp);
+                }
+            }
+
+            // 4.list에서 엘리먼트 꺼내서 출력하기
+            for(int i : list){
+                sb.append(i+ " ");
+            }
+            System.out.print(sb.toString());
         }catch(IOException e){
             e.printStackTrace();
         }
     }
 }
+
 
  */
 
@@ -1138,6 +1529,7 @@ public class Main {
 /*
 못 푼 문제
     Step4-7 5597	과제 안 내신 분..?
+    Step4-9 10811	바구니 뒤집기     <- arr[i++], arr[j--] 로직도 이해안됨
 
 */
 
