@@ -6,7 +6,6 @@ package com.baekjoon.step4;
 
 import java.io.*;
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class Step4_2023 {
@@ -1526,37 +1525,147 @@ public class Main {
  */
 
 
-/*
-못 푼 문제
-    Step4-7 5597	과제 안 내신 분..?
-    Step4-9 10811	바구니 뒤집기     <- arr[i++], arr[j--] 로직도 이해안됨
-
-*/
-
-
-
     // Step4-10 1546	평균
     public void method10() {
 /*
 조건
-    숫자 범위 1-9
+    점수 중 최대값 M
+    과목 수 : N ( 0 < N <= 1000)
+    점수 수정 : score/M*100
+        ex) 50/70*100 = 71.43점
+    새로운 평균을 구하는 프로그래밍
+
+    첫째 줄 : 과목 개수 N
+    둘째 줄 : 각 과목 점수
+
+    (실제 정답과 출력값의 절대오차 또는 상대오차가 10-2 이하이면 정답)
 
 brainstorming
-    a
+    최대값 구하기 :
+    평균 구하기 : Math.round()
+    가로 공백 값 받는 수 지정하기
+        N값만큼 과목값을 받아야하는데 st는 과목값수를 정할 수 없음x
+        수만큼 받을려면 결국 loop인데 루프문으로 어떻게 가로 공백 값들을 받을 수 있을까? split()?
 */
 
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            StringTokenizer st = null;
+            StringBuilder sb = new StringBuilder();
+
+/*
+            // 1.과목 수 입력값 받기
+            int subject = Integer.parseInt(br.readLine());
+
+            // 2.각 과목의 점수 입력값 받기
+//            ArrayList<Integer> intSubjects = new ArrayList<>();
+//            st = new StringTokenizer(br.readLine(), " ");
+
+//            for(int i = 0; i < subject; i++){
+//                st = new StringTokenizer(br.readLine(), " ");
+//                intSubjects.add(Integer.parseInt(st.nextToken()));
+//            }
+//            int[] arrInt = new int[subject];
+//            for(int i = 0; i < subject; i++){
+//                String[] str = br.readLine().split(" ");
+//                arrInt[i] = Integer.parseInt(str[i]);
+//            } // 과목수만큼 세로줄 3개받음
+
+*/
+            // 1.과목 수 입력값 받기
+            int N = Integer.parseInt(br.readLine());
+
+            // 2.각 과목의 점수 입력값 받기
+            int[] arrInt = new int[N];
+            st = new StringTokenizer(br.readLine()," ");
+            for(int i = 0; i < N; i++){
+                arrInt[i] = Integer.parseInt(st.nextToken());  // 배열 수 정해놓고 이상의 값이 들어오면 무효화. 적게 들어오면 에러발생
+            }
+
+            // 3.과목 중 최대값 구하기
+            int max = 0;       // arrInt = [1, 2, 3]
+            for (int i = 0; i < arrInt.length; i++) {
+                int number = arrInt[i];
+                if (max < number) {
+                    max = number;
+                }
+            }
+
+            // 4.각 과목 점수 구하기
+            double[] subjectsScores = new double[arrInt.length];
+            double sum = 0;
+            for (int i = 0; i < arrInt.length; i++) {
+                int subjects = arrInt[i];
+//                subjectsScores[i] = (((double)subjects/max))*100;  // int끼리 나누면 0나옴. 50/70=0  더블로 캐스팅필요!
+                sum += (((double)subjects/max))*100;  // int끼리 나누면 0나옴. 50/70=0  더블로 캐스팅필요!
+            }
+
+            // 5.전체 평균 구하기
+            double totalAvg = sum / arrInt.length;
+            sb.append(totalAvg);
+
+
+            // 5.전체 평균 구하기
+//            double totalAvg = 0.0;
+//            for (int i = 0; i < arrInt.length; i++) {
+//                double sum = 0.0;
+//                double sum2 = sum + subjectsScores[i];
+//                System.out.println(sum2);
+//                totalAvg = (sum2 / subjectsScores.length);
+//            }
+            System.out.println(sb.toString());
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
     }
+
 /*
     정답
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 import java.io.*;
 public class Main {
     public static void main(String[] args) {
         try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            StringTokenizer st = null;
+            StringBuilder sb = new StringBuilder();
 
+            // 1.과목 수 입력값 받기
+            int N = Integer.parseInt(br.readLine());
+
+            // 2.각 과목의 점수 입력값 받기
+            int[] arrInt = new int[N];
+            st = new StringTokenizer(br.readLine()," ");
+            for(int i = 0; i < N; i++){
+                arrInt[i] = Integer.parseInt(st.nextToken());  // 배열 수 정해놓고 이상의 값이 들어오면 무효화. 적게 들어오면 에러발생
+            }
+
+            // 3.과목 중 최대값 구하기
+            int max = 0;       // arrInt = [1, 2, 3]
+            for (int i = 0; i < arrInt.length; i++) {
+                int number = arrInt[i];
+                if (max < number) {
+                    max = number;
+                }
+            }
+
+            // 4.각 과목 점수 구하기
+            double[] subjectsScores = new double[arrInt.length];
+            double sum = 0;
+            for (int i = 0; i < arrInt.length; i++) {
+                int subjects = arrInt[i];
+                sum += (((double)subjects/max))*100;  // int끼리 나누면 0나옴. 50/70=0  더블로 캐스팅필요!
+            }
+
+            // 5.전체 평균 구하기
+            double totalAvg = sum / arrInt.length;
+            sb.append(totalAvg);
+
+            System.out.println(sb.toString());
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -1566,7 +1675,12 @@ public class Main {
  */
 
 
+/*
+못 푼 문제
+    Step4-7 5597	과제 안 내신 분..?
+    Step4-9 10811	바구니 뒤집기     <- arr[i++], arr[j--] 로직도 이해안됨
 
+*/
 
 
 

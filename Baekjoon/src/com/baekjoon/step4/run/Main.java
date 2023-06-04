@@ -11,9 +11,9 @@ public class Main {
 //    stp.method04();
 //    stp.method05();
 //    stp.method06();
-//    stp.method07();
+    stp.method07();
 //    stp.method08();
-    stp.method09();
+//    stp.method09();
 //    stp.method10();
 
 
