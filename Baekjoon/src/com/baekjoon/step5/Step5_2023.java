@@ -814,27 +814,46 @@ public class Main {
     public void method08() {
 /*
 조건
-    1.
+    주어진 문자열에 단어가 몇개?
+    1.문자열 구성 : 영대소문자 공백 ( str < 1,000,000)
+    2.단어 구분  : 공백
+    3.중복된 단어 카운트o
+    4.공백 연속x
+    5.문자열 시작·끝 : 공백o
+
+
 
 brainstorming
-    1.
+    1.공백 구분 : String.split(), StringTokenizer
+        - 단어 길이제한이나 요구사항이 없으므로 위 둘 단순 사용가능
+    2.각 단어 구분해서 저장 : ArrayList, array
+    3.길이 카운트 : length, size()
+
 
 */
         try{
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-            int n = Integer.parseInt(br.readLine());
+            StringTokenizer st = new StringTokenizer(br.readLine()," ");
 
+            // 1.가로 한 줄 입력값 받기
+            ArrayList<String> list = new ArrayList<>();
+            while(st.hasMoreTokens()){  
+                list.add(st.nextToken());   // 길이 어떤 요구조건이 없어서 가공없이 가능
+            }
+            // 2.list 길이 카운트
+            bw.write(String.valueOf(list.size()));
+            bw.flush();
+            bw.close();
+            br.close();
         }catch(IOException e){
             e.printStackTrace();
         }
-
-
     }
 /*
 
-    정답1
-        14088	124
+    정답1 StringTokenizer
+        26608	320
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -843,8 +862,20 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) {
         try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+            StringTokenizer st = new StringTokenizer(br.readLine()," ");
 
-
+            // 1.가로 한 줄 입력값 받기
+            ArrayList<String> list = new ArrayList<>();
+            while(st.hasMoreTokens()){
+                list.add(st.nextToken());   // 길이 어떤 요구조건이 없어서 가공없이 가능
+            }
+            // 2.list 길이 카운트
+            bw.write(String.valueOf(list.size()));
+            bw.flush();
+            bw.close();
+            br.close();
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -858,36 +889,186 @@ public class Main {
     public void method09() {
 /*
 조건
-    1.
+    수의 크기 비교
+    입력값 : 세 자리 수 두 개
+    1.각 수를 숫자 거꾸로
+    2.큰 수 도출
 
 brainstorming
-    1.
+    1.받은 입력값 양수를 str로 변환
+    2.String.reverse()로 각 값 순서 반전시킴
+    3.다시 str to int 캐스팅
+    4.큰 수 비교 도출
+
 
 */
+
+/*
+    풀이과정
+
         try{
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-            int n = Integer.parseInt(br.readLine());
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            StringBuilder sb = new StringBuilder();
 
+            // 1.가로 한 줄 두 수 입력값 받기
+            ArrayList<String> list = new ArrayList<>();
+            while(st.hasMoreTokens()){
+                list.add(st.nextToken());
+            }
+
+            // 2.값 뒤집기
+            //   방법1 : loop + chatAt()
+//            ArrayList<String> list2 = new ArrayList<>();
+////            String reverse = "";
+//            for(int i = list.size()-1; i >= 0; i--){ // list길이는 두 입력값에 대한 길이. list 내부값의 길이는 이중for문에서 설정해야함
+//                String reverse = "";
+//                for(int j = list.get(i).length()-1; j >= 0; j--){
+//                    int k = 0;  // i를 쓰면 list 0 1번중 뒤에 값인 1번부터 값이 들어가서 reverse할 때 들어가는 값이 뒷값부터 거꾸로 들어가게됨. 이를 방지하기 위한 k변수
+////                    reverse = reverse + list.get(j).charAt(j); // list.get(j)하면 list에 0 1들어가있는데 2를 불러와서 IndexOutOfBoundsException 발생
+//                      reverse += list.get(k).charAt(j);
+//                    k++;
+//                }
+//                list2.add(reverse);
+//                System.out.println("list2 : " + list2);
+//            }
+ */
+
+/*
+    // 방법1 : loop + chatAt()
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            StringBuilder sb = null;
+
+            // 1.가로 한 줄 두 수 입력값 받기
+            ArrayList<String> list = new ArrayList<>();
+            while(st.hasMoreTokens()){
+                list.add(st.nextToken());
+            }
+
+            // 2.값 뒤집기
+            ArrayList<String> list2 = new ArrayList<>();
+            for(int i = list.size()-1; i >= 0; i--){  // list길이는 두 입력값에 대한 길이. list 내부값의 길이는 이중for문에서 설정해야함
+                String reverse = "";
+                for(int j = list.get(i).length()-1; j >= 0; j--){
+                    reverse += list.get(i).charAt(j);
+                }
+                list2.add(reverse); // 입력값에서 받은 첫수와 둘째 수의 순서가 바뀌긴 함 ex) 123 456이 -> 654 321
+            }
+
+            // 3.최대값 찾기
+            //      그냥 if문 간단비교로 끝내면 더 빠를 것 같긴하나 최대값 알고리즘 공부를 위해 사용함
+            int max = -1;
+            for(int i = 0; i < list2.size(); i++){
+                int num = Integer.parseInt(list2.get(i));
+                if(max < num){
+                    max = num;
+                }
+            }
+
+            bw.write(max+"");
+            bw.flush();
+            bw.close();
+            br.close();
         }catch(IOException e){
             e.printStackTrace();
         }
 
+ */
+    // 방법2 : StringBuilder + reverse()
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            StringBuilder sb = null;
+
+            // 1.가로 한 줄 두 수 입력값 받기
+            ArrayList<String> list = new ArrayList<>();
+            while(st.hasMoreTokens()){
+                list.add(st.nextToken());
+            }
+
+            // 2.값 뒤집기
+            ArrayList<String> list2 = new ArrayList<>();
+            for(int i = 0; i < list.size(); i++){  // list길이는 두 입력값에 대한 길이. list 내부값의 길이는 이중for문에서 설정해야함
+                sb = new StringBuilder(list.get(i));
+                list2.add(sb.reverse().toString());
+            }
+
+            // 3.최대값 찾기
+            //      그냥 if문 간단비교로 끝내면 더 빠를 것 같긴하나 최대값 알고리즘 공부를 위해 사용함
+            int max = -1;
+            for(int i = 0; i < list2.size(); i++){
+                int num = Integer.parseInt(list2.get(i));
+                if(max < num){
+                    max = num;
+                }
+            }
+//            sb = null;  // NullPointerException : null이라 값을 넣을 객체 자체가 없음
+            sb = new StringBuilder(); // 새 인스턴스 생성 이유 : reverse()쓰면서 이미 값이 들어있어 max값을 append추가하면 중복값이 나오는데 값 클리어할 메소드도 없음
+            sb.append(max);
+            System.out.println(sb.toString());
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+/*
+list의 값 정제하기
+    ArrayList + 이중for문
+
+    1차 for문은 전체 입력값(list의 길이)임
+        - list.get(i)식으로 1차for문 변수인 i관련 값을 써야함
+    2차 for문은 list 내부의 각각의 값들(list.get()한 값)임
+        - list.get(j)식으로 2차for문 변수인 j관련 값을 써야함
+
+ */
 
     }
 /*
 
-    정답1
-        14088	124
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+    방법1 : loop + chatAt()
+        14228	128
 import java.util.*;
 import java.io.*;
 public class Main {
     public static void main(String[] args) {
         try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
+            // 1.가로 한 줄 두 수 입력값 받기
+            ArrayList<String> list = new ArrayList<>();
+            while(st.hasMoreTokens()){
+                list.add(st.nextToken());
+            }
+
+            // 2.값 뒤집기
+            //   방법1 : loop + chatAt()
+            ArrayList<String> list2 = new ArrayList<>();
+            for(int i = list.size()-1; i >= 0; i--){  // list길이는 두 입력값에 대한 길이. list 내부값의 길이는 이중for문에서 설정해야함
+                String reverse = "";
+                for(int j = list.get(i).length()-1; j >= 0; j--){
+                    reverse += list.get(i).charAt(j);
+                }
+                list2.add(reverse); // 입력값에서 받은 첫수와 둘째 수의 순서가 바뀌긴 함 ex) 123 456이 -> 654 321
+            }
+
+            // 3.최대값 찾기
+            //      그냥 if문 간단비교로 끝내면 더 빠를 것 같긴하나 최대값 알고리즘 공부를 위해 사용함
+            int max = -1;
+            for(int i = 0; i < list2.size(); i++){
+                int num = Integer.parseInt(list2.get(i));
+                if(max < num){
+                    max = num;
+                }
+            }
+            bw.write(max+"");
+            bw.flush();
+            bw.close();
+            br.close();
 
         }catch(IOException e){
             e.printStackTrace();
@@ -895,6 +1076,50 @@ public class Main {
     }
 }
 
+
+    방법2 : StringBuilder + reverse()
+        14196	124
+import java.util.*;
+import java.io.*;
+public class Main {
+    public static void main(String[] args) {
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            StringBuilder sb = null;
+
+            // 1.가로 한 줄 두 수 입력값 받기
+            ArrayList<String> list = new ArrayList<>();
+            while(st.hasMoreTokens()){
+                list.add(st.nextToken());
+            }
+
+            // 2.값 뒤집기
+            ArrayList<String> list2 = new ArrayList<>();
+            for(int i = 0; i < list.size(); i++){  // list길이는 두 입력값에 대한 길이. list 내부값의 길이는 이중for문에서 설정해야함
+                sb = new StringBuilder(list.get(i));
+                list2.add(sb.reverse().toString());
+            }
+
+            // 3.최대값 찾기
+            //      그냥 if문 간단비교로 끝내면 더 빠를 것 같긴하나 최대값 알고리즘 공부를 위해 사용함
+            int max = -1;
+            for(int i = 0; i < list2.size(); i++){
+                int num = Integer.parseInt(list2.get(i));
+                if(max < num){
+                    max = num;
+                }
+            }
+//            sb = null;  // NullPointerException : null이라 값을 넣을 객체 자체가 없음
+            sb = new StringBuilder(); // 새 인스턴스 생성 이유 : reverse()쓰면서 이미 값이 들어있어 max값을 append추가하면 중복값이 나오는데 값 클리어할 메소드도 없음
+            sb.append(max);
+            System.out.println(sb.toString());
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+}
  */
 
 
@@ -911,12 +1136,42 @@ brainstorming
         try{
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-            int n = Integer.parseInt(br.readLine());
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            StringBuilder sb = null;
 
+            // 1.가로 한 줄 두 수 입력값 받기
+            ArrayList<String> list = new ArrayList<>();
+            while(st.hasMoreTokens()){
+                list.add(st.nextToken());
+            }
+
+            // 2.값 뒤집기
+            ArrayList<String> list2 = new ArrayList<>();
+            for(int i = list.size()-1; i >= 0; i--){  // list길이는 두 입력값에 대한 길이. list 내부값의 길이는 이중for문에서 설정해야함
+                String reverse = "";
+                for(int j = list.get(i).length()-1; j >= 0; j--){
+                    reverse += list.get(i).charAt(j);
+                }
+                list2.add(reverse); // 입력값에서 받은 첫수와 둘째 수의 순서가 바뀌긴 함 ex) 123 456이 -> 654 321
+            }
+
+            // 3.최대값 찾기
+            //      그냥 if문 간단비교로 끝내면 더 빠를 것 같긴하나 최대값 알고리즘 공부를 위해 사용함
+            int max = -1;
+            for(int i = 0; i < list2.size(); i++){
+                int num = Integer.parseInt(list2.get(i));
+                if(max < num){
+                    max = num;
+                }
+            }
+
+            bw.write(max+"");
+            bw.flush();
+            bw.close();
+            br.close();
         }catch(IOException e){
             e.printStackTrace();
         }
-
 
     }
 /*
