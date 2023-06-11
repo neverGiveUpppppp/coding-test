@@ -13,8 +13,8 @@ public class Main {
 //        stp.method06();
 //        stp.method07();
 //        stp.method08();
-        stp.method09();
-//        stp.method10();
+//        stp.method09();
+        stp.method10();
 //        stp.method11();
     }
 

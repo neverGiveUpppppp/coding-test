@@ -1127,60 +1127,211 @@ public class Main {
     public void method10() {
 /*
 조건
-    1.
+    주어진 단어로 전화번호 걸기 -> 다이얼을 걸기 위해서 필요한 최소 시간을 출력
+        해당 문자를 번호 전환 필요
+    1.숫자 1개 입력 후 다이얼 리셋
+    2.숫자1 : 걸리는 시간 2초
+        한 칸마다 +1초
+    3.그림에 있는 abc는 2 def3 ...
 
 brainstorming
-    1.
+    1. 다이얼 걸리는 시간 : 2에다가 ++하면?
+    2. 최소 시간
+
+*/
+        
+/*
+    풀이과정
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+            // 1.문자열 받기
+            String word = br.readLine().toUpperCase();  // 대문자로 치환
+
+            // 2.문자를 다이얼 번호로 파싱
+            ArrayList<Integer> numbers = new ArrayList<>();
+            for(int i = 0; i < word.length(); i++){
+                // 1)다이얼의 문자to숫자 조건적용
+                // switch문 적용
+//                switch(String.valueOf(word.charAt(i))){
+//                    case "A" : numbers.add(1); break;
+//                    case "B" : numbers.add(1); break;
+//                    case "C" : numbers.add(1); break;
+//                    case "D" : numbers.add(2); break;
+//                    case "E" : numbers.add(2); break;
+//                    case "F" : numbers.add(2); break;
+//                    ...
+//                } // 지저분해지니 좀 더 코드 줄일 수 있게 if로 여러개 묶어보자
+                // string, int 다 논리연산자 사용해서 ==, equals() 사용불가
+
+                // 1)다이얼의 문자to숫자 조건적용
+//                if(String.valueOf(word.charAt(i)).equals("A" ||"B" || "C")){ // 컴파일 에러: "A" || "B" || "C" <- 논리연산자를 java.lang.String class에 사용 불가
+                // 대안 : chatAt()으로 꺼내서 char 타입이니 아스키코드 이용해서 숫자로 바꾼다음 대량으로 비교하고 list에 넣을 때 다이얼번호로 넣으면?
+//                System.out.println((int)word.charAt(i)); // w 87 a 65
+//                if((int)word.charAt(i) == (65 || 66)){
+//                }
 
 */
         try{
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-            StringBuilder sb = null;
 
-            // 1.가로 한 줄 두 수 입력값 받기
-            ArrayList<String> list = new ArrayList<>();
-            while(st.hasMoreTokens()){
-                list.add(st.nextToken());
-            }
+            // 1.문자열 받기
+            String word = br.readLine().toUpperCase();  // 대문자로 치환
 
-            // 2.값 뒤집기
-            ArrayList<String> list2 = new ArrayList<>();
-            for(int i = list.size()-1; i >= 0; i--){  // list길이는 두 입력값에 대한 길이. list 내부값의 길이는 이중for문에서 설정해야함
-                String reverse = "";
-                for(int j = list.get(i).length()-1; j >= 0; j--){
-                    reverse += list.get(i).charAt(j);
+            // 2.문자를 다이얼 번호로 파싱
+            ArrayList<Integer> numbers = new ArrayList<>();
+            for(int i = 0; i < word.length(); i++){
+                // 1)다이얼의 문자to숫자 조건적용        
+                switch(String.valueOf(word.charAt(i))){
+                    case "A" : numbers.add(2); break;
+                    case "B" : numbers.add(2); break;
+                    case "C" : numbers.add(2); break;
+                    case "D" : numbers.add(3); break;
+                    case "E" : numbers.add(3); break;
+                    case "F" : numbers.add(3); break;
+                    case "G" : numbers.add(4); break;
+                    case "H" : numbers.add(4); break;
+                    case "I" : numbers.add(4); break;
+                    case "J" : numbers.add(5); break;
+                    case "K" : numbers.add(5); break;
+                    case "L" : numbers.add(5); break;
+                    case "M" : numbers.add(6); break;
+                    case "N" : numbers.add(6); break;
+                    case "O" : numbers.add(6); break;
+                    case "P" : numbers.add(7); break;
+                    case "Q" : numbers.add(7); break;
+                    case "R" : numbers.add(7); break;
+                    case "S" : numbers.add(7); break;
+                    case "T" : numbers.add(8); break;
+                    case "U" : numbers.add(8); break;
+                    case "V" : numbers.add(8); break;
+                    case "W" : numbers.add(9); break;
+                    case "X" : numbers.add(9); break;
+                    case "Y" : numbers.add(9); break;
+                    case "Z" : numbers.add(9); break;
                 }
-                list2.add(reverse); // 입력값에서 받은 첫수와 둘째 수의 순서가 바뀌긴 함 ex) 123 456이 -> 654 321
             }
 
-            // 3.최대값 찾기
-            //      그냥 if문 간단비교로 끝내면 더 빠를 것 같긴하나 최대값 알고리즘 공부를 위해 사용함
-            int max = -1;
-            for(int i = 0; i < list2.size(); i++){
-                int num = Integer.parseInt(list2.get(i));
-                if(max < num){
-                    max = num;
+            // 3.다이얼 걸기(시간계산)
+            int wholeTime = 0;  // 총 다이얼 시간
+            final int one = 2;  // 상수 써보자. 어차피 전화번호 값은 변하지 않으니
+            final int two = 3;
+            final int three = 4;
+            final int four = 5;
+            final int five = 6;
+            final int six = 7;
+            final int seven = 8;
+            final int eight = 9;
+            final int nine = 10;
+
+            for(int i = 0; i < word.length(); i++){
+                switch(numbers.get(i)){
+                    case 1 : wholeTime += one; break;
+                    case 2 : wholeTime += two; break;
+                    case 3 : wholeTime += three; break;
+                    case 4 : wholeTime += four; break;
+                    case 5 : wholeTime += five; break;
+                    case 6 : wholeTime += six; break;
+                    case 7 : wholeTime += seven; break;
+                    case 8 : wholeTime += eight; break;
+                    case 9 : wholeTime += nine; break;
                 }
             }
-
-            bw.write(max+"");
+            bw.write(wholeTime+"");
             bw.flush();
             bw.close();
             br.close();
         }catch(IOException e){
             e.printStackTrace();
         }
-
     }
 /*
 
     정답1
-        14088	124
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+        14124	132
+import java.util.*;
+import java.io.*;
+public class Main {
+    public static void main(String[] args) {
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+            // 1.문자열 받기
+            String word = br.readLine().toUpperCase();  // 대문자로 치환
+
+            // 2.문자를 다이얼 번호로 파싱
+            ArrayList<Integer> numbers = new ArrayList<>();
+            for(int i = 0; i < word.length(); i++){
+                switch(String.valueOf(word.charAt(i))){
+                    case "A" : numbers.add(2); break;
+                    case "B" : numbers.add(2); break;
+                    case "C" : numbers.add(2); break;
+                    case "D" : numbers.add(3); break;
+                    case "E" : numbers.add(3); break;
+                    case "F" : numbers.add(3); break;
+                    case "G" : numbers.add(4); break;
+                    case "H" : numbers.add(4); break;
+                    case "I" : numbers.add(4); break;
+                    case "J" : numbers.add(5); break;
+                    case "K" : numbers.add(5); break;
+                    case "L" : numbers.add(5); break;
+                    case "M" : numbers.add(6); break;
+                    case "N" : numbers.add(6); break;
+                    case "O" : numbers.add(6); break;
+                    case "P" : numbers.add(7); break;
+                    case "Q" : numbers.add(7); break;
+                    case "R" : numbers.add(7); break;
+                    case "S" : numbers.add(7); break;
+                    case "T" : numbers.add(8); break;
+                    case "U" : numbers.add(8); break;
+                    case "V" : numbers.add(8); break;
+                    case "W" : numbers.add(9); break;
+                    case "X" : numbers.add(9); break;
+                    case "Y" : numbers.add(9); break;
+                    case "Z" : numbers.add(9); break;
+                }
+            }
+
+            // 3.다이얼 걸기(시간계산)
+            int wholeTime = 0;  // 총 다이얼 시간
+            final int one = 2;  // 상수 써보자. 어차피 전화번호 값은 변하지 않으니
+            final int two = 3;
+            final int three = 4;
+            final int four = 5;
+            final int five = 6;
+            final int six = 7;
+            final int seven = 8;
+            final int eight = 9;
+            final int nine = 10;
+
+            for(int i = 0; i < word.length(); i++){
+                switch(numbers.get(i)){
+                    case 1 : wholeTime += one; break;
+                    case 2 : wholeTime += two; break;
+                    case 3 : wholeTime += three; break;
+                    case 4 : wholeTime += four; break;
+                    case 5 : wholeTime += five; break;
+                    case 6 : wholeTime += six; break;
+                    case 7 : wholeTime += seven; break;
+                    case 8 : wholeTime += eight; break;
+                    case 9 : wholeTime += nine; break;
+                }
+            }
+            bw.write(wholeTime+"");
+            bw.flush();
+            bw.close();
+            br.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+}
+
+
+
 import java.util.*;
 import java.io.*;
 public class Main {
