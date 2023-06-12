@@ -331,8 +331,133 @@ class Solution {
 
 
 
-    // level0 011 : 배열의 평균값
-    public void method011() {
+
+
+}
+
+
+
+
+
+
+// level0 011 : 배열의 평균값
+class Solution011 {
+    public static void main(String[] args) {
+        Solution011 prbs = new Solution011();
+        int[] numbers = {1,2,3,4,5,6,7,8,9,10};
+        prbs.solution(numbers);
+        System.out.println(prbs.solution(numbers));
+    }
+    public double solution(int[] numbers) {
+        double answer = 0;
+        int sum = 0;
+        for(int i = 0; i < numbers.length; i++){
+            sum += numbers[i];
+        }
+//        answer = (double) (sum / numbers.length);  // 소괄호 먼저 int끼리 계산하면 소수점아래는 절삭되서 나와서 각각 소수로 치환 후 나눠줘야 정확히 떨어짐
+        answer = ((double)sum / (double)numbers.length);
+//        System.out.println(sum);
+//        System.out.println(numbers.length);
+//        System.out.println(sum / numbers.length);
+//        System.out.println(answer);
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+class Solution011 {
+    public double solution(int[] numbers) {
+        double answer = 0;
+        int sum = 0;
+        for(int i = 0; i < numbers.length; i++){
+            sum += numbers[i];
+        }
+//        answer = (double) (sum / numbers.length);  // 소괄호 먼저 int끼리 계산하면 소수점아래는 절삭되서 나와서 각각 소수로 치환 후 나눠줘야 정확히 떨어짐
+        answer =  ((double)sum / (double)numbers.length);
+        return answer;
+    }
+}
+
+ */
+
+
+
+
+// level0 012 : 양꼬치
+class Solution012 {
+/*
+조건
+    1.
+
+
+brainstorming
+    (10 * 12000) + (3 * 2000) if(10마다) - 2000 = 124000
+    (n * 12000) + (k * 2000) - if(10마다) {l * 2000}
+
+    n 10개마다 k 1개 서비스 : n % 10 == 0
+*/
+
+    public static void main(String[] args) {
+        Solution012 prbs = new Solution012();
+//        System.out.println(prbs.solution(64, 6));
+        System.out.println(prbs.solution(10, 3));
+    }
+    public int solution(int n, int k) {
+        int answer = 0;
+
+        if(n % 10 >= 0 && n / 10 >= 1){
+        // n이 10의 배수이면서 10나누기10 1이상 즉, 10개가 1개 이상이면서 10의 배수로 20,30개라면
+
+            answer = (n * 12000) + (k * 2000) - ((n /10) * 2000);
+        }else{
+            answer = (n * 12000) + (k * 2000);
+        }
+        int a = (n * 12000) + (k * 2000);
+        System.out.println(a);
+        System.out.println((n %10));
+
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+class Solution012 {
+    public int solution(int n, int k) {
+        int answer = 0;
+        if(n % 10 >= 0 && n / 10 >= 1){
+        // n이 10의 배수이면서 10나누기10 1이상
+        // 즉, 10개가 1개 이상이면서 10의 배수로 20,30개라면
+            answer = (n * 12000) + (k * 2000) - ((n /10) * 2000);
+        }else{
+            answer = (n * 12000) + (k * 2000);
+        }
+        return answer;
+    }
+}
+
+ */
+
+
+
+
+// level0 013 : 중복된 숫자 개수
+class Solution013 {
+    public static void main(String[] args) {
+        Solution013 prbs = new Solution013();
+        prbs.solution(1);
+        System.out.println(prbs.solution(1));
+    }
+    public int solution(int n) {
+        int answer = 0;
+
+
+        return answer;
+    }
+}
 /*
 조건
     1.
@@ -342,7 +467,6 @@ brainstorming
 
 */
 
-    }
 /*
 
     정답1
@@ -353,8 +477,20 @@ brainstorming
 
 
 
-    // level0 012 : 양꼬치
-    public void method012() {
+// level0 014 : 점의 위치 구하기
+class Solution014 {
+    public static void main(String[] args) {
+        Solution014 prbs = new Solution014();
+        prbs.solution(1);
+        System.out.println(prbs.solution(1));
+    }
+    public int solution(int n) {
+        int answer = 0;
+
+
+        return answer;
+    }
+}
 /*
 조건
     1.
@@ -364,7 +500,6 @@ brainstorming
 
 */
 
-    }
 /*
 
     정답1
@@ -375,8 +510,20 @@ brainstorming
 
 
 
-    // level0 013 : 중복된 숫자 개수
-    public void method013() {
+// level0 015 : 짝수 홀수 개수
+class Solution015 {
+    public static void main(String[] args) {
+        Solution015 prbs = new Solution015();
+        prbs.solution(1);
+        System.out.println(prbs.solution(1));
+    }
+    public int solution(int n) {
+        int answer = 0;
+
+
+        return answer;
+    }
+}
 /*
 조건
     1.
@@ -386,7 +533,6 @@ brainstorming
 
 */
 
-    }
 /*
 
     정답1
@@ -397,8 +543,20 @@ brainstorming
 
 
 
-    // level0 014 : 점의 위치 구하기
-    public void method014() {
+// level0 016 : 최댓값 만들기(1)
+class Solution016 {
+    public static void main(String[] args) {
+        Solution016 prbs = new Solution016();
+        prbs.solution(1);
+        System.out.println(prbs.solution(1));
+    }
+    public int solution(int n) {
+        int answer = 0;
+
+
+        return answer;
+    }
+}
 /*
 조건
     1.
@@ -408,7 +566,6 @@ brainstorming
 
 */
 
-    }
 /*
 
     정답1
@@ -419,8 +576,20 @@ brainstorming
 
 
 
-    // level0 015 : 짝수 홀수 개수
-    public void method015() {
+// level0 017 : 피자 나눠 먹기 (1)
+class Solution017 {
+    public static void main(String[] args) {
+        Solution017 prbs = new Solution017();
+        prbs.solution(1);
+        System.out.println(prbs.solution(1));
+    }
+    public int solution(int n) {
+        int answer = 0;
+
+
+        return answer;
+    }
+}
 /*
 조건
     1.
@@ -430,7 +599,6 @@ brainstorming
 
 */
 
-    }
 /*
 
     정답1
@@ -441,8 +609,20 @@ brainstorming
 
 
 
-    // level0 016 : 최댓값 만들기(1)
-    public void method016() {
+// level0 018 : 편지
+class Solution018 {
+    public static void main(String[] args) {
+        Solution018 prbs = new Solution018();
+        prbs.solution(1);
+        System.out.println(prbs.solution(1));
+    }
+    public int solution(int n) {
+        int answer = 0;
+
+
+        return answer;
+    }
+}
 /*
 조건
     1.
@@ -452,7 +632,6 @@ brainstorming
 
 */
 
-    }
 /*
 
     정답1
@@ -463,8 +642,20 @@ brainstorming
 
 
 
-    // level0 017 : 피자 나눠 먹기 (1)
-    public void method017() {
+// level0 019 : 배열의 유사도
+class Solution019 {
+    public static void main(String[] args) {
+        Solution019 prbs = new Solution019();
+        prbs.solution(1);
+        System.out.println(prbs.solution(1));
+    }
+    public int solution(int n) {
+        int answer = 0;
+
+
+        return answer;
+    }
+}
 /*
 조건
     1.
@@ -474,7 +665,6 @@ brainstorming
 
 */
 
-    }
 /*
 
     정답1
@@ -485,8 +675,20 @@ brainstorming
 
 
 
-    // level0 018 : 편지
-    public void method018() {
+// level0 020 : 옷가게 할인 받기
+class Solution020 {
+    public static void main(String[] args) {
+        Solution020 prbs = new Solution020();
+        prbs.solution(1);
+        System.out.println(prbs.solution(1));
+    }
+    public int solution(int n) {
+        int answer = 0;
+
+
+        return answer;
+    }
+}
 /*
 조건
     1.
@@ -496,7 +698,6 @@ brainstorming
 
 */
 
-    }
 /*
 
     정답1
@@ -507,56 +708,9 @@ brainstorming
 
 
 
-    // level0 019 : 배열의 유사도
-    public void method019() {
-/*
-조건
-    1.
-
-brainstorming
-    1.
-
-*/
-
-    }
-/*
-
-    정답1
-
-
- */
-
-
-
-
-    // level0 020 : 옷가게 할인 받기
-    public void method020() {
-/*
-조건
-    1.
-
-brainstorming
-    1.
-
-*/
-
-    }
-/*
-
-    정답1
-
-
- */
-
-
-    
-    
 /*
 못 푼 문제(다시풀어보기)
     1.
 
 
  */
-
-
-}

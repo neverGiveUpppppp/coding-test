@@ -26,6 +26,7 @@ public class Run {
 //        level0_20.method019();
 //        level0_20.method020();
 
+//        Solution020 a = new Solution020();
 
 
     }
