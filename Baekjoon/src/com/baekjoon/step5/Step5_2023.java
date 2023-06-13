@@ -1352,16 +1352,67 @@ public class Main {
     public void method11() {
 /*
 조건
-    1.
+    입력 받은 그대로 출력하기
+    1.입력값 구성 : 알파벳 소문자, 대문자, 공백, 숫자 ( input <= 100줄 )
+    2.빈 줄 x, 공백 시작·끝 x
 
 brainstorming
-    1.
+    1. 가로 세로 각각 몇 줄이 오는 지 모름
+        일단 지정된 가로 길이가 없으니 StringTokenizer + while(hasMoreToken())?
+            구분자로 또 잘라넣어야하기에 안맞음
+        br.readLine()으로  한 줄 통째로 받고 각각 출력
+    2.StringBuilder에 하나씩 문자열 축적?
+        한 줄 받고, 한 줄 줄바꿈 반복
+    3.EOF 문제!
+
 
 */
+
+/*
+
+    풀이과정
+
         try{
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-            int n = Integer.parseInt(br.readLine());
+
+            // 1. 가로 입력값 받기
+//            StringTokenizer st = new StringTokenizer(br.readLine()," ");
+//
+//            ArrayList<String> list = new ArrayList<>();
+//            while(st.hasMoreTokens()){
+//                list.add(st.nextToken());
+//            }
+
+//            // loop반복횟수 정할려니 몇번 도는 지 아예 모름. 즉, 설정 불가
+//            String str1 = br.readLine();
+//            String str2 = br.readLine();
+//            String str3 = br.readLine();
+//
+//            System.out.println(str1);
+//            System.out.println(str2);
+//            System.out.println(str3);
+
+//            String str = br.readLine();
+//            String store = null;
+//            while((str = br.readLine()) != null) {  EOF 문제 같음. 얼마나 값을 받을 지 모르기에
+//                store = br.readLine();
+//            }
+*/
+
+
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+            String input = "";
+            ArrayList<String> list = new ArrayList<>();
+            while((input = br.readLine()) != null && !input.isEmpty()) {
+                list.add(input);
+            }
+            for(String i : list){
+                System.out.println(i);
+            }
 
         }catch(IOException e){
             e.printStackTrace();
@@ -1372,7 +1423,7 @@ brainstorming
 /*
 
     정답1
-        14088	124
+        14412	128
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -1381,7 +1432,17 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) {
         try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
+            String input = "";
+            ArrayList<String> list = new ArrayList<>();
+            while((input = br.readLine()) != null && !input.isEmpty()) {
+                list.add(input);
+            }
+            for(String i : list){
+                System.out.println(i);
+            }
 
         }catch(IOException e){
             e.printStackTrace();
