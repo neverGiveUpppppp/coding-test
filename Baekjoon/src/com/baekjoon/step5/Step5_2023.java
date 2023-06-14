@@ -471,7 +471,7 @@ brainstorming
             bw.flush();
             bw.close();
             br.close();
- */
+
         try{
 
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -480,8 +480,8 @@ brainstorming
             // 1.첫째줄 받기
             String word = br.readLine();
             // 2.비교용 알파벳 배열
-            String[] alphabet = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","s","y","z"};
-
+            String[] alphabet = {"a","b","c","d","e","f","g","h"," i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","s","y","z"};
+            ArrayList<String> alphabet_list = new ArrayList<>(Arrays.asList(alphabet));
             // 3.비교를 위해 word의 문자열을 쪼개서 배열에 넣기
 //            String[] arrStr = new String[word.length()];
 //            for(int i = 0; i < word.length(); i++) { // word가  몇 글자(letter)일지 모름. 26은 아니다 nullpoint뜸
@@ -496,23 +496,103 @@ brainstorming
             }
             System.out.println("arrStr : "+ Arrays.toString(arrStr));
 
+//            int[] arrInt = new int[26];
+//            for(int i = 0; i < 26; i++){
+//                arrInt[i] = -1;
+//            }
+//            ArrayList<Integer> answer = new ArrayList<>(Arrays.asList(arrInt)); // Integer와 int타입이라 컴파일에러
+
             // 4.값 하나 씩 대조(linear search)
+            ArrayList<String> list = new ArrayList<>(Arrays.asList(arrStr));
+            ArrayList<Integer> answer = new ArrayList<>();
+            for(int j = 0; j < 26; j++){
+                answer.add(-1);
+            }
+            System.out.println(answer);
             int i = 0;
-            int j = 0;
-            ArrayList<String> list = new ArrayList<>();
-            while( i< 26){
+            while( i < list.size()){
                 // 알파벳과 arrStr 하나 씩 대조하기
+                // arrStr에 없는 문자는 -1 처리
+//                if(alphabet_list.contains(list.get(i))){
+//                    answer.set();
+////                    answer.add(list.indexOf(list.get(i)));
+//                }else{
+////                    answer.add(-1);
+//                }
+                // list의 0번째 값인 b를 alphabet에서 찾아 몇번째인지 인덱스 수 반환
+                // a,b니까 1반환이 되어야함. 이 1을 set에 넣어줘야함. b자리가 1번째니까 set에 1을 넣어줌
+                // set(1, 1) 바꿀 수도 1
+                // list.get(i)가 알파벳에 몇번째 인덱스인지만 알면 됨
+
+                if(alphabet_list.contains(list.get(i))){
+//                    System.out.println("alphabet : " + alphabet_list.indexOf(list.get(i)));
+//                    answer.set(alphabet_list.indexOf(list.get(i)),alphabet_list.indexOf(list.get(i)));
+//  알파벳의 인덱스번호가 아닌 list의 인덱스 번호와 바꿔줘야함
+                    System.out.println("alphabet : " + alphabet_list.indexOf(list.get(i)));
+                    answer.set(alphabet_list.indexOf(list.get(i)),list.indexOf(list.get(i)));
+                }else{
+//                    answer.add(-1);
+                }
+
+                System.out.println("list.get(i) : " + list.get(i));
+                System.out.println("answer : " + answer);
 //                if(alphabet[i] == arrStr[j])
 //                    list.add(arrStr[j].indexOf(alphabet[i]));
                 // 알파벳 값를 찾으면 해당 포문을 멈추고 다음 알바펫값의 포문으로 이동하기 : break
                 i++;
             }
-//            for(int i = 0; i < 26; i++){
-// {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","s","y","z"};
-//  [b, a, e, k, j, o, o, n]
-// 하나씩 체크하되 값이 있으면 break하고 다음 값 대조하기
+
+            for(int k : answer){
+                System.out.print(k + " ");
+            }
 
 
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+ */
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+            // 1.첫째줄 받기
+            String word = br.readLine();
+            // 2.비교용 알파벳 배열
+            String[] letters = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
+            ArrayList<String> alphabet = new ArrayList<>(Arrays.asList(letters));
+
+            // 3.비교를 위해 word의 문자열을 쪼개서 배열에 넣기
+            String[] arrStr = null;
+            if(word.length() <= 100) {      // 단어 100자 안넘는 유효성검사
+                arrStr = new String[word.length()];
+                for (int i = 0; i < word.length(); i++) {
+                    arrStr[i] = String.valueOf(word.charAt(i)).toLowerCase();
+                }
+            }
+            ArrayList<String> list = new ArrayList<>(Arrays.asList(arrStr)); // Array to ArrayList
+
+            // 4.값을 바꿔넣을 ArrayList의 -1 넣어주기
+            ArrayList<Integer> answer = new ArrayList<>();
+            for(int j = 0; j < 26; j++){
+                answer.add(-1);
+            }
+
+            // 5.알파벳과 입력 받은 문자 인덱스번호 바꿔치기
+            int i = 0;
+            while( i < list.size()){
+                if(alphabet.contains(list.get(i))){
+                    answer.set(alphabet.indexOf(list.get(i)),list.indexOf(list.get(i)));
+                }
+                i++;
+            }
+            // 출력하기
+            for(int k : answer){
+               bw.write(k + " ");
+            }
+            bw.flush();
+            bw.close();
+            br.close();
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -522,7 +602,7 @@ brainstorming
 /*
 
     정답1
-        14088	124
+        14300	128
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -531,7 +611,46 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) {
         try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
+            // 1.첫째줄 받기
+            String word = br.readLine();
+            // 2.비교용 알파벳 배열
+            String[] letters = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
+            ArrayList<String> alphabet = new ArrayList<>(Arrays.asList(letters));
+
+            // 3.비교를 위해 word의 문자열을 쪼개서 배열에 넣기
+            String[] arrStr = null;
+            if(word.length() <= 100) {      // 단어 100자 안넘는 유효성검사
+                arrStr = new String[word.length()];
+                for (int i = 0; i < word.length(); i++) {
+                    arrStr[i] = String.valueOf(word.charAt(i)).toLowerCase();
+                }
+            }
+            ArrayList<String> list = new ArrayList<>(Arrays.asList(arrStr)); // Array to ArrayList
+
+            // 4.값을 바꿔넣을 ArrayList의 -1 넣어주기
+            ArrayList<Integer> answer = new ArrayList<>();
+            for(int j = 0; j < 26; j++){
+                answer.add(-1);
+            }
+
+            // 5.알파벳과 입력 받은 문자 인덱스번호 바꿔치기
+            int i = 0;
+            while( i < list.size()){
+                if(alphabet.contains(list.get(i))){
+                    answer.set(alphabet.indexOf(list.get(i)),list.indexOf(list.get(i)));
+                }
+                i++;
+            }
+            // 출력하기
+            for(int k : answer){
+               bw.write(k + " ");
+            }
+            bw.flush();
+            bw.close();
+            br.close();
 
         }catch(IOException e){
             e.printStackTrace();
