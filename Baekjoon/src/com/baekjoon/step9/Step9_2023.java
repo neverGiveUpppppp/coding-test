@@ -2,6 +2,9 @@ package com.baekjoon.step9;
 
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.StringTokenizer;
 
 // Step9-1 	5086 배수와 약수
@@ -35,15 +38,15 @@ class Step9_1{
             // 1.테스트케이스 입력값 받기
             int testcase = Integer.parseInt(br.readLine());
 
-            int num1 = 0;
-            int num2 = 0;
+            int[] numbers = new int[testcase];
             for (int i = 0; i < testcase; i++) {
                 st = new StringTokenizer(br.readLine(), " ");
-                num1 = Integer.parseInt(st.nextToken());
-                num2 = Integer.parseInt(st.nextToken());
+                while(st.hasMoreTokens()){
+                    numbers[i] += Integer.parseInt(st.nextToken());
+                }
             }
-            System.out.println(num1);
-            System.out.println(num2);
+
+            System.out.println(Arrays.toString(numbers));
 
 
         }catch(IOException e){
