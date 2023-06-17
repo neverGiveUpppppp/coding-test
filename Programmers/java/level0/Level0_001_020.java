@@ -444,40 +444,60 @@ class Solution012 {
 
 
 
-// level0 013 : 중복된 숫자 개수
+// level0 013 : 피자 나눠 먹기 (1)
 class Solution013 {
     public static void main(String[] args) {
         Solution013 prbs = new Solution013();
-        prbs.solution(1);
-        System.out.println(prbs.solution(1));
+        System.out.println(prbs.solution(8));
     }
     public int solution(int n) {
         int answer = 0;
 
-
+        if(n%7 == 0){
+            answer = (n / 7);
+            // 7과 딱 맞아떨어지는 수면 나머지가 없어 +1해주면 안되기 때문
+        }else{
+            answer = (n / 7) + 1;
+        }
         return answer;
     }
 }
 /*
 조건
-    1.
+	피자 7조각
+    나눠먹을 사람 수 : n
+    인당 1조각을 위한 피자수
 
 brainstorming
-    1.
+	피자 한판당 7명까지 : 7의 배수d
+    나눈 몫 = 필요한 피자 판 수
+    	만약, 나머지가 있다면 몫+1
 
 */
 
 /*
 
     정답1
+class Solution013 {
+    public int solution(int n) {
+        int answer = 0;
 
+        if(n%7 == 0){
+            answer = (n / 7);
+            // 7과 딱 맞아떨어지는 수면 나머지가 없어 +1해주면 안되기 때문
+        }else{
+            answer = (n / 7) + 1;
+        }
+        return answer;
+    }
+}
 
  */
 
 
 
 
-// level0 014 : 점의 위치 구하기
+// level0 014 : 최댓값 만들기(1)
 class Solution014 {
     public static void main(String[] args) {
         Solution014 prbs = new Solution014();
@@ -510,7 +530,7 @@ brainstorming
 
 
 
-// level0 015 : 짝수 홀수 개수
+// level0 015 : 배열 뒤집기
 class Solution015 {
     public static void main(String[] args) {
         Solution015 prbs = new Solution015();
@@ -543,7 +563,7 @@ brainstorming
 
 
 
-// level0 016 : 최댓값 만들기(1)
+// level0 016 : 순서쌍의 개수
 class Solution016 {
     public static void main(String[] args) {
         Solution016 prbs = new Solution016();
@@ -576,7 +596,7 @@ brainstorming
 
 
 
-// level0 017 : 피자 나눠 먹기 (1)
+// level0 017 : 순서쌍의 개수
 class Solution017 {
     public static void main(String[] args) {
         Solution017 prbs = new Solution017();
@@ -609,7 +629,7 @@ brainstorming
 
 
 
-// level0 018 : 편지
+// level0 018 : 배열 원소의 길이
 class Solution018 {
     public static void main(String[] args) {
         Solution018 prbs = new Solution018();
@@ -642,7 +662,7 @@ brainstorming
 
 
 
-// level0 019 : 배열의 유사도
+// level0 019 : 짝수 홀수 개수
 class Solution019 {
     public static void main(String[] args) {
         Solution019 prbs = new Solution019();
@@ -675,7 +695,7 @@ brainstorming
 
 
 
-// level0 020 : 옷가게 할인 받기
+// level0 020 : 편지
 class Solution020 {
     public static void main(String[] args) {
         Solution020 prbs = new Solution020();
