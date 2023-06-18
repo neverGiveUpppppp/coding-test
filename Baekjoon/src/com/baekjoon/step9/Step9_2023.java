@@ -186,7 +186,7 @@ class Step9_1{
 // 진작 풀었을 것을... 백준 문제가 너무 불친절하다. 입력 예제에는 한번에 다 받는 것처럼 해놓고ㅡㅡ
         
         
-/******************************************************************************/
+///////////////////////////////////////////////////////////////////////////////
 
         // 방법1
 //        Scanner sc = new Scanner(System.in);
@@ -311,8 +311,192 @@ public class Main {
 
 
 
-// Step9-2 5086 배수와 약수
+// Step9-2 2501	약수 구하기
 class Step9_2{
+/*
+조건
+    1.자연수 N, K
+    2.N의 약수 중 K번재로 작은 약수
+
+braintstorm
+    1.N의 약수 구하기
+        전체 약수 구하는 공식
+    2.주어진 수(약수들) 중 K번째 작은 수
+        배열,list이라면 sort() 실행 후 인덱스로 꺼내기
+
+
+
+*/
+    public static void main(String[] args) throws IOException {
+        Step9_2 main = new Step9_2();
+
+        // 1. 입력값 받기
+        int[] input = main.input();
+        int k = input[0];
+        int n = input[1];
+
+        // 2.k의 약수 구하기
+        ArrayList<Integer> list = main.factors(k);
+
+        // 3.k의 약수 중 n번째 작은 수 구하기
+//        int answer = stp.min(list, n);
+//        list.get(n);
+
+        // 3.유효성체크+출력하기
+        main.validPrint(list, n);
+    }
+
+    // 1. 입력값 받기
+    public int[] input() {
+        int[] input = new int[2];
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            while(st.hasMoreTokens()){
+                input[0] = Integer.parseInt(st.nextToken());
+                input[1] = Integer.parseInt(st.nextToken());
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return input;
+    }
+
+    // 2.k의 약수 구하기
+    public ArrayList<Integer> factors(int k){
+        ArrayList<Integer> list = new ArrayList<>();
+
+        // 방법1 : loop + if(n % i)
+        for(int i = 1; i <= k; i++){
+            if(k % i == 0){
+                list.add(i);
+            }
+        }
+
+        // 방법2 : Math.sqrt()
+
+        return list;
+    }
+
+    // 3.k의 약수 중 n번째 작은 수 구하기
+    public int min(ArrayList<Integer> list, int n){
+        int answer = list.get(0);
+        // 앞에서 for문으로 돌려서 받기 때문에 수는 순서데로 정렬인 상태
+        list.get(n);
+
+        // 방법1 : loop
+//        for(int i = 0; i < list.size(); i++){
+//            int num = list.get(i);
+//            if(answer > num){
+//                answer = num;
+//            }
+//        }
+        // 방법2 : Collections.min()
+//        answer = Collections.min(list);
+        // 방법3 : Stream.min()
+//        answer = list.stream().min(Integer::compare).orElse(-1);
+        return answer;
+        // list.get(n-1)만 해도 값 추출 가능이므로 필요x
+    }
+    // 3.유효성체크+출력하기
+    public void validPrint(ArrayList<Integer> list, int n) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        // 유효성검사
+        if(list.size() < n){
+            bw.write("0");
+        }else{
+            bw.write(list.get(n-1)+"");
+        }
+        bw.flush();
+        bw.close();
+    }
+
+}
+
+/*
+
+    정답1
+        14224	124
+import java.util.*;
+import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        Main main = new Main();
+
+        // 1. 입력값 받기
+        int[] input = main.input();
+        int k = input[0];
+        int n = input[1];
+
+        // 2.k의 약수 구하기
+        ArrayList<Integer> list = main.factors(k);
+
+        // 3.유효성체크+출력하기
+        main.validPrint(list, n);
+    }
+
+    // 1. 입력값 받기
+    public int[] input() {
+        int[] input = new int[2];
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            while(st.hasMoreTokens()){
+                input[0] = Integer.parseInt(st.nextToken());
+                input[1] = Integer.parseInt(st.nextToken());
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return input;
+    }
+
+
+     public ArrayList<Integer> factors(int k){
+        ArrayList<Integer> list = new ArrayList<>();
+
+        // 방법1 : loop + if(n % i)
+        for(int i = 1; i <= k; i++){
+            if(k % i == 0){
+                list.add(i);
+            }
+        }
+
+        // 방법2 : Math.sqrt()
+
+        return list;
+    }
+    public void validPrint(ArrayList<Integer> list, int n) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        // 유효성검사
+        if(list.size() < n){
+            bw.write("0");
+        }else{
+            bw.write(list.get(n-1)+"");
+        }
+        bw.flush();
+        bw.close();
+    }
+}
+
+ */
+
+
+
+// Step9-3 9506	약수들의 합
+class Step9_3{
+    /*
+    조건
+        1.
+
+    braintstorm
+        1.
+
+    */
     public static void main(String[] args) {
 
     }
@@ -346,6 +530,46 @@ public class Main {
 
 
 
+
+// Step9-4 1978	소수 찾기
+class Step9_4{
+    /*
+    조건
+        1.
+
+    braintstorm
+        1.
+
+    */
+    public static void main(String[] args) {
+
+
+    }
+
+}
+
+
+/*
+
+    정답1
+        14088	124
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.*;
+import java.io.*;
+public class Main {
+    public static void main(String[] args) {
+        try{
+
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+}
+
+ */
 
 
 
