@@ -489,19 +489,126 @@ public class Main {
 
 // Step9-3 9506	약수들의 합
 class Step9_3{
-    /*
-    조건
-        1.
+/*
+조건
+    1.첫째 줄 입력값 N : 숫자의 개수 (1 ≤ N ≤ 1000)
+    2.둘째 줄 입력값 : N개 만큼의 수
+    3.입력값 N개의 수들 중 소수 개수 세기
 
-    braintstorm
-        1.
 
-    */
-    public static void main(String[] args) {
+braintstorm
+    1.소수 구하는 식
+        1)2미만 소수x
+        2)for문 i의 배수 거르기
+    2.N의 수만큼 둘째 줄 입력값이 안들어올 경우는?
+
+
+*/
+    public static void main(String[] args) throws IOException {
+        Step9_3 main = new Step9_3();
+
+        ArrayList<Integer> list = main.input();
+        System.out.println(list);
+
+        boolean[] isPrime = main.isPrime(list);
+
+//        boolean[] prime = main.prime_number(list);
+        int answer = main.prime_number(list);
+        System.out.println(answer);
+//        System.out.println(Arrays.toString(prime));
 
     }
 
+    // 1.입력값 받기
+    public ArrayList<Integer> input(){
+        ArrayList<Integer> list = null;
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            list = new ArrayList<>();
 
+            // 1)N값 받기
+            int N = Integer.parseInt(br.readLine());
+
+            // 2)N만큼 수 받기
+            StringTokenizer st = new StringTokenizer(br.readLine()," ");
+            while(st.hasMoreTokens()){
+                list.add(Integer.parseInt(st.nextToken()));
+            }
+            /************************************/
+//            // 현재는 막 받지만, N값 만큼 수를 받아야함 for문? 일단 문제에서 어떨지 모르니
+//            for (int i = 0; i < N; i++) {
+//                list.add(Integer.parseInt(st.nextToken()));
+//            }
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+
+    // 2.소수 찾기 & 카운트
+    public int prime_number(ArrayList<Integer> list){
+        int answer = 0;
+
+
+
+        return answer;
+    }
+
+    //    public boolean[] prime_number(ArrayList<Integer> list){
+////        boolean[] prime = new boolean[list.size()+1];	// 0 ~ N
+//        boolean[] prime = new boolean[list.size()];	// 0 ~ N
+//
+//
+//        // 2미만은 소수가 아니니 제외
+//        for (int i = 0; i < list.size(); i++) {
+//            if(list.get(i) < 2){
+//                prime[i] = true;
+//            }
+//        }
+//
+//        // 소수 판별 : 제곱근 함수 Math.sqrt() 사용
+//        for (int i = 2; i <= Math.sqrt(list.size()); i++) {
+//            // 이미 체크된 배열이면 다음 반복문으로 skip
+//
+//            if(prime[i] == true){
+//                continue;
+//            }
+//
+//            // i 의 배수들을 걸러주기 위한 반복문
+//            for(int j = i * i; j < prime.length; j = j+i) {
+//                prime[j] = true;
+//            }
+//        }
+//
+//        return prime;
+//    }
+    public void isPrime(ArrayList<Integer> list) {
+        for (int i = 0; i < list.size(); i++) {
+            // 0 과 1 은 소수가 아니므로 종료
+            if(list.get(i) < 2) {
+                continue;
+            }
+
+
+            // 2 는 소수이기에 카운트
+            if(list.get(i) == 2) {
+                answer++;   // 소수 2 발견이므로 개수 카운트 +1
+            }
+
+
+            // 제곱근 함수 : Math.sqrt()
+            for(int j = 2; j <= list.get(i); j++) {
+
+                // 소수일 경우 카운트
+                if(list.get(i) % j == 0) {
+                    break;
+                }
+
+            }
+        }
+    }
 
 }
 
