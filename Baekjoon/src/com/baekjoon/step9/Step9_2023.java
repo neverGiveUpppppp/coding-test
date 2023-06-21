@@ -491,6 +491,7 @@ public class Main {
 class Step9_3{
 /*
 조건
+<<<<<<< HEAD
     1.첫째 줄 입력값 N : 숫자의 개수 (1 ≤ N ≤ 1000)
     2.둘째 줄 입력값 : N개 만큼의 수
     3.입력값 N개의 수들 중 소수 개수 세기
@@ -542,10 +543,112 @@ braintstorm
 
         }catch (IOException e){
             e.printStackTrace();
+=======
+    n이 완전수인지 아닌지 판단하는 프로그램
+    완전수 : 자신을 제외한 모든 약수의 합이 같은 수
+    1. n이 완전수라면, n을 n이 아닌 약수들의 합으로 출력
+    2. n이 완전수인지 아닌지 판단
+    3. 약수 오름차순
+    4. 입력 마지막 값은 -1
+
+braintstorm
+    1. 입력값 마지막 -1 : 뭔가 수를 찾다가 없을 때 -1 반환하는 메소드들 때문일지도
+        여튼, -1이면 break;
+    2. 약수 구하고 배열에 담은 약수를 다 더해서 n과 같다면 완전수
+        약수 구하기
+            방법1 : for + if(n % i == 0)
+            방법2 : Math.sqrt()
+    3.입력값 출력 : 한 줄 씩일 걸로 예상됨
+
+*/
+    public static void main(String[] args) throws IOException {
+        Step9_3 main = new Step9_3();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        // 1.입력값
+        int testCase = 0;
+        ArrayList<Integer> list = new ArrayList<>();
+        while (true) {
+            testCase = Integer.parseInt(br.readLine());
+
+            if(testCase == -1){
+                break;
+            }else{
+                // 2.n값의 약수 구하기
+                list = main.factors(testCase);
+
+                // 3.n값의 약수들의 합 구하기(완전수 구분)
+                int num = main.sum(list);
+
+                // 4.완전수 판별하기 + 출력
+                main.categorize(testCase, num, list);
+            }
+
+        }
+        // 1.입력값
+//        int testCase = main.input();
+
+//        // 2.n값의 약수 구하기
+//        ArrayList<Integer> list = main.factors(testCase);
+
+//        // 3.n값의 약수들의 합 구하기(완전수 구분)
+//        int num = main.sum(list);
+//
+//        main.categorize(testCase, num, list);
+
+    }
+
+//    // 1.입력값
+//    public int input(){
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        int testCase = 0;
+//        try {
+//            while (true) {
+//                testCase = Integer.parseInt(br.readLine());
+//
+//                if(testCase == -1){
+//                    break;
+//                }else{
+//                    ArrayList<Integer> list = main.factors(testCase);
+//                }
+//
+//            }
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+//        return testCase;
+//    }
+// 1.입력값
+//    public int input(){
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        int testCase = 0;
+//            while (true) {
+//                testCase = Integer.parseInt(br.readLine());
+//
+//                if(testCase == -1){
+//                    break;
+//                }else{
+//                    ArrayList<Integer> list = main.factors(testCase);
+//                }
+//
+//            }
+//        return testCase;
+//    }
+
+    // 2.n값의 약수 구하기
+    public ArrayList<Integer> factors(int testCase){
+
+        ArrayList<Integer> list = new ArrayList<>();
+        for(int i = 1; i <= testCase; i++){
+            if(testCase % i == 0){
+                list.add(i);
+            }
+>>>>>>> 7afeea1827a8ec351cda7ee4ad7f0dd3613acc89
         }
         return list;
     }
 
+<<<<<<< HEAD
 
     // 2.소수 찾기 & 카운트
     public int prime_number(ArrayList<Integer> list){
@@ -607,6 +710,35 @@ braintstorm
                 }
 
             }
+=======
+    // 3.n값의 약수들의 합 구하기(완전수 구분)
+    public int sum(ArrayList<Integer> list) {
+        int num = 0;
+
+        for(int i = 0; i < list.size()-1; i++){ // n 자신의 수는 빠져야 하므로 -1
+            num += list.get(i);
+        }
+        return num;
+    }
+
+    // 4.완전수 판별하기 + 출력
+    StringBuilder sb = new StringBuilder();
+    public void categorize(int testCase, int num, ArrayList<Integer> list){
+        if(num == testCase){
+            // 약수의 개수가 몇개일지 모르니 list를 for문 돌려야할 듯
+            sb.append(num + " = ");
+            for(int i = 0; i < list.size()-1; i++){
+                sb.append(list.get(i) + " + ");
+            }
+//            sb.deleteCharAt(sb.lastIndexOf(sb.length()-1));
+            sb.delete(sb.length()-3,sb.length()-1);
+            System.out.println(sb.toString());
+            sb.setLength(0);    // sb 값 초기화
+        }else{
+            sb.append(testCase + " is NOT perfect.");
+            System.out.println(sb.toString());
+            sb.setLength(0);
+>>>>>>> 7afeea1827a8ec351cda7ee4ad7f0dd3613acc89
         }
     }
 
@@ -615,24 +747,76 @@ braintstorm
 
 /*
 
-    정답1
-        14088	124
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+    정답1 : while(true) break + StringBuilder + sb.setLength(0)
+        14120	128
 import java.util.*;
 import java.io.*;
 public class Main {
-    public static void main(String[] args) {
-        try{
+    public static void main(String[] args) throws IOException{
+        Main main = new Main();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
+        // 1.입력값
+        int testCase = 0;
+        ArrayList<Integer> list = new ArrayList<>();
+        while (true) {
+            testCase = Integer.parseInt(br.readLine());
 
-        }catch(IOException e){
-            e.printStackTrace();
+            if(testCase == -1){
+                break;
+            }else{
+                // 2.n값의 약수 구하기
+                list = main.factors(testCase);
+
+                // 3.n값의 약수들의 합 구하기(완전수 구분)
+                int num = main.sum(list);
+
+                // 4.완전수 판별하기 + 출력
+                main.categorize(testCase, num, list);
+            }
+        }
+    }
+
+    // 2.n값의 약수 구하기
+    public ArrayList<Integer> factors(int testCase){
+
+        ArrayList<Integer> list = new ArrayList<>();
+        for(int i = 1; i <= testCase; i++){
+            if(testCase % i == 0){
+                list.add(i);
+            }
+        }
+        return list;
+    }
+
+    // 3.n값의 약수들의 합 구하기(완전수 구분)
+    public int sum(ArrayList<Integer> list) {
+        int num = 0;
+
+        for(int i = 0; i < list.size()-1; i++){ // n 자신의 수는 빠져야 하므로 -1
+            num += list.get(i);
+        }
+        return num;
+    }
+
+    // 4.완전수 판별하기 + 출력
+    StringBuilder sb = new StringBuilder();
+    public void categorize(int testCase, int num, ArrayList<Integer> list){
+        if(num == testCase){
+            sb.append(num + " = ");
+            for(int i = 0; i < list.size()-1; i++){
+                sb.append(list.get(i) + " + ");
+            }
+            sb.delete(sb.length()-3,sb.length()-1);
+            System.out.println(sb.toString());
+            sb.setLength(0);    // sb 값 초기화
+        }else{
+            sb.append(testCase + " is NOT perfect.");
+            System.out.println(sb.toString());
+            sb.setLength(0);    // sb 값 초기화
         }
     }
 }
-
  */
 
 
