@@ -488,23 +488,34 @@ public class Main {
 
 
 // Step9-3 9506	약수들의 합
-class Step9_3{
+class Step9_3 {
+    /*
+    조건
+        1.첫째 줄 입력값 N : 숫자의 개수 (1 ≤ N ≤ 1000)
+        2.둘째 줄 입력값 : N개 만큼의 수
+        3.입력값 N개의 수들 중 소수 개수 세기
+
+
+    braintstorm
+        1. 입력값 마지막 -1 : 뭔가 수를 찾다가 없을 때 -1 반환하는 메소드들 때문일지도
+            여튼, -1이면 break;
+        2. 약수 구하고 배열에 담은 약수를 다 더해서 n과 같다면 완전수
+            약수 구하기
+                방법1 : for + if(n % i == 0)
+                방법2 : Math.sqrt()
+        3.입력값 출력 : 한 줄 씩일 걸로 예상됨
+
+        n이 완전수인지 아닌지 판단하는 프로그램
+        완전수 : 자신을 제외한 모든 약수의 합이 같은 수
+        1. n이 완전수라면, n을 n이 아닌 약수들의 합으로 출력
+        2. n이 완전수인지 아닌지 판단
+        3. 약수 오름차순
+        4. 입력 마지막 값은 -1
+
+
+    */
 /*
-조건
-<<<<<<< HEAD
-    1.첫째 줄 입력값 N : 숫자의 개수 (1 ≤ N ≤ 1000)
-    2.둘째 줄 입력값 : N개 만큼의 수
-    3.입력값 N개의 수들 중 소수 개수 세기
-
-
-braintstorm
-    1.소수 구하는 식
-        1)2미만 소수x
-        2)for문 i의 배수 거르기
-    2.N의 수만큼 둘째 줄 입력값이 안들어올 경우는?
-
-
-*/
+풀이과정
     public static void main(String[] args) throws IOException {
         Step9_3 main = new Step9_3();
 
@@ -535,120 +546,17 @@ braintstorm
             while(st.hasMoreTokens()){
                 list.add(Integer.parseInt(st.nextToken()));
             }
-            /************************************/
-//            // 현재는 막 받지만, N값 만큼 수를 받아야함 for문? 일단 문제에서 어떨지 모르니
+//            // 현재는 막 받지만, N값 만큼 수를 받아야함 for문? 일단
+ 문제에서 어떨지 모르니
 //            for (int i = 0; i < N; i++) {
 //                list.add(Integer.parseInt(st.nextToken()));
 //            }
 
         }catch (IOException e){
             e.printStackTrace();
-=======
-    n이 완전수인지 아닌지 판단하는 프로그램
-    완전수 : 자신을 제외한 모든 약수의 합이 같은 수
-    1. n이 완전수라면, n을 n이 아닌 약수들의 합으로 출력
-    2. n이 완전수인지 아닌지 판단
-    3. 약수 오름차순
-    4. 입력 마지막 값은 -1
-
-braintstorm
-    1. 입력값 마지막 -1 : 뭔가 수를 찾다가 없을 때 -1 반환하는 메소드들 때문일지도
-        여튼, -1이면 break;
-    2. 약수 구하고 배열에 담은 약수를 다 더해서 n과 같다면 완전수
-        약수 구하기
-            방법1 : for + if(n % i == 0)
-            방법2 : Math.sqrt()
-    3.입력값 출력 : 한 줄 씩일 걸로 예상됨
-
-*/
-    public static void main(String[] args) throws IOException {
-        Step9_3 main = new Step9_3();
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        // 1.입력값
-        int testCase = 0;
-        ArrayList<Integer> list = new ArrayList<>();
-        while (true) {
-            testCase = Integer.parseInt(br.readLine());
-
-            if(testCase == -1){
-                break;
-            }else{
-                // 2.n값의 약수 구하기
-                list = main.factors(testCase);
-
-                // 3.n값의 약수들의 합 구하기(완전수 구분)
-                int num = main.sum(list);
-
-                // 4.완전수 판별하기 + 출력
-                main.categorize(testCase, num, list);
-            }
-
-        }
-        // 1.입력값
-//        int testCase = main.input();
-
-//        // 2.n값의 약수 구하기
-//        ArrayList<Integer> list = main.factors(testCase);
-
-//        // 3.n값의 약수들의 합 구하기(완전수 구분)
-//        int num = main.sum(list);
-//
-//        main.categorize(testCase, num, list);
-
-    }
-
-//    // 1.입력값
-//    public int input(){
-//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        int testCase = 0;
-//        try {
-//            while (true) {
-//                testCase = Integer.parseInt(br.readLine());
-//
-//                if(testCase == -1){
-//                    break;
-//                }else{
-//                    ArrayList<Integer> list = main.factors(testCase);
-//                }
-//
-//            }
-//        }catch(IOException e){
-//            e.printStackTrace();
-//        }
-//        return testCase;
-//    }
-// 1.입력값
-//    public int input(){
-//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        int testCase = 0;
-//            while (true) {
-//                testCase = Integer.parseInt(br.readLine());
-//
-//                if(testCase == -1){
-//                    break;
-//                }else{
-//                    ArrayList<Integer> list = main.factors(testCase);
-//                }
-//
-//            }
-//        return testCase;
-//    }
-
-    // 2.n값의 약수 구하기
-    public ArrayList<Integer> factors(int testCase){
-
-        ArrayList<Integer> list = new ArrayList<>();
-        for(int i = 1; i <= testCase; i++){
-            if(testCase % i == 0){
-                list.add(i);
-            }
->>>>>>> 7afeea1827a8ec351cda7ee4ad7f0dd3613acc89
         }
         return list;
     }
-
-<<<<<<< HEAD
 
     // 2.소수 찾기 & 카운트
     public int prime_number(ArrayList<Integer> list){
@@ -710,12 +618,54 @@ braintstorm
                 }
 
             }
-=======
+        }
+    }
+
+}
+
+*/
+    public static void main(String[] args) throws IOException {
+        Step9_3 main = new Step9_3();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        // 1.입력값
+        int testCase = 0;
+        ArrayList<Integer> list = new ArrayList<>();
+        while (true) {
+            testCase = Integer.parseInt(br.readLine());
+
+            if (testCase == -1) {
+                break;
+            } else {
+                // 2.n값의 약수 구하기
+                list = main.factors(testCase);
+
+                // 3.n값의 약수들의 합 구하기(완전수 구분)
+                int num = main.sum(list);
+
+                // 4.완전수 판별하기 + 출력
+                main.categorize(testCase, num, list);
+            }
+        }
+    }
+
+    // 2.n값의 약수 구하기
+    public ArrayList<Integer> factors(int testCase) {
+
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 1; i <= testCase; i++) {
+            if (testCase % i == 0) {
+                list.add(i);
+            }
+        }
+        return list;
+    }
+
     // 3.n값의 약수들의 합 구하기(완전수 구분)
     public int sum(ArrayList<Integer> list) {
         int num = 0;
 
-        for(int i = 0; i < list.size()-1; i++){ // n 자신의 수는 빠져야 하므로 -1
+        for (int i = 0; i < list.size() - 1; i++) { // n 자신의 수는 빠져야 하므로 -1
             num += list.get(i);
         }
         return num;
@@ -723,26 +673,26 @@ braintstorm
 
     // 4.완전수 판별하기 + 출력
     StringBuilder sb = new StringBuilder();
-    public void categorize(int testCase, int num, ArrayList<Integer> list){
-        if(num == testCase){
+
+    public void categorize(int testCase, int num, ArrayList<Integer> list) {
+        if (num == testCase) {
             // 약수의 개수가 몇개일지 모르니 list를 for문 돌려야할 듯
             sb.append(num + " = ");
-            for(int i = 0; i < list.size()-1; i++){
+            for (int i = 0; i < list.size() - 1; i++) {
                 sb.append(list.get(i) + " + ");
             }
-//            sb.deleteCharAt(sb.lastIndexOf(sb.length()-1));
-            sb.delete(sb.length()-3,sb.length()-1);
+            sb.delete(sb.length() - 3, sb.length() - 1);
             System.out.println(sb.toString());
             sb.setLength(0);    // sb 값 초기화
-        }else{
+        } else {
             sb.append(testCase + " is NOT perfect.");
             System.out.println(sb.toString());
-            sb.setLength(0);
->>>>>>> 7afeea1827a8ec351cda7ee4ad7f0dd3613acc89
+            sb.setLength(0);    // sb 값 초기화
         }
     }
 
 }
+
 
 
 /*
@@ -826,6 +776,228 @@ public class Main {
 class Step9_4{
     /*
     조건
+        1.첫째 줄 N ( 0 < N < = 100)
+        2.둘째 줄 N개의 수 ( <= 1000)
+        3.소수 count
+
+    braintstorm
+        1.애초에 가로 한 줄 값을 몇개 받을 지 입력 단계에서 통제 불가능이라,
+            값을 받을 대로 받고 해당 값을 n값 이상 넘어가면 절삭
+        2.소수가 아닌 경우의 수 ( N % i ==0)를 받은 값이 들어있는 list에서 remove
+    */
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        Step9_4 main = new Step9_4();
+
+        // 1.입력값 N 받기
+        int n = main.input_n();
+
+        // 2.N개만큼 가로줄 입력값 받기
+        ArrayList<Integer> list = main.input_numbers(n);
+//        System.out.println(list);
+
+        // 3.ArrayList or Array로 받고 소수 뽑아내기
+        ArrayList<Integer> prime = main.prime(list);
+//        System.out.println(prime);
+
+        // 4.소수 개수 카운트
+        bw.write(prime.size()+"");
+        bw.flush();
+        bw.close();
+    }
+
+    // 1.입력값 N 받기
+    private int input_n() throws IOException {
+        int n = Integer.parseInt(br.readLine());
+        return n;
+    }
+
+    // 2.N개만큼 가로줄 입력값 받기
+    private ArrayList<Integer> input_numbers(int n) throws IOException {
+        ArrayList<Integer> input = new ArrayList<>();
+        ArrayList<Integer> list = new ArrayList<>();
+        StringTokenizer st = null;
+
+        st = new StringTokenizer(br.readLine());
+        while (st.hasMoreTokens()) {
+            input.add(Integer.parseInt(st.nextToken()));
+        }
+// 애초에 가로 한 줄 값을 몇개 받을 지 입력 단계에서 통제 불가능이라, 값을 받을 대로 받고 해당 값을 n값 이상 넘어가면 절삭
+        if(n == input.size() || n < input.size()) {
+            // n값과 같거나 초과할 경우 n개까지만 받기
+            for (int i = n - 1; i >= 0; i--) {
+                list.add(input.get(i));
+            }
+        }else{ // n값보다 적은 수 받을 경우
+            list.addAll(input);
+        }
+        list.sort(Comparator.naturalOrder());
+        return list;
+    }
+
+    // 3.ArrayList or Array로 받고 소수 뽑아내기
+    private ArrayList<Integer> prime(ArrayList<Integer> list) {
+        ArrayList<Integer> prime = new ArrayList<>(list);
+        // list 반복문 k
+        for (int k = 0; k < list.size(); k++) {
+            // 2 미만이면 소수가 아니므로 list에서 삭제
+            if(list.get(k) < 2) {
+                prime.remove(list.get(k));
+            }else if(list.get(k) > 2){
+                for(int i = 2; i <= Math.sqrt(list.get(k)); i++) {
+                    // 소수가 아닐경우 list에서 값 제거
+                    if(list.get(k) % i == 0) {
+                        prime.remove(list.get(k));
+                    }
+                }
+            }
+        }
+        return prime;
+    }
+}
+
+
+/*
+
+    정답1
+        14344	128
+import java.util.*;
+import java.io.*;
+public class Main {
+
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        Main main = new Main();
+
+        // 1.입력값 N 받기
+        int n = main.input_n();
+
+        // 2.N개만큼 가로줄 입력값 받기
+        ArrayList<Integer> list = main.input_numbers(n);
+
+        // 3.ArrayList or Array로 받고 소수 뽑아내기
+        ArrayList<Integer> prime = main.prime(list);
+
+        // 4.소수 개수 카운트
+        bw.write(prime.size()+"");
+        bw.flush();
+        bw.close();
+    }
+
+      // 1.입력값 N 받기
+    private int input_n() throws IOException {
+        int n = Integer.parseInt(br.readLine());
+        return n;
+    }
+
+    // 2.N개만큼 가로줄 입력값 받기
+    private ArrayList<Integer> input_numbers(int n) throws IOException {
+        ArrayList<Integer> input = new ArrayList<>();
+        ArrayList<Integer> list = new ArrayList<>();
+        StringTokenizer st = null;
+
+
+        st = new StringTokenizer(br.readLine());
+        while (st.hasMoreTokens()) {
+            input.add(Integer.parseInt(st.nextToken()));
+        }
+        // 애초에 가로 한 줄 값을 몇개 받을 지 입력 단계에서 통제 불가능이라, 값을 받을 대로 받고 해당 값을 n값 이상 넘어가면 절삭
+        if(n == input.size() || n < input.size()) { 
+            // n값과 같거나 초과할 경우 n개까지만 받기
+            for (int i = n - 1; i >= 0; i--) {
+                list.add(input.get(i));
+            }
+        }else{ // n값보다 적은 수 받을 경우
+            list.addAll(input);
+        }
+        list.sort(Comparator.naturalOrder());
+        return list;
+    }
+
+    // 3.ArrayList or Array로 받고 소수 뽑아내기
+    private ArrayList<Integer> prime(ArrayList<Integer> list) {
+        ArrayList<Integer> prime = new ArrayList<>(list);
+        // list 반복문 k
+        for (int k = 0; k < list.size(); k++) {
+            // 2 미만이면 소수가 아니므로 list에서 삭제
+            if(list.get(k) < 2) {
+                prime.remove(list.get(k));
+            }else if(list.get(k) > 2){
+                for(int i = 2; i <= Math.sqrt(list.get(k)); i++) {
+                    // 소수가 아닐경우 list에서 값 제거
+                    if(list.get(k) % i == 0) {
+                        prime.remove(list.get(k));
+                    }
+                }
+            }
+        }
+        return prime;
+    }
+}
+
+ */
+
+
+
+
+
+// Step9-5 2581	소수
+class Step9_5{
+    /*
+    조건
+        1.
+
+    braintstorm
+        1.
+
+    */
+
+    public static void main(String[] args) {
+        // 1.입력값 N 받기
+        Step9_5 main = new Step9_5();
+
+
+
+
+    }
+
+}
+
+
+/*
+
+    정답1
+        14088	124
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.*;
+import java.io.*;
+public class Main {
+    public static void main(String[] args) {
+        try{
+
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+}
+
+ */
+
+
+
+
+
+// Step9-6 11653 소인수분해
+class Step9_6{
+    /*
+    조건
         1.
 
     braintstorm
@@ -833,6 +1005,7 @@ class Step9_4{
 
     */
     public static void main(String[] args) {
+
 
 
     }
