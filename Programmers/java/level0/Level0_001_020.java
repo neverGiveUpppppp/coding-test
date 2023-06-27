@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Arrays;
 
 public class Level0_001_020 {
 // 문제 순서 정렬 : 정답률 높은 순
@@ -633,29 +634,44 @@ brainstorming
 class Solution018 {
     public static void main(String[] args) {
         Solution018 prbs = new Solution018();
-        prbs.solution(1);
-        System.out.println(prbs.solution(1));
+        String[] strlist = new String[]{"We","are","the","world!"};
+        int[] answer = prbs.solution(strlist);
+        System.out.println(Arrays.toString(answer));
     }
-    public int solution(int n) {
-        int answer = 0;
+    public int[] solution(String[] strlist) {
+        int[] answer = new int[strlist.length];
 
+        for (int i = 0; i < strlist.length; i++) {
+            answer[i] = strlist[i].length();
+        }
 
         return answer;
     }
 }
 /*
 조건
-    1.
+    1.배열 안에 값의 길이 각각 구하기
+    2.캐스팅 str to int
 
 brainstorming
-    1.
+    1.for loop 돌려서 하나씩 빼서 길이 구하기
 
 */
 
 /*
 
     정답1
+class Solution018 {
+    public int[] solution(String[] strlist) {
+        int[] answer = new int[strlist.length];
 
+        for (int i = 0; i < strlist.length; i++) {
+            answer[i] = strlist[i].length();
+        }
+
+        return answer;
+    }
+}
 
  */
 
