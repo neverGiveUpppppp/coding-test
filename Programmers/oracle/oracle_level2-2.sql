@@ -441,6 +441,76 @@ ORDER BY MEMBER_ID
 
 
 
+
+
+---- 재구매가 일어난 상품과 회원 리스트 구하기
+/* 
+조건
+    동일한 회원이 동일한 상품을 재구매한 데이터 추출, 재구매한 회원 ID와 재구매한 상품 ID를 출력
+    1)한 회원이 동일 상품 재구매
+    2)회원ID 오름차순 & 회원ID가 같다면, 상품ID 내림차순
+    
+brainstorming
+    1)재구매 : COUNT()해서 2이상이면 재구매 분별 가능
+    2)USER_ID,PRODUCT_ID를 GROUP BY로 묶은 후, COUNT(*)하면 동일한 회원이 재구매한 횟수가 나옴
+
+*/
+
+-- SELECT USER_ID, PRODUCT_ID
+-- FROM ONLINE_SALE 
+-- ORDER BY USER_ID, PRODUCT_ID
+
+-- SELECT USER_ID, PRODUCT_ID, COUNT(USER_ID)
+-- FROM ONLINE_SALE 
+-- GROUP BY USER_ID, PRODUCT_ID
+-- ORDER BY USER_ID, PRODUCT_ID
+
+-- SELECT USER_ID, PRODUCT_ID, COUNT(USER_ID)
+-- FROM ONLINE_SALE 
+-- GROUP BY USER_ID, PRODUCT_ID
+-- ORDER BY USER_ID, PRODUCT_ID
+-- 이전 구매이력(userId)가 나오고 또 하나번 이상의 이력이 있으면 그걸 출력
+-- 이걸 어떻게 뽑아낼까...? COUNT(USER_ID)해도 product_id가 달라서 카운트가 1씩로만 나오게됨. 아 이게 2개씩이어야 중복구매니까 카운트 맞는 듯?
+
+-- SELECT USER_ID, PRODUCT_ID
+-- FROM (
+--     SELECT USER_ID, PRODUCT_ID, COUNT(USER_ID)
+--     FROM ONLINE_SALE 
+--     GROUP BY USER_ID, PRODUCT_ID
+--     ORDER BY USER_ID, PRODUCT_ID
+    -- )
+    
+-- WHERE,HAVING에서 카운트 추출 가능?
+-- SELECT USER_ID, PRODUCT_ID, COUNT(USER_ID)
+-- FROM ONLINE_SALE 
+-- GROUP BY USER_ID, PRODUCT_ID
+-- HAVING COUNT(USER_ID) >= 2       -- WHERE X, HAVING O
+-- ORDER BY USER_ID, PRODUCT_ID
+-- 단순 조회만 보면 카운트로 중복서치 결과가 2개 뿐임. COUNT(USER_ID)를 SELECT문에서 빼야함. 답과 결과 다름
+
+-- SELECT USER_ID, PRODUCT_ID
+-- FROM(
+--     SELECT USER_ID, PRODUCT_ID, COUNT(USER_ID)
+--     FROM ONLINE_SALE 
+--     GROUP BY USER_ID, PRODUCT_ID
+--     HAVING COUNT(USER_ID) >= 2       -- WHERE X, HAVING O
+--     )   
+-- ORDER BY USER_ID, PRODUCT_ID
+-- COUNT빼고 해도 오답. 뭐가 문제일까? 정렬 내림차순 빠짐
+
+SELECT USER_ID, PRODUCT_ID
+FROM(
+    SELECT USER_ID, PRODUCT_ID, COUNT(USER_ID)
+    FROM ONLINE_SALE 
+    GROUP BY USER_ID, PRODUCT_ID
+    HAVING COUNT(USER_ID) >= 2 
+    )   
+ORDER BY USER_ID, PRODUCT_ID DESC
+
+
+
+
+
 /*
 다시 풀어 볼 문제
 
