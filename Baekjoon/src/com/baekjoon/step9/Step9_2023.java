@@ -949,44 +949,216 @@ public class Main {
 class Step9_5{
     /*
     조건
-        1.
+        1.M이상 N이하의 자연수 중 소수인 것 ( M <= N )
+        2.위의 소수들 중 합과 최솟값
+        3.세로 두 줄
 
     braintstorm
-        1.
+        1.소수 : 전체수를 arrayList 담고 소수 아닌 것 remove
+        2.최솟값 : 방법1 loop문, 방법2 Collections.min()
+        3.소수의 합은 +=로
 
     */
-
-    public static void main(String[] args) {
-        // 1.입력값 N 받기
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException {
         Step9_5 main = new Step9_5();
 
+        // 1.입력값 m,n 받기
+        int m = main.inputM();
+        int n = main.inputN();
 
+        // 2.소수 뽑기
+        ArrayList<Integer> prime = main.prime(m,n);
 
+        // 3. 소수의 합 및 최소값
+        main.min_sum(prime);
 
     }
 
+
+
+    // 1.입력값 m,n 받기
+    private int inputM() throws IOException{
+        int m = Integer.parseInt(br.readLine());
+        return m;
+    }
+    public int inputN() throws IOException{
+        int n = Integer.parseInt(br.readLine());
+        return n;
+    }
+    
+    // 2.소수 뽑기
+    private ArrayList<Integer> prime(int m, int n) {
+        // 2-1) m~n사이 값 list에 넣기
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = m; i <= n; i++) {
+            list.add(i);
+        }
+
+        // 2-2)소수 찾기
+        ArrayList<Integer> prime = new ArrayList<>(list);   // list.remove()하면서 list.size()가 줄어 인덱스가 달라지기 때문에 list객체 2개 필요
+        for (int i = 0; i < list.size(); i++) {
+            // 0과 1 소수x 제거
+            if (list.get(i) < 2){   // 주어지는 수 자연수
+//                prime.remove(list.get(i));
+                prime.remove(i);
+            }else if(list.get(i) > 2){
+                for (int j = 2; j <= Math.sqrt(list.get(i)); j++) {
+                    if (list.get(i) % j == 0) {
+                        prime.remove(list.get(i));
+                    }
+                }
+            }
+        }
+        return prime;
+    }
+
+
+    // 3. 소수의 합 및 최소값
+    private void min_sum(ArrayList<Integer> prime) {
+        StringBuilder sb = new StringBuilder();
+        Step9_5 main = new Step9_5();
+        if (prime.isEmpty()) {
+            prime.add(-1);
+            sb.append(prime.get(0));
+            System.out.print(sb.toString());
+        }else{
+            // 3-1) 소수의 합
+            int sum = main.sum(prime);
+            // 3-2) 최솟값
+            int min = main.min(prime);
+            // 3-3) 값 출력
+            sb.append(sum+"\n");
+            sb.append(min);
+            System.out.print(sb.toString());
+        }
+    }
+
+    // 3-1)소수의 합
+    public int sum(ArrayList<Integer> prime) {
+        int sum = 0;
+        for (int i = 0; i < prime.size(); i++) {
+            sum += prime.get(i);
+        }
+        return sum;
+    }
+
+    // 3-2)최솟값
+    private int min(ArrayList<Integer> list) {
+        int min = list.get(0);
+        for (int i = 0; i < list.size(); i++) {
+            int num = list.get(i);
+            if (min > num) {
+                min = num;
+            }
+        }
+        return min;
+    }
 }
 
 
 /*
 
     정답1
-        14088	124
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+        16068	360
 import java.util.*;
 import java.io.*;
 public class Main {
-    public static void main(String[] args) {
-        try{
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+    public static void main(String[] args) throws IOException {
+        Main main = new Main();
+
+        // 1.입력값 m,n 받기
+        int m = main.inputM();
+        int n = main.inputN();
+
+        // 2.소수 뽑기
+        ArrayList<Integer> prime = main.prime(m,n);
+
+        // 3. 소수의 합 및 최소값
+        main.min_sum(prime);
+    }
+
+    // 1.입력값 m,n 받기
+    private int inputM() throws IOException{
+        int m = Integer.parseInt(br.readLine());
+        return m;
+    }
+    public int inputN() throws IOException{
+        int n = Integer.parseInt(br.readLine());
+        return n;
+    }
+
+    // 2.소수 뽑기
+    private ArrayList<Integer> prime(int m, int n) {
+        // 2-1) m~n사이 값 list에 넣기
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = m; i <= n; i++) {
+            list.add(i);
+        }
+        // 2-2)소수 찾기
+        ArrayList<Integer> prime = new ArrayList<>(list);   // list.remove()하면서 list.size()가 줄어 인덱스가 달라지기 때문에 list객체 2개 필요
+        for (int i = 0; i < list.size(); i++) {
+            // 0과 1 소수x 제거
+            if (list.get(i) < 2){   // 주어지는 수 자연수
+//                prime.remove(list.get(i));
+                prime.remove(i);
+            }else if(list.get(i) > 2){
+                for (int j = 2; j <= Math.sqrt(list.get(i)); j++) {
+                    if (list.get(i) % j == 0) {
+                        prime.remove(list.get(i));
+                    }
+                }
+            }
+        }
+        return prime;
+    }
 
 
-        }catch(IOException e){
-            e.printStackTrace();
+    // 3. 소수의 합 및 최소값
+    private void min_sum(ArrayList<Integer> prime) {
+        StringBuilder sb = new StringBuilder();
+        Main main = new Main();
+        if (prime.isEmpty()) {
+            prime.add(-1);
+            sb.append(prime.get(0));
+            System.out.print(sb.toString());
+        }else{
+            // 3-1) 소수의 합
+            int sum = main.sum(prime);
+            // 3-2) 최솟값
+            int min = main.min(prime);
+            // 3-3) 값 출력
+            sb.append(sum+"\n");
+            sb.append(min);
+            System.out.print(sb.toString());
         }
     }
+
+
+
+    // 3-1)소수의 합
+    public int sum(ArrayList<Integer> prime) {
+        int sum = 0;
+        for (int i = 0; i < prime.size(); i++) {
+            sum += prime.get(i);
+        }
+        return sum;
+    }
+    // 3-2)최솟값
+    private int min(ArrayList<Integer> list) {
+        int min = list.get(0);
+        for (int i = 0; i < list.size(); i++) {
+            int num = list.get(i);
+            if (min > num) {
+                min = num;
+            }
+        }
+        return min;
+    }
 }
+
 
  */
 
