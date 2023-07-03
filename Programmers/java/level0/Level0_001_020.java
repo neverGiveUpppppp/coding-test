@@ -484,8 +484,7 @@ class Solution013 {
         int answer = 0;
 
         if(n%7 == 0){
-            answer = (n / 7);
-            // 7과 딱 맞아떨어지는 수면 나머지가 없어 +1해주면 안되기 때문
+            answer = (n / 7);  // 7과 딱 맞아떨어지는 수면 나머지가 없어 +1해주면 안되기 때문
         }else{
             answer = (n / 7) + 1;
         }
@@ -498,32 +497,42 @@ class Solution013 {
 
 
 
-// level0 014 : 최댓값 만들기(1)
+// level0 014 : 편지
 class Solution014 {
     public static void main(String[] args) {
         Solution014 prbs = new Solution014();
-        prbs.solution(1);
-        System.out.println(prbs.solution(1));
+        prbs.solution("");
+        System.out.println(prbs.solution("happy birthday!"));
     }
-    public int solution(int n) {
+    public int solution(String message) {
         int answer = 0;
-
+        answer = message.length() * 2;
 
         return answer;
     }
 }
 /*
 조건
-    1.
+    1.한 글자 * 2 & 가로 한 줄
+    2.영문 알파벳 대소문자, ‘!’, ‘~’ 또는 공백
+    3.1 ≤ message의 길이 ≤ 50
+
 
 brainstorming
-    1.
+    1.글자 수 카운트 = length
 
 */
 
 /*
 
     정답1
+class Solution {
+    public int solution(String message) {
+        int answer = 0;
+        answer = message.length() * 2;
+        return answer;
+    }
+}
 
 
  */
