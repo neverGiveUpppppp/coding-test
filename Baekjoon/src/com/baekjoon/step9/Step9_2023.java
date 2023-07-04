@@ -1168,20 +1168,83 @@ public class Main {
 
 // Step9-6 11653 소인수분해
 class Step9_6{
-    /*
-    조건
-        1.
+/*
+조건
+    1.정수 N이 주어졌을 때, 소인수분해
+    2.N (1 ≤ N ≤ 10,000,000)
 
-    braintstorm
-        1.
+braintstorm
+    소인수 : 인수 중에 소수인 것들
+    인수 : 어떤 수나 식을 곱하기로만 표현 했을 때, 곱해지는 각각의 것들 (곱셈 기준)
+        1 x 12 = 12
+        3 x 4 = 12
+        = 약수(a % b)와 같은 구성(나눗셈 기준)
+    즉, 약수를 구하고 거기서 소수인 것 도출
+    1.약수 구하고 소수 도출
+    2.수의 모든 수를 다 체크해야하므로 브루트 포스
 
-    */
-    public static void main(String[] args) {
+*/
+    public static void main(String[] args) throws IOException{
+        Step9_6 main = new Step9_6();
 
+        // 1.자연수 n값 받기
+        int n = main.input();
 
+        // 2.약수(인수) 구하기
+        ArrayList<Integer> divisor = main.divisor(n);
+
+        // 3.약수(인수) 중 소수 구하기
+        main.prime_number(divisor);
 
     }
 
+    // 1.자연수 n값 받기
+    public int input() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        return n;
+    }
+
+    // 2.약수(인수) 구하기
+    private ArrayList<Integer> divisor(int n) {
+        ArrayList<Integer> divisor = new ArrayList<>();
+
+        for (int i = 1; i <= n; i++) {
+            if (i >= 2 && n % i == 0)
+                divisor.add(i);
+        }
+        return divisor;
+    }
+
+    // 3.약수(인수) 중 소수 구하기
+    private ArrayList<Integer> prime_number(ArrayList<Integer> divisor) {
+        ArrayList<Integer> prime = new ArrayList<>(divisor);
+
+        for (int i = 2; i < divisor.size(); i++) {
+//            if(divisor.get(i) % i == 0) {
+//                prime.remove(i);
+//            }
+            if(divisor.get(i) < 2) {
+                prime.remove(divisor.get(i));
+            }else if(divisor.get(i) > 2){
+                for(int j = 2; j <= Math.sqrt(divisor.get(i)); j++) {
+                    // 소수가 아닐경우 list에서 값 제거
+                    if(divisor.get(i) % j == 0) {
+//         소수 2,3,5,7,11,13,17,19 같은거라면, 왼쪽 소수로 나뉘었을 때 2,2,3이런식으로 찍히게 수가 나오게 해야하는데 이럴려면 소수를 하나씩 다 경의수를 해줘야하니 오버임
+//                        if(divisor.get(i) % 2 == 0){
+//                        }else if(divisor.get(i) % 3 == 0){
+//                        }else if(divisor.get(i) % 5 == 0){
+                        prime.remove(divisor.get(i));
+                    }
+                }
+            }
+        }
+        System.out.println(divisor);
+
+        System.out.println(prime);
+        // 2,2,2,3,3 이런 식으로 안찍히는 상태 // 아래 정답 다른 사람 풀이 참조
+        return prime;
+    }
 }
 
 
@@ -1205,17 +1268,75 @@ public class Main {
     }
 }
 
+
+
+    정답2
+        18032	264
+import java.util.*;
+import java.io.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int num = sc.nextInt();
+
+        for(int i = 2; i <= num; i++){
+            while(num % i == 0){
+                System.out.println(i);
+                num /= i;
+            }
+        }
+    }
+}
+    정답3 : BufferedReader
+        15488	180
+import java.util.*;
+import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        int num = Integer.parseInt(br.readLine());
+
+        for(int i = 2; i <= num; i++){
+            while(num % i == 0){
+                bw.write(i+"");
+                bw.newLine();
+                num /= i;
+            }
+        }
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
+
  */
 
 
 
-
+// 혼자서 못 푼 문제 : 11653 소인수분해
 
 
 
 public class Step9_2023 {
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
+        int num = Integer.parseInt(br.readLine());
 
+        for(int i = 2; i <= num; i++){
+            while(num % i == 0){
+                bw.write(i+"");
+                bw.newLine();
+                num /= i;
+            }
+        }
+        bw.flush();
+        bw.close();
+        br.close();
+    }
 }
 
 
