@@ -544,29 +544,49 @@ class Solution {
 class Solution015 {
     public static void main(String[] args) {
         Solution015 prbs = new Solution015();
-        prbs.solution(1);
-        System.out.println(prbs.solution(1));
+        int[] arr = new int[]{1,2,3,4,5};
+        prbs.solution(arr);
+        System.out.println(Arrays.toString(prbs.solution(arr)));
     }
-    public int solution(int n) {
-        int answer = 0;
-
-
+    public int[] solution(int[] num_list) {
+//        StringBuilder sb = new StringBuilder(Arrays.toString(arr));
+//        String reverse = sb.reverse().toString();
+//        System.out.println(reverse); // ]5 ,4 ,3 ,2 ,1[
+        int[] answer = new int[num_list.length];
+        int j = 0;
+        for (int i = num_list.length; i > 0; i--) {
+            answer[j] += num_list[i-1];
+            j++;
+        }
         return answer;
     }
 }
 /*
 조건
-    1.
+    1.입력값 : 정수 배열
+    2.배열 순서 거꾸로 뒤집기
 
 brainstorming
-    1.
+    1.StringBuilder.reverse()로 파싱 후 다시 배열로 파싱
+    2.loop로 거꾸로 다시 넣기
+        - for문으로 i해서 끝부터 거꾸로 넣기 & reverse한 배열
 
 */
 
 /*
 
     정답1
-
+class Solution {
+    public int[] solution(int[] num_list) {
+        int[] answer = new int[num_list.length];
+        int j = 0;
+        for (int i = num_list.length; i > 0; i--) {
+            answer[j] += num_list[i-1];
+            j++;
+        }
+        return answer;
+    }
+}
 
  */
 
