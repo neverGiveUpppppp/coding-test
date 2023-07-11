@@ -593,33 +593,47 @@ class Solution {
 
 
 
-// level0 016 : 순서쌍의 개수
+// level0 016 : 최댓값 만들기 (1)
 class Solution016 {
     public static void main(String[] args) {
         Solution016 prbs = new Solution016();
-        prbs.solution(1);
-        System.out.println(prbs.solution(1));
+        int[] numbers = new int[]{0, 31, 24, 10, 1, 9};
+        prbs.solution(numbers);
+        System.out.println(prbs.solution(numbers));
     }
-    public int solution(int n) {
+    public int solution(int[] numbers) {
         int answer = 0;
-
-
+        Arrays.sort(numbers);
+        answer = numbers[numbers.length-1] * numbers[numbers.length-2];
+//        answer = numbers.length * (numbers.length-1);
         return answer;
     }
 }
 /*
 조건
-    1.
+    1.numbers의 원소 중 두 개를 곱하기
+    2.가장 최대값 * 두번째 최대값
 
 brainstorming
-    1.
+    1.정렬 후 last index, last index-1 추출
+        or 전통적 loop문 max구하기도 가능하나 2번째 최대값 구할려면 또 연산이 늘어나네 정렬로
+    2.
 
 */
 
 /*
 
     정답1
+import java.util.*;
+class Solution {
+    public int solution(int[] numbers) {
+        int answer = 0;
+        Arrays.sort(numbers);
+        answer = numbers[numbers.length-1] * numbers[numbers.length-2];
 
+        return answer;
+    }
+}
 
  */
 
