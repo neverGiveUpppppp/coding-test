@@ -7,6 +7,28 @@ SQL ORACLE leve2-2
 */
 
 
+---- TITLE
+/* 
+조건
+     2022년 10월 5일에 등록된 중고거래 게시물 조회
+    1)
+    2)
+    
+brainstorming
+    1)
+    2)
+
+*/
+
+
+-- 1.
+-- 2.
+-- 3.
+
+-- 정답1 : 
+-- 정답2 : 
+
+
 
 ---- 진료과별 총 예약 횟수 출력하기
 /* 
@@ -586,6 +608,199 @@ ORDER BY BOARD_ID DESC
 -- 거래상태가 SALE이면 판매중, RESERVED이면 예약중, DONE이면 거래완료 출력
 -- WHERE CREATED_DATE = 2022-10-05 + CAST() 방법 궁금
 --    -> TO_CHAT() 사용 : 날짜 컬럼을 TO_CHAT()로 캐스팅하는 방법
+
+
+
+
+
+
+
+
+
+
+---- 자동차 평균 대여 기간 구하기
+/* 
+조건
+     평균 대여 기간이 7일 이상인 자동차 조회
+    1)CAR_ID, AVERAGE_DURATION 평균대여기간 조회
+    2)평균 대여 기간은 소수점 두번째 자리에서 반올림
+    3)평균 대여 기간 DESC, 자동차ID DESC
+    
+brainstorming
+    1)평균대여기간 : 
+        평균대여기간 구할려면 일단 END - START해서 대여일수 구하고, 
+        전체대여일수 / 전체대여기록수 = 평균대여기간
+    2)평균대여기간 7일 : WHERE AVERAGE_DURATION >= 7
+    3)ORDER BY에서 평균대여기간 별칭을 사용해야하므로 서브쿼리 필요할 듯
+        스칼라 서브쿼리? 인라인뷰?
+    4)평균값 구할려면 그룹함수 AVG()?
+
+*/
+
+
+-- SELECT CAR_ID, AVERAGE_DURATION 평균대여기간 
+-- FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+-- ORDER BY AVERAGE_DURATION, CAR_ID
+
+
+-- 평균대여기간 구하기
+-- SELECT CAR_ID,
+--     (SELECT CAR_ID, TO_DATE(END_DATE, 'YYYY-MM-DD') - TO_DATE(START_DATE, 'YYYY-MM-DD') 
+--      -- ORA-00913: too many values
+--      -- 원인 : 삽입하려는 데이터의 개수가 지정 컬럼수보다 많을 때 발생
+--      FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+--     ) AS AVERAGE_DURATION
+-- FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY  
+-- ORDER BY AVERAGE_DURATION, CAR_ID
+
+-- 컬럼 2개
+-- SELECT CAR_ID, TO_DATE(END_DATE, 'YYYY-MM-DD') - TO_DATE(START_DATE, 'YYYY-MM-DD') AS AVERAGE_DURATION 
+-- FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+
+-- SELECT CAR_ID,HISTORY_ID,START_DATE,END_DATE,
+--     (SELECT CAR_ID, TO_DATE(END_DATE, 'YYYY-MM-DD') - TO_DATE(START_DATE, 'YYYY-MM-DD') 
+--      FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+--     )
+-- FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+-- ORA-00913: too many values
+-- 컬럼수를 처음부터 끝까지 바꿔봤는데 계속 뜨는거보면 오라클 문법적으로 불가능한 쿼리인 듯
+-- 서브 쿼리 필요X
+
+-- SELECT CAR_ID, START_DATE, END_DATE -- 형식 2022-08-01 00:00:00
+-- FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY
+
+-- TO_DATE(), TO_CHAR() 각각 비교 (END_DATE기준)
+-- SELECT CAR_ID, 
+--     TO_CHAR(END_DATE, 'YYYY-MM-DD') A , -- 2022-08-09
+--     -- TO_CHAR(END_DATE, 'YYYY-MM-DD') - TO_CHAR(START_DATE, 'YYYY-MM-DD') B, -- ORA-01722: invalid number
+--     TO_CHAR(TO_DATE(END_DATE,'YYYY-MM-DD'), 'YYYY-MM-DD') B, -- 0002-08-22
+--     TO_DATE(TO_CHAR(END_DATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') C, -- 2022-08-02 00:00:00
+--     TO_DATE(END_DATE, 'YYYY-MM-DD') D, -- 0002-08-20 00:00:00
+--         TO_DATE( TO_CHAR(END_DATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') - TO_DATE(TO_CHAR(START_DATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') AS AVERAGE_DURATION, -- 가능
+--     TO_DATE(END_DATE, 'YYYY-MM-DD') - TO_DATE(START_DATE, 'YYYY-MM-DD') AS AVERAGE_DURATION
+-- FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+-- -- ORDER BY AVERAGE_DURATION, CAR_ID
+
+
+-- 아래의 경우 수를 하나씩 다 - 시켜보자
+-- SELECT CAR_ID, 
+--     -- TO_CHAR(END_DATE, 'YYYY-MM-DD') - TO_CHAR(START_DATE, 'YYYY-MM-DD') , -- ORA-01722: invalid number
+--     -- TO_CHAR(TO_DATE(END_DATE,'YYYY-MM-DD'), 'YYYY-MM-DD') - TO_CHAR(TO_DATE(START_DATE,'YYYY-MM-DD'), 'YYYY-MM-DD'), -- ORA-01722: invalid number
+--     TO_DATE(TO_CHAR(END_DATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') - TO_DATE(TO_CHAR(START_DATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') AVERAGE, -- 0~100
+--     TO_DATE(END_DATE, 'YYYY-MM-DD') D, -- 0002-08-20 00:00:00
+--     TO_DATE( TO_CHAR(END_DATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') - TO_DATE(TO_CHAR(START_DATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') AS AVERAGE_DURATION -- 가능
+-- FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+-- ORDER BY AVERAGE_DURATION, CAR_ID
+
+-- SELECT CAR_ID, 
+--         TO_DATE(TO_CHAR(END_DATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') END_DATE,
+--         TO_DATE(TO_CHAR(START_DATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') START_DATE,
+--        TO_DATE(TO_CHAR(END_DATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') 
+--        - TO_DATE(TO_CHAR(START_DATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') AS AVERAGE_DURATION
+-- FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+-- ORDER BY CAR_ID
+
+
+-- 1.각 차마다 평균 대여 일수 구하기
+-- SELECT CAR_ID, 
+--        AVG(
+--            TO_DATE(TO_CHAR(END_DATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') 
+--            - TO_DATE(TO_CHAR(START_DATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') 
+--       ) AS AVERAGE_DURATION
+-- FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+-- GROUP BY CAR_ID
+-- ORDER BY CAR_ID
+
+
+-- 2.차마다 평균 대여 일수 7이상인 차와 평균 구하기
+-- SELECT CAR_ID, AVERAGE_DURATION
+-- FROM (
+--     SELECT CAR_ID, 
+--            AVG(
+--                TO_DATE(TO_CHAR(END_DATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') 
+--                - TO_DATE(TO_CHAR(START_DATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') 
+--           ) AS AVERAGE_DURATION
+--     FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+--     GROUP BY CAR_ID
+--     )
+-- WHERE AVERAGE_DURATION >= 7
+-- ORDER BY AVERAGE_DURATION DESC, CAR_ID DESC
+    
+    
+-- 3.평균 대여 일수의 소수점 2자리에서 반올림 적용
+-- SELECT CAR_ID, AVERAGE_DURATION
+-- FROM (
+--     SELECT CAR_ID, 
+--            ROUND(AVG(
+--                TO_DATE(TO_CHAR(END_DATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') 
+--                - TO_DATE(TO_CHAR(START_DATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') + 1
+--           ),1) AS AVERAGE_DURATION
+--     FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+--     GROUP BY CAR_ID
+--     )
+-- WHERE AVERAGE_DURATION >= 7
+-- ORDER BY AVERAGE_DURATION DESC, CAR_ID DESC
+
+
+
+-- 정답1 : 서브쿼리 + WHERE + TO_CHAR(),TO_DATE()
+-- SELECT CAR_ID, AVERAGE_DURATION
+-- FROM (
+--     SELECT CAR_ID, 
+--            ROUND(AVG(
+--                TO_DATE(TO_CHAR(END_DATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') 
+--                - TO_DATE(TO_CHAR(START_DATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') + 1
+--           ),1) AS AVERAGE_DURATION
+--     FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+--     GROUP BY CAR_ID
+--     )
+-- WHERE AVERAGE_DURATION >= 7
+-- ORDER BY AVERAGE_DURATION DESC, CAR_ID DESC
+
+-- 방법2 : 서브쿼리 + WHERE
+-- SELECT  *
+--   FROM  (
+--         SELECT  CAR_ID,  
+--                 ROUND(AVG(END_DATE - START_DATE + 1), 1) AS AVERAGE_DURATION
+--         FROM  CAR_RENTAL_COMPANY_RENTAL_HISTORY
+--         GROUP BY CAR_ID
+--         )
+--  WHERE  AVERAGE_DURATION >= 7
+--  ORDER BY AVERAGE_DURATION DESC, CAR_ID DESC
+ 
+-- 정답3 : GROUP BY + HAVING
+SELECT CAR_ID, ROUND(AVG(END_DATE - START_DATE + 1),1) AS AVERAGE_DURATION
+FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+GROUP BY CAR_ID
+HAVING ROUND(AVG(END_DATE - START_DATE + 1),1) >= 7
+ORDER BY AVERAGE_DURATION DESC, CAR_ID DESC
+
+
+
+
+
+
+---- TITLE
+/* 
+조건
+    2022년 10월 5일에 등록된 중고거래 게시물 조회
+    1)
+    2)
+    
+brainstorming
+    1)
+    2)
+
+*/
+
+
+-- 1.
+-- 2.
+-- 3.
+
+-- 정답1 : 
+-- 정답2 : 
+
 
 
 
