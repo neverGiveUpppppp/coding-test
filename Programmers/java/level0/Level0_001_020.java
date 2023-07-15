@@ -640,33 +640,59 @@ class Solution {
 
 
 
-// level0 017 : 순서쌍의 개수
+// level0 017 : 짝수 홀수 개수
 class Solution017 {
     public static void main(String[] args) {
         Solution017 prbs = new Solution017();
-        prbs.solution(1);
-        System.out.println(prbs.solution(1));
+        int[] arr = {1, 2, 3, 4, 5};
+        int[] answer = prbs.solution(arr);
+        System.out.println(Arrays.toString(answer));
     }
-    public int solution(int n) {
-        int answer = 0;
-
+    public int[] solution(int[] num_list) {
+        int[] answer = new int[2];
+        int even = 0;
+        int odd = 0;
+        for(int i = 0; i < num_list.length; i++)
+            if(num_list[i] % 2 == 0)
+                even++;
+            else if(num_list[i] %2 != 0)
+                odd++;
+        answer[0] = even;
+        answer[1] = odd;
 
         return answer;
     }
 }
 /*
 조건
-    1.
+    1.결과 [짝수개수, 홀수개수]
+
 
 brainstorming
-    1.
+    1.짝수 : n % 2 == 0
+    2.홀수 : n % 2 != 0
 
 */
 
 /*
 
     정답1
+class Solution {
+    public int[] solution(int[] num_list) {
+        int[] answer = new int[2];
+        int even = 0;
+        int odd = 0;
+        for(int i = 0; i < num_list.length; i++)
+            if(num_list[i] % 2 == 0)
+                even++;
+            else if(num_list[i] %2 != 0)
+                odd++;
+        answer[0] = even;
+        answer[1] = odd;
 
+        return answer;
+    }
+}
 
  */
 
