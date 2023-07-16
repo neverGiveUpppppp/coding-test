@@ -747,66 +747,110 @@ class Solution018 {
 
 
 
-// level0 019 : 짝수 홀수 개수
+// level0 019 : 점의 위치 구하기
 class Solution019 {
     public static void main(String[] args) {
         Solution019 prbs = new Solution019();
-        prbs.solution(1);
-        System.out.println(prbs.solution(1));
+        int[] arr = {-7, 9};
+        prbs.solution(arr);
+        System.out.println(prbs.solution(arr));
     }
-    public int solution(int n) {
+    public int solution(int[] dot) {
         int answer = 0;
-
+        if(dot[0] > 0 && dot[1] > 0)
+            answer = 1;
+        else if(dot[0] < 0 && dot[1] > 0)
+            answer = 2;
+        else if(dot[0] < 0 && dot[1] < 0)
+            answer = 3;
+        else if(dot[0] > 0 && dot[1] < 0)
+            answer = 4;
 
         return answer;
     }
 }
 /*
 조건
-    1.
+    1.주어지는 정수a,b에 따라 1-4분면 판별하기
+    2.dot[0]은 x좌표, dot[1]은 y좌표
 
 brainstorming
-    1.
+    1.조건문으로 양수양수 양수음수 식으로 각각 나누면 됨
 
 */
 
 /*
 
     정답1
+class Solution {
+    public int solution(int[] dot) {
+        int answer = 0;
+        if(dot[0] > 0 && dot[1] > 0)
+            answer = 1;
+        else if(dot[0] < 0 && dot[1] > 0)
+            answer = 2;
+        else if(dot[0] < 0 && dot[1] < 0)
+            answer = 3;
+        else if(dot[0] > 0 && dot[1] < 0)
+            answer = 4;
 
+        return answer;
+    }
+}
 
  */
 
 
 
 
-// level0 020 : 편지
+// level0 020 : 피자 나눠 먹기 (3)
 class Solution020 {
     public static void main(String[] args) {
         Solution020 prbs = new Solution020();
-        prbs.solution(1);
-        System.out.println(prbs.solution(1));
+        prbs.solution(7, 10);
+        System.out.println(prbs.solution(7, 10));
     }
-    public int solution(int n) {
+    public int solution(int slice, int n) {
         int answer = 0;
-
-
-        return answer;
+//        n > slice * 판수;
+        while(n > slice * answer)
+            answer++;
+        return answer; // 2
     }
 }
 /*
 조건
-    1.
+    n명의 사람이 최소 한 조각 이상 피자를 먹으려면 최소 몇 판의 피자를 시켜야 하는지
+    1.피자 조각 수 : slice (2 ≤ slice ≤ 10)
+      피자 먹는 사람수 : n (1 ≤ n ≤ 100)
+    2.
 
 brainstorming
-    1.
+    1.한판당 최소 2조각에서 최대 10조각
+    2.최소 한명 당 1조각이상 : n >= 전체조각
+    3.n >= slice * 판수
+     사람수 >= 조각 * 판수
+    4. 10 > = 7 * ?   <- 해당 공식 챗gpt한테 물어보자
+        = 기준 양변에 7(slice)로 나누면
+            10/7 >= 7/7 * ?
+            1 >= ?
+    5. 10명 7조각
+
 
 */
 
 /*
 
     정답1
-
+class Solution {
+        public int solution(int slice, int n) {
+        int answer = 0;
+//        n > slice * 판수;
+        while(n > slice * answer)
+            answer++;
+        return answer;
+    }
+}
 
  */
 
@@ -815,7 +859,7 @@ brainstorming
 
 /*
 못 푼 문제(다시풀어보기)
-    1.
+    1.피자 나눠 먹기 (3)
 
 
  */
