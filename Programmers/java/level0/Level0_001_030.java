@@ -1,13 +1,9 @@
 package level0;
 
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.Arrays;
 
-public class Level0_001_020 {
+public class Level0_001_030 {
 // 문제 순서 정렬 : 정답률 높은 순
 
 
@@ -863,3 +859,394 @@ class Solution {
 
 
  */
+
+
+
+
+// level0 021 : 옷가게 할인 받기
+class Solution021 {
+    public static void main(String[] args) {
+        Solution021 prbs = new Solution021();
+//        prbs.solution(580000);
+        System.out.println(prbs.solution(580000));
+    }
+    public int solution(int price) {
+//        int answer = 0;
+//        if (price >= 500000) {  // 10만부터 if문 넣으면 10만이 실행되므로 50만부터 if 문 시작
+//            answer = price - ((int) Math.floor(price * 0.2));
+//        } else if (price >= 300000) {
+//            answer = price - ((int) Math.floor(price * 0.1));
+//        } else if (price >= 100000) {
+//            answer = price - ((int) Math.floor(price * 0.05));
+//        } else {
+//            answer = price;
+//        }
+// price - Math.floor(price * 0.05)와 Math.floor(price * .95) 다름!!
+//      price가 10이라고 가정을 했을 때, price * 0.95는 9.5, price * 0.05는 0.5입니다.
+//      Math.floor는 소수점을 버리는 함수이므로 price - Math.floor(price * 0.05) 는 10 - 0 즉 10과 같고 Math.floor(price * .95)는 9와 같습니다.
+        int answer = 0;
+        if (price >= 500000) {  // 10만부터 if문 넣으면 10만이 실행되므로 50만부터 if 문 시작
+            answer = (int)((double)price - (price * 0.2));
+        } else if (price >= 300000) {
+            answer = (int)((double)price - (price * 0.1));
+        } else if (price >= 100000) {
+            answer = (int)((double)price - (price * 0.05));
+        } else {
+            answer = price;
+        }
+        return answer;
+    }
+}
+/*
+조건
+    1.금액에 따른 할인
+        100,000이상 5% :  * 0.05
+        300,000이상 10% : * 0.1
+        500,000이상 20% : * 0.2
+    2.할인된 후 최종 금액 산출
+    3.소수점 이하 버림
+brainstorming
+    1.구간별이라 switch문, if문
+    2.여기에 계산식 추가해서 output
+
+*/
+
+/*
+
+    정답1
+class Solution {
+    public int solution(int price) {
+        int answer = 0;
+        if (price >= 500000) {  // 10만부터 if문 넣으면 10만이 실행되므로 50만부터 if 문 시작
+            answer = (int)((double)price - (price * 0.2));
+        } else if (price >= 300000) {
+            answer = (int)((double)price - (price * 0.1));
+        } else if (price >= 100000) {
+            answer = (int)((double)price - (price * 0.05));
+        } else {
+            answer = price;
+        }
+        return answer;
+    }
+}
+
+    정답2: 0.2가 아닌 0.8로
+
+
+ */
+
+
+
+
+// level0 022 :
+class Solution022 {
+    public static void main(String[] args) {
+        Solution022 prbs = new Solution022();
+        prbs.solution(7, 10);
+        System.out.println(prbs.solution(7, 10));
+    }
+    public int solution(int slice, int n) {
+        int answer = 0;
+        return answer;
+    }
+}
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+
+// level0 023 :
+class Solution023 {
+    public static void main(String[] args) {
+        Solution023 prbs = new Solution023();
+        prbs.solution(7, 10);
+        System.out.println(prbs.solution(7, 10));
+    }
+    public int solution(int slice, int n) {
+        int answer = 0;
+        return answer;
+    }
+}
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+
+// level0 024 :
+class Solution024 {
+    public static void main(String[] args) {
+        Solution024 prbs = new Solution024();
+        prbs.solution(7, 10);
+        System.out.println(prbs.solution(7, 10));
+    }
+    public int solution(int slice, int n) {
+        int answer = 0;
+        return answer;
+    }
+}
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+
+// level0 025 :
+class Solution025 {
+    public static void main(String[] args) {
+        Solution025 prbs = new Solution025();
+        prbs.solution(7, 10);
+        System.out.println(prbs.solution(7, 10));
+    }
+    public int solution(int slice, int n) {
+        int answer = 0;
+        return answer;
+    }
+}
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+
+// level0 026 :
+class Solution026 {
+    public static void main(String[] args) {
+        Solution026 prbs = new Solution026();
+        prbs.solution(7, 10);
+        System.out.println(prbs.solution(7, 10));
+    }
+    public int solution(int slice, int n) {
+        int answer = 0;
+        return answer;
+    }
+}
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+
+// level0 027 :
+class Solution027 {
+    public static void main(String[] args) {
+        Solution027 prbs = new Solution027();
+        prbs.solution(7, 10);
+        System.out.println(prbs.solution(7, 10));
+    }
+    public int solution(int slice, int n) {
+        int answer = 0;
+        return answer;
+    }
+}
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+
+// level0 028 :
+class Solution028 {
+    public static void main(String[] args) {
+        Solution028 prbs = new Solution028();
+        prbs.solution(7, 10);
+        System.out.println(prbs.solution(7, 10));
+    }
+    public int solution(int slice, int n) {
+        int answer = 0;
+        return answer;
+    }
+}
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+
+// level0 029 :
+class Solution029 {
+    public static void main(String[] args) {
+        Solution029 prbs = new Solution029();
+        prbs.solution(7, 10);
+        System.out.println(prbs.solution(7, 10));
+    }
+    public int solution(int slice, int n) {
+        int answer = 0;
+        return answer;
+    }
+}
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+// level0 030 :
+class Solution030 {
+    public static void main(String[] args) {
+        Solution030 prbs = new Solution030();
+        prbs.solution(7, 10);
+        System.out.println(prbs.solution(7, 10));
+    }
+    public int solution(int slice, int n) {
+        int answer = 0;
+        return answer;
+    }
+}
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+
+/*
+못 푼 문제(다시풀어보기)
+    1.피자 나눠 먹기 (3)
+
+
+ */
+
+
+
+
+
+
+
+
+
+
