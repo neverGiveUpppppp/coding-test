@@ -26,8 +26,8 @@ brainstorming
  */
 class Step9_1{
     public static void main(String[] args) {
-
 /*
+
     문제풀이
         try{
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -181,7 +181,7 @@ class Step9_1{
 //        }catch(IOException e){
 //            e.printStackTrace();
 //        }
-*/
+
 // 값 가로 한줄 받고 출력 가능하고 조건이 아니면 다시 가로 한 줄 받는 구조가 가능한 걸 알았다면 
 // 진작 풀었을 것을... 백준 문제가 너무 불친절하다. 입력 예제에는 한번에 다 받는 것처럼 해놓고ㅡㅡ
         
@@ -206,7 +206,7 @@ class Step9_1{
 //                System.out.println("neither");
 //            }
 //        }
-
+*/
         try{
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             StringBuilder sb = new StringBuilder();
@@ -1315,7 +1315,8 @@ public class Main {
 
 
 
-// 혼자서 못 푼 문제 : 11653 소인수분해
+// 혼자서 못 푼 문제 : 5086 배수와 약수
+//                   11653 소인수분해
 
 
 
