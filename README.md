@@ -1,6 +1,6 @@
 
 # coding-test
-
+(앞의 틀린 풀이과정은 사고흐름을 나중에도 볼 수 있게 주석처리하여 남겨둠)    
 1.조건 분석    
 2.brainstorming    
 　thinking how to solve the problems    
