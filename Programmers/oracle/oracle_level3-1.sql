@@ -148,6 +148,62 @@ FETCH FIRST 3 ROWS ONLY;
 
 
 
+
+
+
+
+
+---- 있었는데요 없었습니다
+/* 
+조건
+   관리자의 실수로 일부 동물의 입양일이 잘못 입력됨
+   보호 시작일보다 입양일이 더 빠른 동물의 아이디와 이름을 조회
+    (결과는 보호 시작일이 빠른 순으로 조회)
+    1)보호 시작일보다 입양일이 더 빠른 : A.DATETIME > B.DATETIME
+    2)보호 시작일이 빠른 순 조회 : ORDER BY DATETIME ASC
+    
+brainstorming
+    1)
+    2)
+
+*/
+
+
+-- 1.보호 시작일(A.DATETIME) ASC 정렬 + JOIN
+-- SELECT A.ANIMAL_ID, A.NAME, A.DATETIME
+-- FROM ANIMAL_INS A
+--     JOIN ANIMAL_OUTS B ON A.ANIMAL_ID = B.ANIMAL_ID
+-- ORDER BY A.DATETIME ASC
+
+-- DATETIME 확인용 
+-- SELECT A.ANIMAL_ID, A.NAME, A.DATETIME
+-- FROM ANIMAL_INS A
+--     JOIN ANIMAL_OUTS B ON A.ANIMAL_ID = B.ANIMAL_ID
+-- WHERE A.DATETIME < B.DATETIME
+-- ORDER BY A.DATETIME ASC
+
+-- 2.보호 시작일보다 입양일이 더 빠른 : A.DATETIME > B.DATETIME 적용
+-- SELECT A.ANIMAL_ID, A.NAME
+-- FROM ANIMAL_INS A
+--     JOIN ANIMAL_OUTS B ON A.ANIMAL_ID = B.ANIMAL_ID
+-- WHERE A.DATETIME > B.DATETIME
+-- ORDER BY A.DATETIME ASC
+
+
+-- 정답1 : WHERE + >로 날짜 비교
+SELECT A.ANIMAL_ID, A.NAME
+FROM ANIMAL_INS A
+    JOIN ANIMAL_OUTS B ON A.ANIMAL_ID = B.ANIMAL_ID
+WHERE A.DATETIME > B.DATETIME
+ORDER BY A.DATETIME ASC
+
+-- 정답2 :
+
+
+
+
+
+
 ---- TITLE
 /* 
 조건
