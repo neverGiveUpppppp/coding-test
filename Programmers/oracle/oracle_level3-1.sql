@@ -204,6 +204,122 @@ ORDER BY A.DATETIME ASC
 
 
 
+
+
+
+---- 오랜 기간 보호한 동물(2)
+/* 
+조건
+    입양을 간 동물 중, 보호 기간이 가장 길었던 동물 두 마리의 아이디와 이름을 조회
+    1)보호 기간이 긴 순으로 조회 : ORDER BY DATETIME 
+    2)입양을 간 동물 중, 보호 기간
+    3)보호 기간 가장 길었던 
+    4)가장 길었던 동물 두 마리
+    
+brainstorming
+    1)입양 간 동물 중 보호기간 : RIGHT JOIN 사용(ANIMAL_OUTS쪽)
+    2)가장 길었던 동물 두 마리 : FETCH FIRST 2 ROWS ONLY
+    3)보호 기간이 가장 길다 : 입양 간 날 - 보호 시작일수가 가장 많은 
+        두 날짜를 뺀 수를 DAY로 계산?
+        EXTRACT(YEAR FROM A.DATETME) <- EXTRACT로 꺼낸 숫자의 타입이 뭐지?
+        (YEAR * 365) + DAY 해서 이중 가장 큰 수 2개 뽑기
+    
+    Q. ORACLE에서 DATETIME 타입끼리 +,- 하면 어떻게 될까?
+    A. +.-연산 가능! DAY기준으로 연산 결과가 나옴
+    
+    풀이시간 : 총35분 (노션 자료 참고)
+
+*/
+
+-- SELECT B.ANIMAL_ID, B.NAME, A.DATETIME
+-- FROM ANIMAL_INS A
+--     RIGHT JOIN ANIMAL_OUTS B ON A.ANIMAL_ID = B.ANIMAL_ID
+-- ORDER BY A.DATETIME
+
+
+-- 1.입양 간 동물 중 보호기간 : RIGHT JOIN 적용
+-- SELECT B.ANIMAL_ID, B.NAME
+-- FROM ANIMAL_INS A
+--     RIGHT JOIN ANIMAL_OUTS B ON A.ANIMAL_ID = B.ANIMAL_ID
+-- ORDER BY A.DATETIME
+
+-- 2.가장 길었던 동물 두 마리 : FETCH FIRST 2 ROWS ONLY
+-- SELECT B.ANIMAL_ID, B.NAME
+-- FROM ANIMAL_INS A
+--     RIGHT JOIN ANIMAL_OUTS B ON A.ANIMAL_ID = B.ANIMAL_ID
+-- ORDER BY A.DATETIME 
+-- FETCH FIRST 2 ROWS ONLY
+--      보호 일수가 가장 긴 동물이여야함. 지금은 단순히 날짜 정렬임
+
+-- 보호 일수 계산 try
+-- SELECT B.ANIMAL_ID, B.NAME, A.DATETIME, B.DATETIME,
+--     -- EXTRACT (YEAR FROM A.DATETIME),
+--     -- EXTRACT (DAY FROM A.DATETIME)
+--         -- EXTRACT (YEAR FROM A.DATETIME) - EXTRACT (YEAR FROM B.DATETIME),
+--         B.DATETIME - A.DATETIME AS CAL
+     
+-- FROM ANIMAL_INS A
+--     RIGHT JOIN ANIMAL_OUTS B ON A.ANIMAL_ID = B.ANIMAL_ID
+-- -- WHERE CAL > 365
+-- ORDER BY A.DATETIME
+-- -- FETCH FIRST 2 ROWS ONLY
+
+-- 3.보호 기간 가장 긴 적용 : B.DATETIME - A.DATETIME 적용 및 서브쿼리
+-- SELECT ANIMAL_ID, NAME, CAL
+-- FROM (
+--     SELECT B.ANIMAL_ID, B.NAME, A.DATETIME, B.DATETIME,
+--             B.DATETIME - A.DATETIME AS CAL
+--     FROM ANIMAL_INS A
+--         RIGHT JOIN ANIMAL_OUTS B ON A.ANIMAL_ID = B.ANIMAL_ID 
+-- ) 
+-- ORDER BY DATETIME
+-- FETCH FIRST 2 ROWS ONLY
+
+
+-- 4.보호일수가 NULL값인 것을 제외 : NVL 적용 + 확인용 CAL 및 날짜 제거
+-- SELECT ANIMAL_ID, NAME--, CAL
+-- FROM (
+--     SELECT B.ANIMAL_ID, B.NAME, 
+--             NVL(B.DATETIME - A.DATETIME,0) AS CAL
+--     FROM ANIMAL_INS A
+--         RIGHT JOIN ANIMAL_OUTS B ON A.ANIMAL_ID = B.ANIMAL_ID 
+-- )
+-- ORDER BY CAL DESC
+-- FETCH FIRST 2 ROWS ONLY
+
+
+-- 정답1 : RIGHT JOIN + SUBQUERY + NVL + FETCH FIRST 2 ROWS ONLY
+SELECT ANIMAL_ID, NAME
+FROM (
+    SELECT B.ANIMAL_ID, B.NAME, 
+            NVL(B.DATETIME - A.DATETIME,0) AS CAL
+    FROM ANIMAL_INS A
+        RIGHT JOIN ANIMAL_OUTS B ON A.ANIMAL_ID = B.ANIMAL_ID 
+)
+ORDER BY CAL DESC
+FETCH FIRST 2 ROWS ONLY
+
+
+-- 정답2 :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ---- TITLE
 /* 
 조건
