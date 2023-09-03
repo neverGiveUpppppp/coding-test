@@ -428,6 +428,77 @@ ORDER BY B.CATEGORY
 
 
 
+
+
+---- 조건에 맞는 사용자와 총 거래금액 조회하기
+/* 
+조건
+     완료된 중고 거래의 총금액이 70만 원 이상인 사람의 회원 ID, 닉네임, 총거래금액을 조회
+    1)완료된 중고 거래
+    2)총금액이 70만원이상
+    3)총거래금액을 기준으로 오름차순 정렬
+    
+brainstorming
+    1)완료된 중고 거래 : WHERE 또는 HAVING A.STATUS = DONE
+    2)총금액이 70만 원 이상 : TOTAL_SALES 
+    3)A.WRITE_ID와 B.USER_ID를 JOIN하고 GROUP BY로 이를 묶음
+    
+
+*/
+
+
+-- SELECT B.USER_ID, B.NICKNAME--, TOTAL_SALES
+-- FROM USED_GOODS_BOARD A
+--     JOIN USED_GOODS_USER B ON A.WRITER_ID = B.USER_ID
+-- GROUP BY B.USER_ID -- ORA-00979: not a GROUP BY expression
+-- --ORDER BY TOTAL_SALES
+
+
+-- 1.완료된 중고 거래 : WHERE 또는 HAVING A.STATUS = DONE
+-- SELECT B.USER_ID, B.NICKNAME, A.STATUS, A.PRICE--, TOTAL_SALES
+-- FROM USED_GOODS_BOARD A
+--     JOIN USED_GOODS_USER B ON A.WRITER_ID = B.USER_ID
+-- WHERE A.STATUS = 'DONE'
+-- -- 그룹바이로 이제 WRITER_ID를 합쳐야 아이디별 총액을 구할 수 있을 듯?
+
+
+-- 2.총금액이 70만원이상 : GROUP BY A.WRITER_ID
+-- SELECT WRITER_ID--, B.NICKNAME--, TOTAL_SALES
+-- FROM USED_GOODS_BOARD 
+-- GROUP BY WRITER_ID
+
+-- SELECT WRITER_ID, A.PRICE, A.STATUS, SUM(A.PRICE) AS TOTAL_SALES--, B.NICKNAME--, TOTAL_SALES
+-- FROM USED_GOODS_BOARD A
+-- GROUP BY A.WRITER_ID, A.PRICE, A.STATUS
+-- HAVING A.STATUS = 'DONE'
+-- ORDER BY A.WRITER_ID
+
+SELECT WRITER_ID, SUM(A.PRICE) AS TOTAL_SALES
+FROM USED_GOODS_BOARD A
+GROUP BY A.WRITER_ID
+HAVING A.STATUS = 'DONE'
+ORDER BY A.WRITER_ID
+
+-- 3.둘 합쳐보기 : 서브쿼리로 합체
+-- SELECT B.USER_ID, B.NICKNAME, A.STATUS, A.PRICE--, TOTAL_SALES
+-- FROM (
+--     SELECT WRITER_ID
+--     FROM USED_GOODS_BOARD 
+--     GROUP BY WRITER_ID) A
+--         JOIN USED_GOODS_USER B ON A.WRITER_ID = B.USER_ID
+-- WHERE A.STATUS = 'DONE' 
+-- -- A의 A.STATUS가 필요함. GROUP BY를 ID로만 해야되서... 음..
+
+
+
+
+
+
+
+
+
+
+
 ---- TITLE
 /* 
 조건
