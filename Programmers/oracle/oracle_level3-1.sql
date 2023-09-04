@@ -429,65 +429,92 @@ ORDER BY B.CATEGORY
 
 
 
-
----- 조건에 맞는 사용자와 총 거래금액 조회하기
+---- 조건별로 분류하여 주문상태 출력하기
 /* 
 조건
-     완료된 중고 거래의 총금액이 70만 원 이상인 사람의 회원 ID, 닉네임, 총거래금액을 조회
-    1)완료된 중고 거래
-    2)총금액이 70만원이상
-    3)총거래금액을 기준으로 오름차순 정렬
+    5월 1일을 기준으로 주문 ID, 제품 ID, 출고일자, 출고여부를 조회
+    1)출고여부는 5월 1일까지 출고완료로 이 후 날짜는 출고 대기로 미정이면 출고미정으로 출력
+    2)주문 ID를 기준으로 오름차순 정렬
     
 brainstorming
-    1)완료된 중고 거래 : WHERE 또는 HAVING A.STATUS = DONE
-    2)총금액이 70만 원 이상 : TOTAL_SALES 
-    3)A.WRITE_ID와 B.USER_ID를 JOIN하고 GROUP BY로 이를 묶음
+    1)5월 1일 조건 : OUT_DATE > '2022-05-01'
+    2)TO_DATE()로 기준이 되는 '2022-05-01'를 DATE타입으로 바꿔서 
+      OUT_DATE의 데이터타입과 맞추고 날짜 대소비교를 가능케함 
     
-
 */
 
 
--- SELECT B.USER_ID, B.NICKNAME--, TOTAL_SALES
--- FROM USED_GOODS_BOARD A
---     JOIN USED_GOODS_USER B ON A.WRITER_ID = B.USER_ID
--- GROUP BY B.USER_ID -- ORA-00979: not a GROUP BY expression
--- --ORDER BY TOTAL_SALES
+-- SELECT ORDER_ID, PRODUCT_ID, OUT_DATE,
+--     OUT_DATE
+--     AS 출고여부
+-- FROM FOOD_ORDER 
+-- ORDER BY ORDER_ID
+
+-- 1.5월 1일 조건 : OUT_DATE > '2022-05-01' 적용
+-- SELECT ORDER_ID, PRODUCT_ID, OUT_DATE,
+--     CASE WHEN OUT_DATE > '2022-05-01'  THEN '출고x' -- ORA-00923: FROM keyword not found where expected
+--     -- OUT_DATE
+--         WHEN OUT_DATE < '2022-05-01' THEN '출고O'
+--         END AS '출고여부'
+-- FROM FOOD_ORDER 
+-- ORDER BY ORDER_ID
 
 
--- 1.완료된 중고 거래 : WHERE 또는 HAVING A.STATUS = DONE
--- SELECT B.USER_ID, B.NICKNAME, A.STATUS, A.PRICE--, TOTAL_SALES
--- FROM USED_GOODS_BOARD A
---     JOIN USED_GOODS_USER B ON A.WRITER_ID = B.USER_ID
--- WHERE A.STATUS = 'DONE'
--- -- 그룹바이로 이제 WRITER_ID를 합쳐야 아이디별 총액을 구할 수 있을 듯?
+-- SELECT ORDER_ID, PRODUCT_ID, OUT_DATE,
+--     CASE WHEN OUT_DATE <= '2022-05-01' THEN '출고완료' -- ORA-01861: 
+--          WHEN OUT_DATE > '2022-05-01' THEN '출고대기' 
+--          ELSE '출고미정'
+--     END AS 출고여부
+-- FROM FOOD_ORDER 
+-- ORDER BY ORDER_ID
+--      ORA-01861: literal does not match format string
+--      2022-05-01가 '' 때문에 literal이라 비교 불가해서 에러 발생
+
+-- '' 지우고 리터럴 해제하면?
+-- SELECT ORDER_ID, PRODUCT_ID, OUT_DATE,
+--     CASE WHEN OUT_DATE <= 2022-05-01 THEN '출고완료' -- ORA-00932: 
+--          WHEN OUT_DATE > 2022-05-01 THEN '출고대기'
+--          ELSE '출고미정'
+--     END AS 출고여부
+-- FROM FOOD_ORDER 
+-- ORDER BY ORDER_ID
+--      ORA-00932: inconsistent datatypes: expected DATE got NUMBER
+--      데이터 타입 안맞아서 오류? 파싱 필요
 
 
--- 2.총금액이 70만원이상 : GROUP BY A.WRITER_ID
--- SELECT WRITER_ID--, B.NICKNAME--, TOTAL_SALES
--- FROM USED_GOODS_BOARD 
--- GROUP BY WRITER_ID
+-- 2. TO_DATE 사용
+-- SELECT ORDER_ID, PRODUCT_ID, OUT_DATE,
+--     CASE WHEN OUT_DATE <= TO_DATE('2022-05-01', 'YYYY-MM-DD') THEN '출고완료'
+--          WHEN OUT_DATE > TO_DATE('2022-05-01', 'YYYY-MM-DD') THEN '출고대기'
+--          ELSE '출고미정'
+--     END AS 출고여부
+-- FROM FOOD_ORDER 
+-- ORDER BY ORDER_ID
+-- -- OUT_DATE 출력 양식이 DAY까지만 나와야하는데 시간까지 나와서 틀린 듯
 
--- SELECT WRITER_ID, A.PRICE, A.STATUS, SUM(A.PRICE) AS TOTAL_SALES--, B.NICKNAME--, TOTAL_SALES
--- FROM USED_GOODS_BOARD A
--- GROUP BY A.WRITER_ID, A.PRICE, A.STATUS
--- HAVING A.STATUS = 'DONE'
--- ORDER BY A.WRITER_ID
+-- 3. SELECT에 TO_CHAR() 적용
+-- SELECT ORDER_ID, PRODUCT_ID, TO_CHAR(OUT_DATE,'YYYY-MM-DD'),
+--     CASE WHEN OUT_DATE <= TO_DATE('2022-05-01', 'YYYY-MM-DD') THEN '출고완료'
+--          WHEN OUT_DATE > TO_DATE('2022-05-01', 'YYYY-MM-DD') THEN '출고대기'
+--          ELSE '출고미정'
+--     END AS 출고여부
+-- FROM FOOD_ORDER 
+-- ORDER BY ORDER_ID
 
-SELECT WRITER_ID, SUM(A.PRICE) AS TOTAL_SALES
-FROM USED_GOODS_BOARD A
-GROUP BY A.WRITER_ID
-HAVING A.STATUS = 'DONE'
-ORDER BY A.WRITER_ID
 
--- 3.둘 합쳐보기 : 서브쿼리로 합체
--- SELECT B.USER_ID, B.NICKNAME, A.STATUS, A.PRICE--, TOTAL_SALES
--- FROM (
---     SELECT WRITER_ID
---     FROM USED_GOODS_BOARD 
---     GROUP BY WRITER_ID) A
---         JOIN USED_GOODS_USER B ON A.WRITER_ID = B.USER_ID
--- WHERE A.STATUS = 'DONE' 
--- -- A의 A.STATUS가 필요함. GROUP BY를 ID로만 해야되서... 음..
+
+-- 정답1 : CASE + TO_CHAR(), TO_DATE()
+SELECT ORDER_ID, PRODUCT_ID, TO_CHAR(OUT_DATE,'YYYY-MM-DD') AS OUT_DATE,
+    CASE WHEN OUT_DATE <= TO_DATE('2022-05-01', 'YYYY-MM-DD') THEN '출고완료'
+         WHEN OUT_DATE > TO_DATE('2022-05-01', 'YYYY-MM-DD') THEN '출고대기'
+         ELSE '출고미정'
+    END AS 출고여부
+FROM FOOD_ORDER 
+ORDER BY ORDER_ID
+
+-- 정답2 :
+
+
 
 
 
