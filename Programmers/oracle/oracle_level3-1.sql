@@ -628,6 +628,101 @@ ORDER BY TOTAL_SALES
 
 
 
+---- 즐겨찾기가 가장 많은 식당 정보 출력하기
+/* 
+조건
+    음식종류별로 즐겨찾기수가 가장 많은 식당
+    1)음식 종류를 기준으로 내림차순 정렬
+    2)음식종류별 
+    3)즐겨찾기수가 가장
+    4)한중일분식 각각 가장 많은 FAVORITES 1개씩
+    
+brainstorming
+    1)음식종류별 : GROUP BY FOOD_TYPE
+    2)FAVORITES : COUNT(), FETCH + SUBQUERY
+    3)
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+---- 대여 기록이 존재하는 자동차 리스트 구하기
+/* 
+조건
+    자동차 종류가 '세단'인 자동차들 중 10월에 대여를 시작한 기록이 있는 자동차 ID 리스트를 출력 
+    1)종류 세단
+    2)10월 대여
+    3)자동차 ID 리스트는 중복x
+    4)자동차 ID를 기준으로 내림차순 
+    
+brainstorming
+    1)종류 세단 : WHERE OR HAVING A.CAR_TYPE = '세단'
+    2)10월 대여 : WHERE OR HAVING EXTRACT(MONTH FROM B.START_DATE) = 10
+    3)자동차 ID 리스트는 중복x : GROUP BY
+
+*/
+
+
+-- 1.종류 세단 : WHERE A.CAR_TYPE = '세단'
+-- SELECT A.CAR_ID, CAR_TYPE
+-- FROM CAR_RENTAL_COMPANY_CAR A
+--     JOIN CAR_RENTAL_COMPANY_RENTAL_HISTORY B ON A.CAR_ID = B.CAR_ID
+-- WHERE A.CAR_TYPE = '세단'
+-- ORDER BY A.CAR_ID DESC
+
+
+-- 2. 10월 대여 시작 : HAVING EXTRACT(MONTH FROM B.START_DATE) = 10
+-- SELECT A.CAR_ID--, CAR_TYPE
+-- FROM CAR_RENTAL_COMPANY_CAR A
+--     JOIN CAR_RENTAL_COMPANY_RENTAL_HISTORY B ON A.CAR_ID = B.CAR_ID
+-- WHERE A.CAR_TYPE = '세단'
+-- GROUP BY A.CAR_ID,B.START_DATE -- 자동자ID중복X 조건?
+-- HAVING EXTRACT(MONTH FROM B.START_DATE) = 10
+-- ORDER BY A.CAR_ID DESC
+-- -- CAR_ID 중복됨 -> HAVING 때문에 GROUP BY에 START_DATE를 추가해야하므로 WHERE문으로 변경
+
+-- SELECT A.CAR_ID--, CAR_TYPE
+-- FROM CAR_RENTAL_COMPANY_CAR A
+--     JOIN CAR_RENTAL_COMPANY_RENTAL_HISTORY B ON A.CAR_ID = B.CAR_ID
+-- WHERE A.CAR_TYPE = '세단'
+--     AND EXTRACT(MONTH FROM B.START_DATE) = 10
+-- GROUP BY A.CAR_ID
+-- ORDER BY A.CAR_ID DESC
+
+
+-- 정답1 : WHERE + EXTRACT + GROUP BY
+ SELECT A.CAR_ID
+ FROM CAR_RENTAL_COMPANY_CAR A
+     JOIN CAR_RENTAL_COMPANY_RENTAL_HISTORY B ON A.CAR_ID = B.CAR_ID
+ WHERE A.CAR_TYPE = '세단'
+     AND EXTRACT(MONTH FROM B.START_DATE) = 10
+ GROUP BY A.CAR_ID
+ ORDER BY A.CAR_ID DESC
+
+-- 정답2 : DISTINCT + WHERE + TO_CHAR()
+SELECT DISTINCT A.CAR_ID
+FROM CAR_RENTAL_COMPANY_CAR A, CAR_RENTAL_COMPANY_RENTAL_HISTORY B
+WHERE A.CAR_ID = B.CAR_ID
+    AND A.CAR_TYPE = '세단' 
+    AND TO_CHAR(B.START_DATE, 'YYYYMM') = '202210' 
+ORDER BY 1 DESC;
+
+
+
+
+
+
+
+
 ---- TITLE
 /* 
 조건
