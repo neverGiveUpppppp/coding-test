@@ -938,15 +938,21 @@ class Solution {
 
 
 
-// level0 022 :
+// level0 022 : 문자열 뒤집기
 class Solution022 {
     public static void main(String[] args) {
         Solution022 prbs = new Solution022();
-        prbs.solution(7, 10);
-        System.out.println(prbs.solution(7, 10));
+        String answer = prbs.solution("jaron"	);
+        System.out.println(answer);
     }
-    public int solution(int slice, int n) {
-        int answer = 0;
+    public String solution(String my_string) {
+        // 방법1 : loop + chatAt()
+        String answer = "";
+        String str = my_string;
+        String reverse = "";
+        for(int i = str.length(); i > 0; i--){
+            answer += String.valueOf(str.charAt(i-1));
+        }
         return answer;
     }
 }
@@ -963,9 +969,24 @@ brainstorming
 
 /*
 
-    정답1
+    정답1 : loop + chatAt()
+        String answer = "";
+        String str = my_string;
+        String reverse = "";
+        for(int i = str.length(); i > 0; i--){
+            answer += String.valueOf(str.charAt(i-1));
+        }
+        return answer;
 
+     정답2 : StringBuilder + reverse()
+         String answer = "";
+         StringBuilder sb = new StringBuilder(my_string);
+         // answer = sb.reverse().toString();
+         // return answer;
+         return sb.reverse().toString();
 
+     정답3 : StringBuffer + reverse()
+         상동
  */
 
 
@@ -975,8 +996,8 @@ brainstorming
 class Solution023 {
     public static void main(String[] args) {
         Solution023 prbs = new Solution023();
-        prbs.solution(7, 10);
-        System.out.println(prbs.solution(7, 10));
+        int answer = prbs.solution(0,1);
+        System.out.println(answer);
     }
     public int solution(int slice, int n) {
         int answer = 0;
@@ -1008,8 +1029,8 @@ brainstorming
 class Solution024 {
     public static void main(String[] args) {
         Solution024 prbs = new Solution024();
-        prbs.solution(7, 10);
-        System.out.println(prbs.solution(7, 10));
+        int answer = prbs.solution(0,1);
+        System.out.println(answer);
     }
     public int solution(int slice, int n) {
         int answer = 0;
@@ -1041,8 +1062,8 @@ brainstorming
 class Solution025 {
     public static void main(String[] args) {
         Solution025 prbs = new Solution025();
-        prbs.solution(7, 10);
-        System.out.println(prbs.solution(7, 10));
+        int answer = prbs.solution(0,1);
+        System.out.println(answer);
     }
     public int solution(int slice, int n) {
         int answer = 0;
@@ -1074,8 +1095,8 @@ brainstorming
 class Solution026 {
     public static void main(String[] args) {
         Solution026 prbs = new Solution026();
-        prbs.solution(7, 10);
-        System.out.println(prbs.solution(7, 10));
+        int answer = prbs.solution(0,1);
+        System.out.println(answer);
     }
     public int solution(int slice, int n) {
         int answer = 0;
@@ -1107,8 +1128,8 @@ brainstorming
 class Solution027 {
     public static void main(String[] args) {
         Solution027 prbs = new Solution027();
-        prbs.solution(7, 10);
-        System.out.println(prbs.solution(7, 10));
+        int answer = prbs.solution(0,1);
+        System.out.println(answer);
     }
     public int solution(int slice, int n) {
         int answer = 0;
@@ -1140,8 +1161,8 @@ brainstorming
 class Solution028 {
     public static void main(String[] args) {
         Solution028 prbs = new Solution028();
-        prbs.solution(7, 10);
-        System.out.println(prbs.solution(7, 10));
+        int answer = prbs.solution(0,1);
+        System.out.println(answer);
     }
     public int solution(int slice, int n) {
         int answer = 0;
@@ -1173,8 +1194,8 @@ brainstorming
 class Solution029 {
     public static void main(String[] args) {
         Solution029 prbs = new Solution029();
-        prbs.solution(7, 10);
-        System.out.println(prbs.solution(7, 10));
+        int answer = prbs.solution(0,1);
+        System.out.println(answer);
     }
     public int solution(int slice, int n) {
         int answer = 0;
@@ -1205,8 +1226,8 @@ brainstorming
 class Solution030 {
     public static void main(String[] args) {
         Solution030 prbs = new Solution030();
-        prbs.solution(7, 10);
-        System.out.println(prbs.solution(7, 10));
+        int answer = prbs.solution(0,1);
+        System.out.println(answer);
     }
     public int solution(int slice, int n) {
         int answer = 0;
