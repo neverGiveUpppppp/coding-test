@@ -992,48 +992,70 @@ brainstorming
 
 
 
-// level0 023 :
+// level0 023 : 아이스 아메리카노
 class Solution023 {
     public static void main(String[] args) {
         Solution023 prbs = new Solution023();
-        int answer = prbs.solution(0,1);
+        int[] answer = prbs.solution(15000);
         System.out.println(answer);
     }
-    public int solution(int slice, int n) {
-        int answer = 0;
+
+    public int[] solution(int money) {
+//        int[] answer = {};
+        int[] answer = new int[2];
+        int coffeePrice = 5500;
+
+        answer[0] = money / coffeePrice;
+        answer[1] = money - (answer[0] * coffeePrice);
+
         return answer;
     }
 }
-/*
+/* 아이스 아메리카노
 조건
-    1.
-    2.
+    최대로 마실 수 있는 아메리카노의 잔 수와 남는 돈을 순서대로 담은 배열을 return
+    1.한잔에 5,500
+    2.매개변수 : 가지고 있는 돈 money
+    3.5,500	[1, 0] 가진돈, 커피잔수, 잔돈
+    4.배열 사용
 
 brainstorming
-    1.
-    2.
-
+    1.커피잔수 : 가진돈 % 5500
+    2.잔돈 : 가진돈 - (커피잔수*5500)
 */
 
 /*
 
     정답1
+class Solution {
+    public int[] solution(int money) {
+        // int[] answer = {};
+        int[] answer = new int[2];
+        int coffeePrice = 5500;
+
+        answer[0] = money / coffeePrice;
+        answer[1] = money - (answer[0] * coffeePrice);
+
+        return answer;
+    }
+}
 
 
  */
 
 
-
-
-// level0 024 :
+    // level0 024 :
 class Solution024 {
     public static void main(String[] args) {
         Solution024 prbs = new Solution024();
-        int answer = prbs.solution(0,1);
+        int answer = prbs.solution(13000, 5500);
         System.out.println(answer);
     }
+
     public int solution(int slice, int n) {
         int answer = 0;
+
+        answer = slice % n;
         return answer;
     }
 }
@@ -1056,15 +1078,14 @@ brainstorming
  */
 
 
-
-
-// level0 025 :
+    // level0 025 :
 class Solution025 {
     public static void main(String[] args) {
         Solution025 prbs = new Solution025();
-        int answer = prbs.solution(0,1);
+        int answer = prbs.solution(0, 1);
         System.out.println(answer);
     }
+
     public int solution(int slice, int n) {
         int answer = 0;
         return answer;
@@ -1089,15 +1110,14 @@ brainstorming
  */
 
 
-
-
-// level0 026 :
+    // level0 026 :
 class Solution026 {
     public static void main(String[] args) {
         Solution026 prbs = new Solution026();
-        int answer = prbs.solution(0,1);
+        int answer = prbs.solution(0, 1);
         System.out.println(answer);
     }
+
     public int solution(int slice, int n) {
         int answer = 0;
         return answer;
@@ -1122,15 +1142,14 @@ brainstorming
  */
 
 
-
-
-// level0 027 :
+    // level0 027 :
 class Solution027 {
     public static void main(String[] args) {
         Solution027 prbs = new Solution027();
-        int answer = prbs.solution(0,1);
+        int answer = prbs.solution(0, 1);
         System.out.println(answer);
     }
+
     public int solution(int slice, int n) {
         int answer = 0;
         return answer;
@@ -1155,15 +1174,14 @@ brainstorming
  */
 
 
-
-
-// level0 028 :
+    // level0 028 :
 class Solution028 {
     public static void main(String[] args) {
         Solution028 prbs = new Solution028();
-        int answer = prbs.solution(0,1);
+        int answer = prbs.solution(0, 1);
         System.out.println(answer);
     }
+
     public int solution(int slice, int n) {
         int answer = 0;
         return answer;
@@ -1188,15 +1206,14 @@ brainstorming
  */
 
 
-
-
-// level0 029 :
+    // level0 029 :
 class Solution029 {
     public static void main(String[] args) {
         Solution029 prbs = new Solution029();
-        int answer = prbs.solution(0,1);
+        int answer = prbs.solution(0, 1);
         System.out.println(answer);
     }
+
     public int solution(int slice, int n) {
         int answer = 0;
         return answer;
@@ -1221,14 +1238,14 @@ brainstorming
  */
 
 
-
-// level0 030 :
+    // level0 030 :
 class Solution030 {
     public static void main(String[] args) {
         Solution030 prbs = new Solution030();
-        int answer = prbs.solution(0,1);
+        int answer = prbs.solution(0, 1);
         System.out.println(answer);
     }
+
     public int solution(int slice, int n) {
         int answer = 0;
         return answer;
@@ -1261,8 +1278,6 @@ brainstorming
 
 
  */
-
-
 
 
 
