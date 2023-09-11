@@ -1044,36 +1044,53 @@ class Solution {
  */
 
 
-    // level0 024 :
+    // level0 024 : 배열의 유사도
 class Solution024 {
     public static void main(String[] args) {
         Solution024 prbs = new Solution024();
-        int answer = prbs.solution(13000, 5500);
+        String[] s1 = {"a", "b", "c"};
+        String[] s2 = {"com", "b", "d", "p", "c"};
+        int answer = prbs.solution(s1, s2);
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
+    public int solution(String[] s1, String[] s2) {
         int answer = 0;
-
-        answer = slice % n;
+        for (int i = 0; i < s1.length; i++) {
+            for (int j = 0; j < s2.length; j++) {
+                if(s1[i].equals(s2[j])){
+                    answer++;
+                }
+            }
+        }
         return answer;
     }
 }
 /*
 조건
+    같은 원소의 개수를 return
     1.
     2.
 
 brainstorming
-    1.
-    2.
+    1.브루트 포스를 사용하나 하나씩 다 비교?
 
 */
 
 /*
 
-    정답1
-
+    정답1 : 브루트포스 사용
+public int solution(String[] s1, String[] s2) {
+    int answer = 0;
+    for (int i = 0; i < s1.length; i++) {
+        for (int j = 0; j < s2.length; j++) {
+            if(s1[i].equals(s2[j])){
+                answer++;
+            }
+        }
+    }
+    return answer;
+}
 
  */
 
