@@ -1095,34 +1095,46 @@ public int solution(String[] s1, String[] s2) {
  */
 
 
-    // level0 025 :
+    // level0 025 : 문자 반복 출력하기
 class Solution025 {
     public static void main(String[] args) {
         Solution025 prbs = new Solution025();
-        int answer = prbs.solution(0, 1);
+        String answer = prbs.solution("hello", 5);
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
-        int answer = 0;
+    public String solution(String my_string, int n) {
+        String answer = "";
+        String str = null;
+        for(int i = 0; i < my_string.length(); i++)
+            answer += String.valueOf(my_string.charAt(i)).repeat(n);
         return answer;
     }
 }
 /*
 조건
-    1.
+    주어진 문자열 각각 문자마다 n만큼 반복
+    1.각각 문자열 반복
     2.
 
 brainstorming
-    1.
-    2.
+    1.각각 문자열 반복 : chatAt()
+    2.반복하기 : repeat()
 
 */
 
 /*
 
-    정답1
-
+    정답1 : for + chatAt() + repeat()
+class Solution {
+    public String solution(String my_string, int n) {
+        String answer = "";
+        String str = null;
+        for(int i = 0; i < my_string.length(); i++)
+            answer += String.valueOf(my_string.charAt(i)).repeat(n);
+        return answer;
+    }
+}
 
  */
 
