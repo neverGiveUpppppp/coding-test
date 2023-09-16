@@ -183,6 +183,163 @@ ORDER BY ANIMAL_ID
 
 
 
+---- 조건에 맞는 사용자 정보 조회하기
+/* 
+조건
+    중고 거래 게시물을 3건 이상 등록한 사용자의 사용자 ID, 닉네임, 전체주소, 전화번호를 조회
+    1)게시물을 3건 이상
+        A.BOARD_ID 
+    2)전체 주소는 시, 도로명 주소, 상세 주소가 함께 출력
+        CITY, STREET_ADDRESS1, STREET_ADDRESS2 AS 전체주소
+    3)전화번호의 경우 xxx-xxxx-xxxx 같은 형태로 하이픈 문자열(-)을 삽입하여 출력
+        TLNO AS 전화번호 <- xxx-xxxx-xxxx 하이픈 추가
+    4)회원 ID를 기준으로 내림차순
+    
+brainstorming
+    1)게시물을 3건 이상 :  A.BOARD_ID FETCH FIRST 3 ? // WHERE COUNT(A.BOARD_ID) >= 3 // RANK() OVER
+    2)전체 주소 : (CITY + " " + STREET_ADDRESS1 + " " + STREET_ADDRESS2) AS 전체주소
+        +는 계산식으로 들어감. 자바식. ||으로 리터럴 이어붙이기 가능
+    3)전화번호 하이픈 : SUBSTR(TLNO,1,3) || '-' || SUBSTR(TLNO,4,4) || '-' || SUBSTR(TLNO,8,4) AS 전화번호
+
+*/
+
+-- SELECT  B.USER_ID, B.NICKNAME, 전체주소, 전화번호
+-- FROM USED_GOODS_BOARD A
+--     JOIN USED_GOODS_USER B ON A.WRITER_ID = B.USER_ID
+-- ORDER BY B.USER_ID DESC
+
+
+-- 1.게시물 3건이상 : 
+---- 1)GROUP BY + HAVING COUNT(B.USER_ID) >= 3
+-- SELECT  B.USER_ID, B.NICKNAME--,--COUNT(B.USER_ID)--,--, 전체주소, 전화번호
+--         --RANK() OVER(ORDER BY BOARD_ID)
+-- FROM USED_GOODS_BOARD A
+--     JOIN USED_GOODS_USER B ON A.WRITER_ID = B.USER_ID
+-- -- WHERE COUNT(A.BOARD_ID) >= 3 -- ORA-00934: group function is not allowed here
+-- GROUP BY B.USER_ID, B.NICKNAME
+-- HAVING COUNT(B.USER_ID) >= 3
+-- ORDER BY B.USER_ID DESC
+
+---- 2)RANK() OVER
+-- SELECT B.USER_ID, B.NICKNAME
+-- FROM USED_GOODS_BOARD A
+--     JOIN (
+--         SELECT  U.USER_ID, U.NICKNAME,
+--                 RANK() OVER(ORDER BY U.BOARD_ID)
+--         FROM USED_GOODS_USER AS U
+--         FETCH FIRST 3 ROWS ONLY
+--     ) B ON A.WRITER_ID = B.USER_ID
+-- ORDER BY B.USER_ID DESC
+-- SELECT U.USER_ID, U.NICKNAME--,RANK() OVER(ORDER BY U.BOARD_ID)
+-- FROM USED_GOODS_USER U
+-- FETCH FIRST 3 ROWS ONLY
+---- 애초에 안되는 방법인 듯. FETCH로는 3건 이상 조건 만족안됨. RANK() OVER 사용법 아직 잘모르는 것도 있음.
+
+
+
+--2. 전체 주소 :  CITY, STREET_ADDRESS1, STREET_ADDRESS2 AS 전체주소
+-- SELECT  B.USER_ID, B.NICKNAME, 
+--         (CITY +STREET_ADDRESS1 + STREET_ADDRESS2) AS 전체주소 -- ORA-00979 : GROUP BY에 안들어 있어 에러
+-- FROM USED_GOODS_BOARD A
+--     JOIN USED_GOODS_USER B ON A.WRITER_ID = B.USER_ID
+-- GROUP BY B.USER_ID, B.NICKNAME
+-- HAVING COUNT(B.USER_ID) >= 3
+-- ORDER BY B.USER_ID DESC
+
+-- SELECT C.USER_ID, C.NICKNAME--, (CITY +STREET_ADDRESS1 + STREET_ADDRESS2) AS 전체주소
+-- FROM(
+--     SELECT  B.USER_ID, B.NICKNAME
+--     FROM USED_GOODS_BOARD A
+--         JOIN USED_GOODS_USER B ON A.WRITER_ID = B.USER_ID
+--     GROUP BY B.USER_ID, B.NICKNAME
+--     HAVING COUNT(B.USER_ID) >= 3
+--     ) C
+-- ORDER BY C.USER_ID DESC
+
+-- SELECT C.USER_ID, C.NICKNAME--, (CITY +STREET_ADDRESS1 + STREET_ADDRESS2) AS 전체주소
+-- FROM(
+--     SELECT  USER_ID, NICKNAME
+--     FROM USED_GOODS_BOARD A
+--     GROUP BY USER_ID, NICKNAME
+--     HAVING COUNT(USER_ID) >= 3
+--     ) C
+-- ORDER BY C.USER_ID DESC
+
+-- SELECT  WRITER_ID -- USED_GOODS_BOARD에서 쓰고 싶은 SELECT컬럼이 WRITER_ID하나라 이렇게 서브쿼리써도 OK
+-- FROM USED_GOODS_BOARD  
+-- GROUP BY WRITER_ID
+-- HAVING COUNT(BOARD_ID) >= 3
+
+
+-- SELECT B.USER_ID, B.NICKNAME, (CITY + STREET_ADDRESS1 + STREET_ADDRESS2) AS 전체주소 -- ORA-01722: invalid number
+---- ORA-01722: invalid number : 수내로 13 + 401호 이런식으로 숫자계산으로 되서 에러나는 듯
+-- SELECT B.USER_ID, B.NICKNAME, (TO_CHAT(CITY) + TO_CHAT(STREET_ADDRESS1) + TO_CHAT(STREET_ADDRESS2)) AS 전체주소
+---- ORA-00904: "TO_CHAT": invalid identifier
+-- SELECT B.USER_ID, B.NICKNAME, TO_CHAR(CITY) AS 전체주소1, TO_CHAR(STREET_ADDRESS1) AS ㅁ, 전체주소1 + ㅁ--ORA-00904: "ㅁ": invalid identifier
+---- TO_CHAT() 자체가 간단한 계산은 되는 구조라 계산식이 먹혀서 invalid number라고 뜨는 듯?
+-- SELECT B.USER_ID, B.NICKNAME,  CONCAT(CITY, STREET_ADDRESS1) -- CONCAT()은 공백 추가가 안됨
+
+-- SELECT B.USER_ID, B.NICKNAME, SUBSTR(TLNO,1,3) || '-' || SUBSTR(TLNO,4,4) || '-' || SUBSTR(TLNO,8,4) AS 전화번호
+-- -- 성공
+
+
+-- 3.전화번호 : SUBSTR(TLNO,1,3) || '-' || SUBSTR(TLNO,4,4) || '-' || SUBSTR(TLNO,8,4) AS 전화번호
+-- SELECT B.USER_ID, B.NICKNAME, 
+--        CITY || ' ' || STREET_ADDRESS1  || ' ' || STREET_ADDRESS2 AS 전체주소,
+--        SUBSTR(TLNO,1,3) || '-' || SUBSTR(TLNO,4,4) || '-' || SUBSTR(TLNO,8,4) AS 전화번호
+-- FROM(
+--     SELECT  WRITER_ID
+--     FROM USED_GOODS_BOARD  
+--     GROUP BY WRITER_ID
+--     HAVING COUNT(BOARD_ID) >= 3
+--     ) A
+--     JOIN USED_GOODS_USER B ON A.WRITER_ID = B.USER_ID
+-- ORDER BY B.USER_ID DESC
+
+-- 정답1 :  || + SUBSTR + SUBQUERY + GROUP BY, HAVING
+ SELECT B.USER_ID, B.NICKNAME, 
+        CITY || ' ' || STREET_ADDRESS1  || ' ' || STREET_ADDRESS2 AS 전체주소,
+        SUBSTR(TLNO,1,3) || '-' || SUBSTR(TLNO,4,4) || '-' || SUBSTR(TLNO,8,4) AS 전화번호
+ FROM(
+     SELECT  WRITER_ID
+     FROM USED_GOODS_BOARD  
+     GROUP BY WRITER_ID
+     HAVING COUNT(BOARD_ID) >= 3
+     ) A
+     JOIN USED_GOODS_USER B ON A.WRITER_ID = B.USER_ID
+ ORDER BY B.USER_ID DESC
+
+-- 정답2 : WITH문 + GROUP BY, HAVING + || + SUBSTR + CHR(32)
+WITH OVER_THREE AS 
+    (
+    SELECT WRITER_ID, COUNT(WRITER_ID)
+    FROM USED_GOODS_BOARD
+    GROUP BY WRITER_ID
+    HAVING COUNT(WRITER_ID) >= 3
+    )
+
+SELECT OT.WRITER_ID, UGU.NICKNAME, 
+       UGU.CITY || CHR(32) || UGU.STREET_ADDRESS1 || CHR(32) || UGU.STREET_ADDRESS2 AS 전체주소,
+       SUBSTR(UGU.TLNO,1,3) || '-' || SUBSTR(UGU.TLNO,4,4) || '-' || SUBSTR(UGU.TLNO,-4,4) AS 전화번호
+       -- CHR(32) : ASCII 코드 32에 해당하는 문자를 반환하는 오라클 함수
+FROM OVER_THREE OT 
+    JOIN USED_GOODS_USER UGU ON OT.WRITER_ID = UGU.USER_ID
+ORDER BY OT.WRITER_ID DESC
+
+
+/*
+MYSQL은 CONCAT 파라미터 3개이상 가능
+오라클은 CONCAT 파라미터 2개 고정
+*/
+
+
+
+
+
+
+
+
+
 
 
 ---- TITLE
