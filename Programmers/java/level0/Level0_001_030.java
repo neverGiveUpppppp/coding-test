@@ -1139,48 +1139,50 @@ class Solution {
  */
 
 
-    // level0 026 : 배열 자르기
+    // level0 026 : 순서쌍의 개수
 class Solution026 {
     public static void main(String[] args) {
         Solution026 prbs = new Solution026();
-        int[] arr = {1, 2, 3, 4, 5};
-        int[] answer = prbs.solution(arr, 1, 3);
-        System.out.println(Arrays.toString(answer));
+        int answer = prbs.solution(20);
+        System.out.println(answer);
     }
 
-    public int[] solution(int[] numbers, int num1, int num2) {
-        int[] answer = new int[num2-num1+1];
+    public int solution(int n) {
+        int answer = 0;
 
-        /*for (int i = num1; i <= num2; i++) {
-            for(int j = 0; j < num2-num1; j++)
-                answer[j] = numbers[i];
-            System.out.println("i = " + i);
-        }*/
-        /*for (int i = 0; i < num2-num1; i++) {
-            for(int j = 0; j < num2-num1; j++)
-                answer[j] = numbers[i];
-            System.out.println("i = " + i);
-        }*/
-        System.arraycopy(numbers, num1, answer, 0, num2); // 답 자체는 맞으나 채점에서 런타임 에러 발생
+        for(int i = 1; i <= n; i++){
+            if(n % i == 0)
+                answer++;
+        }
         return answer;
     }
 }
 /*
 조건
-    numbers의 num1번 째 인덱스부터 num2번째 인덱스까지 자른 정수 배열을 return
+    두 숫자의 곱이 n인 자연수 순서쌍의 개수를 return
     1.
     2.
 
 brainstorming
-    1.자르기 substring
-    2.
+    1.특정수로 나눴을 때 나머지가 없어야함. 그래야 곱이 됨.
+    2.for문으로 1부터 주어진 수 n까지 돌려서 하나씩 나머지 없는 조건으로 뭔가해보면?
 
 */
 
 /*
 
     정답1
+class Solution {
+    public int solution(int n) {
+        int answer = 0;
 
+        for(int i = 1; i <= n; i++){
+            if(n % i == 0)
+                answer++;
+        }
+        return answer;
+    }
+}
 
  */
 
@@ -1312,6 +1314,58 @@ brainstorming
 
  */
 
+
+
+
+
+
+
+// Unsolved
+
+// level0 026 : 배열 자르기
+class Solution031 {
+    public static void main(String[] args) {
+        Solution031 prbs = new Solution031();
+        int[] arr = {1, 2, 3, 4, 5};
+        int[] answer = prbs.solution(arr, 1, 3);
+        System.out.println(Arrays.toString(answer));
+    }
+
+    public int[] solution(int[] numbers, int num1, int num2) {
+        int[] answer = new int[num2-num1+1];
+
+        /*for (int i = num1; i <= num2; i++) {
+            for(int j = 0; j < num2-num1; j++)
+                answer[j] = numbers[i];
+            System.out.println("i = " + i);
+        }*/
+        /*for (int i = 0; i < num2-num1; i++) {
+            for(int j = 0; j < num2-num1; j++)
+                answer[j] = numbers[i];
+            System.out.println("i = " + i);
+        }*/
+        System.arraycopy(numbers, num1, answer, 0, num2); // 답 자체는 맞으나 채점에서 런타임 에러 발생
+        return answer;
+    }
+}
+/*
+조건
+    numbers의 num1번 째 인덱스부터 num2번째 인덱스까지 자른 정수 배열을 return
+    1.
+    2.
+
+brainstorming
+    1.자르기 substring
+    2.
+
+*/
+
+/*
+
+    정답1
+
+
+ */
 
 
 
