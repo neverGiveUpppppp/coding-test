@@ -339,6 +339,78 @@ MYSQL은 CONCAT 파라미터 3개이상 가능
 
 
 
+---- 자동차 대여 기록에서 대여중 / 대여 가능 여부 구분하기
+/* 
+조건
+    2022년 10월 16일에 대여 중인 자동차인 경우 '대여중' 이라고 표시하고, 
+    대여 중이지 않은 자동차인 경우 '대여 가능'을 표시하는 컬럼(컬럼명: AVAILABILITY)을 추가하여 
+    자동차 ID와 AVAILABILITY 리스트를 출력
+    1) 2022년 10월 16일
+    2) 대여 중인 자동차인 경우 '대여중' or '대여 가능' 표시하는 컬럼(컬럼명: AVAILABILITY)을 추가
+    3) 반납 날짜가 2022년 10월 16일인 경우에도 '대여중'으로 표시
+    4) 자동차 ID를 기준으로 내림차순
+    
+brainstorming
+    END_DATE가 10월 16일까지 '대여중'
+    1)2022년 10월 16일 : TO_CHAR(END_DATE)  <= '2022-10-16'
+      - 단순 END_DATE가 16일 이전꺼면 과거 기록 다 불러오니 대여종료인 기록도 불러와서 판별 불가
+      - 근데 어쨋든 대여종료 기록이 16일 전이면 차는 돌아왔으니 대여 가능한 상태임.
+      - 문제는 START_DATE가 10.16이후인 것들임. 미래 예약인데 이것도 언제 예약인지가 문제네
+        BETWEEN 쓸려해도 기준을 어떻게 잡지?
+      
+    2)'대여중' or '대여 가능' AVAILABILITY컬럼 : case when + literal
+
+*/
+
+-- SELECT CAR_ID, START_DATE, END_DATE
+-- FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+-- ORDER BY CAR_ID DESC
+
+
+-- DATE와 NUMBER의 데이터타입 테스트
+-- SELECT CAR_ID, START_DATE, END_DATE
+-- FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+-- -- WHERE END_DATE  <= 2022-10-16    -- ORA-00932: inconsistent datatypes: expected DATE got NUMBER
+-- -- WHERE END_DATE  <= TO_CHAR(2022-10-16) -- ORA-01861: literal does not match format string
+-- -- WHERE TO_CHAR(END_DATE)  <= 2022-10-16 -- ORA-01722: invalid number
+-- WHERE TO_CHAR(END_DATE)  <= '2022-10-16' -- 성공
+-- ORDER BY CAR_ID DESC
+
+
+-- 1.AVAILABILITY 및 대여중 추가
+-- SELECT CAR_ID, START_DATE, END_DATE,
+--        CASE WHEN TO_CHAR(END_DATE,'YY-MM-DD')  >= '22-10-16' THEN '대여중'
+--        ELSE '대여가능'
+--        END AS AVAILABILITY
+-- FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+-- -- WHERE  TO_CHAR(END_DATE,'YY-MM-DD')  = '22-10-16'
+-- ORDER BY CAR_ID DESC
+---- CAR_ID 중복 -> END_DATE의 가장 최근 기록을 불러와야함 -> GROUP으로 묶고 거기서 END 최신것만 조건으로 추려내고 서브쿼리
+---- END_DATE 최신 것만 어떻게 불러오지? 
+---- 아니다. 대여 시작과 종료 중간에 22년10월16일이 있으면 대여중이고 아니면 대여가능이네
+
+
+-- SELECT CAR_ID, START_DATE, END_DATE,
+--        CASE WHEN TO_CHAR(END_DATE,'YY-MM-DD')  >= '22-10-16' THEN '대여중'
+--        ELSE '대여가능'
+--        END AS AVAILABILITY
+-- FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+-- GROUP BY CAR_ID, START_DATE, END_DATE
+-- HAVING MAX(TO_CHAR(END_DATE,'YYMMDD'))
+-- ORDER BY CAR_ID DESC
+
+
+
+
+
+
+-- 2.
+-- 3.
+
+-- 정답1 : 
+-- 정답2 :
+
+
 
 
 
@@ -369,7 +441,8 @@ brainstorming
 /*
 다시 풀어 볼 문제
 
-     1.
+     1.자동차 대여 기록에서 대여중 / 대여 가능 여부 구분하기
+     2.
 
 
 
