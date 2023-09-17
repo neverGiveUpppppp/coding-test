@@ -2,6 +2,7 @@ package level0;
 
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class Level0_001_030 {
 // 문제 순서 정렬 : 정답률 높은 순
@@ -1187,34 +1188,107 @@ class Solution {
  */
 
 
-    // level0 027 :
+    // level0 027 : 모음 제거
 class Solution027 {
     public static void main(String[] args) {
         Solution027 prbs = new Solution027();
-        int answer = prbs.solution(0, 1);
+        String answer = prbs.solution("nice to meet you");
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
-        int answer = 0;
+    public String solution(String my_string) {
+        String answer = "";
+
+        // 방법1 : 브루트포스
+//        String[] arr = new String[my_string.length()];
+//        // 주어진 문자열을 배열로 변환 - my_string.toCharArray()로 대체 가능
+//        for (int i = 0; i < my_string.length(); i++) {
+//            arr[i] = String.valueOf(my_string.charAt(i)).toLowerCase();
+//        }
+//        for (int i = 0; i < my_string.length(); i++) {
+//            if(!arr[i].equals("a") && !arr[i].equals("e") && !arr[i].equals("i") && !arr[i].equals("o") && !arr[i].equals("u")){
+//                answer += arr[i];
+//            }
+//        }
+
+        // 방법2 : HashSet
+        HashSet<Character> hset = new HashSet<>();
+        hset.add('a');
+        hset.add('e');
+        hset.add('i');
+        hset.add('o');
+        hset.add('u');
+
+        StringBuilder sb = new StringBuilder();
+        for (Character c : my_string.toCharArray()) {
+            if (!hset.contains(Character.toLowerCase(c))) {
+                answer = String.valueOf(sb.append(c));
+            }
+        }
         return answer;
     }
 }
 /*
 조건
+    a, e, i, o, u 알파벳 모음 제거 후 return
     1.
     2.
 
 brainstorming
-    1.
-    2.
+    1.주어진 주어열 길이 length만큼 for문 반복 후 문자 하나씩 읽어드리면서 if문으로 모음이면 제거
+    2.if문 돌리면서 모음이면 answer에 추가안하고 모임아니면 추가? 효율성은?
+    3.배열이 아니라 하나씩 불러들리는게 주어진 값으로는 불가 -> 배열로 만드는 작업?
+
 
 */
 
 /*
 
-    정답1
+    정답1 : 브루트포스
+class Solution {
+    public String solution(String my_string) {
+        String answer = "";
 
+        // 방법1 : 브루트포스
+        String[] arr = new String[my_string.length()];
+        // 주어진 문자열을 배열로 변환 - my_string.toCharArray()로 대체 가능
+        for (int i = 0; i < my_string.length(); i++) {
+            arr[i] = String.valueOf(my_string.charAt(i)).toLowerCase();
+        }
+        for (int i = 0; i < my_string.length(); i++) {
+            if(!arr[i].equals("a") && !arr[i].equals("e") && !arr[i].equals("i") && !arr[i].equals("o") && !arr[i].equals("u")){
+                answer += arr[i];
+            }
+        }
+        return answer;
+    }
+}
+
+
+    정답2 : HashSet
+import java.util.HashSet;
+
+class Solution {
+    public String solution(String my_string) {
+        String answer = "";
+
+        // 방법2 : HashSet
+        HashSet<Character> hset = new HashSet<>();
+        hset.add('a');
+        hset.add('e');
+        hset.add('i');
+        hset.add('o');
+        hset.add('u');
+
+        StringBuilder sb = new StringBuilder();
+        for (Character c : my_string.toCharArray()) {
+            if (!hset.contains(Character.toLowerCase(c))) {
+                answer = String.valueOf(sb.append(c));
+            }
+        }
+        return answer;
+    }
+}
 
  */
 
