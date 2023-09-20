@@ -1,8 +1,7 @@
 package level0;
 
 
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.*;
 
 public class Level0_001_030 {
 // 문제 순서 정렬 : 정답률 높은 순
@@ -1293,33 +1292,90 @@ class Solution {
  */
 
 
-    // level0 028 :
+    // level0 028 : 삼각형의 완성조건 (1)
 class Solution028 {
     public static void main(String[] args) {
         Solution028 prbs = new Solution028();
-        int answer = prbs.solution(0, 1);
-        System.out.println(answer);
+        int[] answer = {3, 6, 2};
+        System.out.println(prbs.solution(answer));
     }
 
-    public int solution(int slice, int n) {
+    public int solution(int[] sides) {
         int answer = 0;
+
+        // 방법1 : 최대값 Loop
+//        int max = 0;
+//        for (int i = 0; i < sides.length; i++) {
+//            if(max < sides[i])
+//                max = sides[i];
+//        }
+
+        List<Integer> intList = new ArrayList<>();
+        for (int value : sides) {
+            intList.add(value);
+        }
+        // 방법2 : 최대값 Collection.max()
+//        int max = !intList.isEmpty() ? Collections.max(intList) : -1;
+        // 방법3 : 최대값 Stream().max()
+        int max = intList.stream().max(Integer::compare).orElse(-1);
+        if((max < (sides[0] + sides[1] + sides[2]) - max))
+            answer = 1;
+        else
+            answer = 2;
+
         return answer;
     }
 }
 /*
 조건
-    1.
-    2.
+    선분 세 개로 삼각형을 만들기
+    1.가장 긴 변의 길이는 다른 두 변의 길이의 합보다 작아야
+    2.세 변으로 삼각형을 만들 수 있다면 1, 만들 수 없다면 2를 return
 
 brainstorming
-    1.
-    2.
+    1.최대값 구하기
+    2.max(a) < b + c
 
 */
 
 /*
 
-    정답1
+    정답1 : 최대값 loop문 + (arr[0] + arr[1] + arr[2] - max)
+import java.util.*;
+
+class Solution028 {
+    public static void main(String[] args) {
+        Solution028 prbs = new Solution028();
+        int[] answer = {3, 6, 2};
+        System.out.println(prbs.solution(answer));
+    }
+
+    public int solution(int[] sides) {
+        int answer = 0;
+
+        // 방법1 : 최대값 Loop
+        int max = 0;
+        for (int i = 0; i < sides.length; i++) {
+            if(max < sides[i])
+                max = sides[i];
+        }
+
+        List<Integer> intList = new ArrayList<>();
+        for (int value : sides) {
+            intList.add(value);
+        }
+        // 방법2 : 최대값 Collection.max()
+        int max = !intList.isEmpty() ? Collections.max(intList) : -1;
+        // 방법3 : 최대값 Stream().max()
+        int max = intList.stream().max(Integer::compare).orElse(-1);
+        if((max < (sides[0] + sides[1] + sides[2]) - max))
+            answer = 1;
+        else
+            answer = 2;
+
+        return answer;
+    }
+}
 
 
  */
