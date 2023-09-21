@@ -1381,16 +1381,42 @@ class Solution028 {
  */
 
 
-    // level0 029 :
+    // level0 029 : 배열 자르기
 class Solution029 {
     public static void main(String[] args) {
-        Solution029 prbs = new Solution029();
-        int answer = prbs.solution(0, 1);
-        System.out.println(answer);
+        Solution029 prbs = new level0.Solution029();
+        int[] arr = {1, 2, 3, 4, 5};
+        int[] answer = prbs.solution(arr, 1, 3);
+        System.out.println(Arrays.toString(answer));
     }
 
-    public int solution(int slice, int n) {
-        int answer = 0;
+    public int[] solution(int[] numbers, int num1, int num2) {
+     /*for (int i = num1; i <= num2; i++) {
+        for(int j = 0; j < num2-num1; j++)
+            answer[j] = numbers[i];
+        System.out.println("i = " + i);
+    }*/
+    /*for (int i = 0; i < num2-num1; i++) {
+        for(int j = 0; j < num2-num1; j++)
+            answer[j] = numbers[i];
+        System.out.println("i = " + i);
+    }*/
+//        System.arraycopy(numbers, num1, answer, 0, num2); // 답 자체는 맞으나 채점에서 런타임 에러 발생
+
+        int[] answer = new int[num2-num1+1];
+        List<Integer> list = new ArrayList<>();
+
+        // num1,2 번호 추출
+        for (int i = num1; i <= num2; i++) {
+            list.add(numbers[i]);
+        }
+
+        // list to array 변환
+        //   방법1 : loop
+        for (int i = 0; i < list.size(); i++) {
+            answer[i] = list.get(i);
+        }
+        //   방법2 :
         return answer;
     }
 }
@@ -1452,40 +1478,27 @@ brainstorming
 
 // Unsolved
 
-// level0 026 : 배열 자르기
-class Solution031 {
+// level0 031 :
+class SolutionUnsol {
     public static void main(String[] args) {
-        Solution031 prbs = new Solution031();
-        int[] arr = {1, 2, 3, 4, 5};
-        int[] answer = prbs.solution(arr, 1, 3);
-        System.out.println(Arrays.toString(answer));
+        SolutionUnsol prbs = new SolutionUnsol();
+        int answer = prbs.solution(0, 1);
+        System.out.println(answer);
     }
 
-    public int[] solution(int[] numbers, int num1, int num2) {
-        int[] answer = new int[num2-num1+1];
 
-        /*for (int i = num1; i <= num2; i++) {
-            for(int j = 0; j < num2-num1; j++)
-                answer[j] = numbers[i];
-            System.out.println("i = " + i);
-        }*/
-        /*for (int i = 0; i < num2-num1; i++) {
-            for(int j = 0; j < num2-num1; j++)
-                answer[j] = numbers[i];
-            System.out.println("i = " + i);
-        }*/
-        System.arraycopy(numbers, num1, answer, 0, num2); // 답 자체는 맞으나 채점에서 런타임 에러 발생
+    public int solution(int slice, int n) {
+        int answer = 0;
         return answer;
     }
 }
 /*
 조건
-    numbers의 num1번 째 인덱스부터 num2번째 인덱스까지 자른 정수 배열을 return
     1.
     2.
 
 brainstorming
-    1.자르기 substring
+    1.
     2.
 
 */
