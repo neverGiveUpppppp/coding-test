@@ -1,35 +1,75 @@
 package level0;
 
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
-
-// level0 :
+// level0 : 중복된 숫자 개수
 /*
 조건
+    array에 n이 몇 개 있는 지를 return
     1.
     2.
 
 brainstorming
-    1.
+    1.저번에 나온 set 써보기
     2.
 
 */
 class Solution031 {
     public static void main(String[] args) {
         Solution031 prbs = new Solution031();
-        int answer = prbs.solution(0, 1);
+        int[] arr = {1, 1, 2, 3, 4, 5};
+        int answer = prbs.solution(arr, 1);
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
-        int answer = 0;
-        return answer;
+    public int solution(int[] array, int n) {
+        // 정답1 : HashSet + contains() 사용
+//        int answer = 0;
+////        List<int[]> list = Arrays.asList(array);
+////        Set<int[]> set2 = new HashSet<>(list); // array -> list 변환 -> 그리고 set 적용 가능
+//        Set<Integer> set = new HashSet<>();
+//        set.add(n);
+//
+//        for (int i = 0; i < array.length; i++) {
+//            if(set.contains(array[i]))
+//                answer++;
+//        }
+//        return answer;
+
+        // 정답2 : Arrays.Stream() + filter() + count()
+        return (int)Arrays.stream(array).
+                    filter(e -> e == n).
+                    count(); // count() : mapToLong(e -> 1L).sum()
+        // 정답3 : Arrays.Stream() + filter() + sum()
+//        return Arrays.stream(array).
+//                filter(e -> e == n).
+//                sum(); // sum() : reduce(0, Integer::sum)
     }
 }
 
 /*
 
-    정답1
+    정답1 : Hash + contains() 사용
+import java.util.*;
+class Solution {
+    public int solution(int[] array, int n) {
+        int answer = 0;
+
+        Set<Integer> set = new HashSet<>();
+        set.add(n);
+        for (int i = 0; i < array.length; i++) {
+            if(set.contains(array[i]))
+                answer++;
+        }
+        return answer;
+    }
+}
+
+
+    정답2 : Stream() + filter() + count()
 
 
  */
@@ -371,11 +411,12 @@ public class Level0_031_060 {
 class SolutionUnsol31 {
     public static void main(String[] args) {
         SolutionUnsol31 prbs = new SolutionUnsol31();
-        int answer = prbs.solution(0, 1);
+        int[] arr = {1, 1, 2, 3, 4, 5};
+        int answer = prbs.solution(arr, 1);
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
+    public int solution(int[] array, int n) {
         int answer = 0;
         return answer;
     }
