@@ -338,6 +338,115 @@ MYSQL은 CONCAT 파라미터 3개이상 가능
 
 
 
+---- 헤비 유저가 소유한 장소
+/* 
+
+조건
+    공간을 둘 이상 등록한 사람 : "헤비 유저"
+    헤비 유저가 등록한 공간의 정보를 아이디 순으로 조회
+    1)헤비유저 : 공간 아이디가 두개인 host_id 찾기
+    2)
+    
+brainstorming
+    1)SELF-JOIN 사용해서 GROUP으로 외부쿼리에서 조회하는 방식?
+    2)
+
+*/
+
+-- SELECT ID, NAME, HOST_ID
+-- FROM PLACES A
+--     LEFT JOIN (
+--         SELECT C.HOST_ID
+--         FROM PLACES 
+--         ) B ON A.HOST_ID = C.HOST.ID
+
+-- SELECT A.ID, A.NAME, A.HOST_ID
+-- FROM PLACES A
+--     LEFT JOIN (
+--         SELECT B.HOST_ID
+--         FROM PLACES B
+--         ) C ON A.HOST_ID = C.HOST.ID -- ORA-00904
+-- -- ORA-00904:  "C"."HOST"."ID": invalid identifier
+-- -- 셀프조인 인라인뷰 안 SELECT 컬럼을 JOIN ON절에서 못씀
+
+-- SELECT A.ID, A.NAME, A.HOST_ID, COUNT(A.HOST_ID)
+-- FROM PLACES A
+-- GROUP BY A.HOST_ID, A.ID, A.NAME
+-- -- HAVING COUNT(A.HOST_ID) >= 2
+-- ORDER BY A.ID
+
+-- 1.헤비유저 조건
+-- SELECT A.HOST_ID, COUNT(A.HOST_ID)
+-- FROM PLACES A
+-- GROUP BY A.HOST_ID
+-- HAVING COUNT(A.HOST_ID) >= 2
+
+-- 2.조회 조건 만족
+-- SELECT A.ID, A.NAME, A.HOST_ID
+-- FROM PLACES A
+--     JOIN (
+--         SELECT B.HOST_ID, COUNT(B.HOST_ID)
+--         FROM PLACES B
+--         GROUP BY B.HOST_ID
+--         HAVING COUNT(B.HOST_ID) >= 2
+--         ) C ON A.HOST_ID = C.HOST_ID
+
+
+ --정답1 : 인라인뷰 + GROUP HAVING + COUNT()
+ SELECT A.ID, A.NAME, A.HOST_ID
+ FROM PLACES A
+     JOIN (
+         SELECT B.HOST_ID, COUNT(B.HOST_ID)
+         FROM PLACES B
+         GROUP BY B.HOST_ID
+         HAVING COUNT(B.HOST_ID) >= 2
+         ) C ON A.HOST_ID = C.HOST_ID
+
+-- 정답2 : 인라인뷰 + ROW_NUBMER() + IN + GROUP BY, HAVING
+ SELECT 
+     P.ID, P.NAME, P.HOST_ID
+ FROM (
+     SELECT PLACES.*,   
+            ROW_NUMBER() OVER (ORDER BY ID) AS row_num
+     FROM PLACES
+     WHERE HOST_ID IN (
+             SELECT HOST_ID  
+             FROM PLACES 
+             GROUP BY HOST_ID    
+             HAVING COUNT(*) > 1
+         )
+ ) P
+ ORDER BY P.row_num;
+
+-- 정답3 : WHERE + IN + 서브쿼리 + GROUP BY, HAVING + COUNT()
+SELECT * 
+FROM PLACES
+WHERE HOST_ID IN
+    (
+    SELECT HOST_ID FROM PLACES
+    GROUP BY HOST_ID
+    HAVING COUNT(HOST_ID) >= 2
+    )
+ORDER BY ID;
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ---- 자동차 대여 기록에서 대여중 / 대여 가능 여부 구분하기
 /* 
