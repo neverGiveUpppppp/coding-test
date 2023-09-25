@@ -76,9 +76,11 @@ class Solution {
 
 
 
-// level0 :
+// level0 : 머쓱이보다 키 큰 사람
 /*
 조건
+    머쓱이네 반 친구들의 키가 담긴 정수 배열 array와 머쓱이의 키 height가 매개변수로 주어질 때,
+    머쓱이보다 키 큰 사람 수를 return
     1.
     2.
 
@@ -90,12 +92,17 @@ brainstorming
 class Solution032 {
     public static void main(String[] args) {
         Solution032 prbs = new Solution032();
-        int answer = prbs.solution(0, 1);
+        int[] arr = {149, 180, 192, 170};
+        int answer = prbs.solution(arr, 167);
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
+    public int solution(int[] array, int height) {
         int answer = 0;
+        for(int i = 0; i < array.length; i++){
+            if(height < array[i])
+                answer++;
+        }
         return answer;
     }
 }
@@ -103,7 +110,18 @@ class Solution032 {
 /*
 
     정답1
+class Solution {
+    public int solution(int[] array, int height) {
+        int answer = 0;
 
+        for(int i = 0; i < array.length; i++){
+            if(height < array[i])
+                answer++;
+        }
+
+        return answer;
+    }
+}
 
  */
 
