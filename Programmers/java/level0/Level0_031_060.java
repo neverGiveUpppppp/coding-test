@@ -1,9 +1,7 @@
 package level0;
 
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 // level0 : 중복된 숫자 개수
 /*
@@ -126,26 +124,41 @@ class Solution {
  */
 
 
-// level0 :
+// level0 : 자릿수 더하기
 /*
 조건
     1.
     2.
 
 brainstorming
-    1.
+    1.loop + charAt()으로 자릿수마다 하나씩 빼서 더하기?
+        char타입이라 아스키코드 변환문제랑 문자열 길이를 알아야해서 str로 변환필요
     2.
 
 */
 class Solution033 {
     public static void main(String[] args) {
         Solution033 prbs = new Solution033();
-        int answer = prbs.solution(0, 1);
+        int answer = prbs.solution(1234);
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
+    public int solution( int n) {
         int answer = 0;
+
+//        String str = String.valueOf(n);
+//        for(int i = 0; i < str.length(); i++)
+//            answer += (int)str.charAt(i);
+
+        LinkedList<String> list = new LinkedList<>();
+        String str = String.valueOf(n);
+
+        for (int i = 0; i < str.length(); i++) {
+            list.add(String.valueOf(str.charAt(i)));
+        }
+        for (int i = 0; i < str.length(); i++) {
+            answer += Integer.parseInt(list.pop()); // 끝에서 빼오는 큐(queue)의 메소드 pop() //  자바에서 큐는 주로 LinkedList로 구현
+        }
         return answer;
     }
 }
@@ -153,7 +166,23 @@ class Solution033 {
 /*
 
     정답1
+import java.util.*;
+class Solution {
+    public int solution(int n) {
+        int answer = 0;
 
+        LinkedList<String> list = new LinkedList<>();
+        String str = String.valueOf(n);
+
+        for (int i = 0; i < str.length(); i++) {
+            list.add(String.valueOf(str.charAt(i)));
+        }
+        for (int i = 0; i < str.length(); i++) {
+            answer += Integer.parseInt(list.pop());
+        }
+        return answer;
+    }
+}
 
  */
 
