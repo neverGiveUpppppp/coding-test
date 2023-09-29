@@ -187,9 +187,10 @@ class Solution {
  */
 
 
-// level0 :
+// level0 : 배열 두배 만들기
 /*
 조건
+    numbers의 각 원소에 두배한 원소를 가진 배열을 return하도록
     1.
     2.
 
@@ -205,16 +206,30 @@ class Solution034 {
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
-        int answer = 0;
+    public int[] solution(int[] numbers) {
+        int[] answer = new int[numbers.length];
+        
+        for(int i = 0; i < numbers.length; i++)
+            answer[i] = numbers[i] * 2;
+        
+        
         return answer;
     }
 }
 
 /*
-
     정답1
-
+class Solution {
+    public int[] solution(int[] numbers) {
+        int[] answer = new int[numbers.length];
+        
+        for(int i = 0; i < numbers.length; i++)
+            answer[i] = numbers[i] * 2;
+        
+        
+        return answer;
+    }
+}
 
  */
 
