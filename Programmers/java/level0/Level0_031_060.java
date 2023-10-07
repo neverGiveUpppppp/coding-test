@@ -184,6 +184,7 @@ class Solution {
     }
 }
 
+
  */
 
 
@@ -202,7 +203,8 @@ brainstorming
 class Solution034 {
     public static void main(String[] args) {
         Solution034 prbs = new Solution034();
-        int answer = prbs.solution(0, 1);
+        int[] arr = {1, 2, 3, 4, 5};
+        int[] answer = prbs.solution(arr);
         System.out.println(answer);
     }
 
@@ -234,26 +236,47 @@ class Solution {
  */
 
 
-// level0 :
+// level0 : 특정 문자 제거하기
 /*
 조건
-    1.
-    2.
+    my_string에서 letter를 제거한 문자열을 return
+    1.my_string 전체를 loop 한번 돌면서 letter를 찾아 제거 String.remove()
+    2.대소문자 구별
 
 brainstorming
-    1.
-    2.
+    1.a문장에서 b의 문자를 제거한 a문장 리턴이 조건이므로 a문장 전체를 한바퀴 돌아야함 -> 브루트포스 필요
+    2.제거 : ArrayList.remove() or LinkedList.pop()
+    3.str -> list로 넣는 loop 1번, letter 제거하는 loop 1번
+    4.반드시 제거해야하므로 Set은 사용불가
+
 
 */
 class Solution035 {
     public static void main(String[] args) {
         Solution035 prbs = new Solution035();
-        int answer = prbs.solution(0, 1);
+
+        String my_string = "abcdef";
+        String letter = "f";
+        String answer = prbs.solution(my_string,letter);
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
-        int answer = 0;
+    public String solution(String my_string, String letter) {
+        String answer = "";
+
+        List<String> list = new ArrayList<>();
+
+        // 1.String to List 변환
+        for (int i = 0; i < my_string.length(); i++) {
+            list.add(String.valueOf(my_string.charAt(i)));
+        }
+        // 2.my_string에서 letter 제거
+        for(int i = 0; i < my_string.length(); i++){
+            if(list.get(i).equals(letter)){
+            }else{
+                answer += list.get(i);
+            }
+        }
         return answer;
     }
 }
