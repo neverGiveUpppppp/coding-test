@@ -284,31 +284,83 @@ class Solution035 {
 /*
 
     정답1
+import java.util.*;
 
+class Solution {
+    public String solution(String my_string, String letter) {
+        String answer = "";
+
+        List<String> list = new ArrayList<>();
+
+        // 1.String to List 변환
+        for (int i = 0; i < my_string.length(); i++) {
+            list.add(String.valueOf(my_string.charAt(i)));
+        }
+        // 2.my_string에서 letter 제거
+        for(int i = 0; i < my_string.length(); i++){
+            if(list.get(i).equals(letter)){
+            }else{
+                answer += list.get(i);
+            }
+        }
+        return answer;
+    }
+}
 
  */
 
 
-// level0 :
+// level0 : 숨어있는 숫자의 덧셈 (1)
 /*
 조건
-    1.
+    my_string안의 모든 자연수들의 합을 return
+    1.my_string은 소문자, 대문자 그리고 한자리 자연수로만 구성
     2.
 
 brainstorming
-    1.
-    2.
+    1.문자열에 있는 숫자의 연산 : 어떻게 되지?
+    2.문자열에서 숫자인지 확인하는 법
+        1)Character.isDigit()
+        2)아스키코드 이용 : if (ch >= '0' && ch <= '9') {
 
 */
 class Solution036 {
     public static void main(String[] args) {
         Solution036 prbs = new Solution036();
-        int answer = prbs.solution(0, 1);
+        String input = "aAb1B2cC34oOp";
+        String answer = String.valueOf(prbs.solution(input));
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
+    public int solution(String my_string) {
         int answer = 0;
+
+        // 방법1 : Character.isDigit() 사용
+//        for(int i = 0; i < my_string.length(); i++) {
+//            if (Character.isDigit(my_string.charAt(i))) {
+//                answer += Integer.parseInt(String.valueOf(my_string.charAt(i)));
+//            }
+//        }
+
+        // 방법2 : 아스키코드 이용 : if (ch >= '0' && ch <= '9')
+//        for(int i = 0; i < my_string.length(); i++) {
+//            if(my_string.charAt(i) >= '0' && my_string.charAt(i) <= '9') {
+//                answer += Integer.parseInt(String.valueOf(my_string.charAt(i)));
+//            }
+//        }
+
+        // 방법3 : foreach + .toCharArray() + 아스키코드
+        for(char ch : my_string.toCharArray()) {
+            if(ch >= '0' && ch <= '9') {
+                answer += Integer.parseInt(String.valueOf(ch));
+            }
+        }
+        // 방법4 : Character.isDigit() + Character.getNumericValue()
+//        for (char ch : my_string.toCharArray()) {
+//            if (Character.isDigit(ch)) {
+//                answer += Character.getNumericValue(ch);
+//            }
+//        }
         return answer;
     }
 }
@@ -316,8 +368,41 @@ class Solution036 {
 /*
 
     정답1
+import java.util.*;
 
+class Solution {
+    public int solution(String my_string) {
+        int answer = 0;
 
+        // 방법1 : Character.isDigit() 사용
+//        for(int i = 0; i < my_string.length(); i++) {
+//            if (Character.isDigit(my_string.charAt(i))) {
+//                answer += Integer.parseInt(String.valueOf(my_string.charAt(i)));
+//            }
+//        }
+
+        // 방법2 : 아스키코드 이용 : if (ch >= '0' && ch <= '9')
+//        for(int i = 0; i < my_string.length(); i++) {
+//            if(my_string.charAt(i) >= '0' && my_string.charAt(i) <= '9') {
+//                answer += Integer.parseInt(String.valueOf(my_string.charAt(i)));
+//            }
+//        }
+
+        // 방법3 : foreach + .toCharArray() + 아스키코드
+        for(char ch : my_string.toCharArray()) {
+            if(ch >= '0' && ch <= '9') {
+                answer += Integer.parseInt(String.valueOf(ch));
+            }
+        }
+        // 방법4 : Character.isDigit() + Character.getNumericValue()
+//        for (char ch : my_string.toCharArray()) {
+//            if (Character.isDigit(ch)) {
+//                answer += Character.getNumericValue(ch);
+//            }
+//        }
+        return answer;
+    }
+}
  */
 
 
