@@ -310,7 +310,7 @@ class Solution {
  */
 
 
-// level0 : 숨어있는 숫자의 덧셈 (1)
+    // level0 : 숨어있는 숫자의 덧셈 (1)
 /*
 조건
     my_string안의 모든 자연수들의 합을 return
@@ -406,26 +406,41 @@ class Solution {
  */
 
 
-// level0 :
+// level0 : 문자열안에 문자열
 /*
 조건
-    1.
+    str1 안에 str2가 있다면 1을 없다면 2를 return
+    1.문자열은 알파벳 대문자, 소문자, 숫자로 구성
     2.
 
 brainstorming
-    1.
+    1.문자열 관련 함수를 써야할 것 같음
     2.
 
 */
 class Solution037 {
     public static void main(String[] args) {
         Solution037 prbs = new Solution037();
-        int answer = prbs.solution(0, 1);
+        String answer = String.valueOf(prbs.solution("ppprrrogrammers", "pppp"));
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
+    public int solution(String str1, String str2) {
         int answer = 0;
+
+//        // 방법1. String.contains()
+//        if(str1.contains(str2)){
+//            answer = 1;
+//        }else{
+//            answer = 2;
+//        }
+
+        // 방법2. String.indexOf() : 찾는 문자열이 존재하면 해당 문자열의 인덱스를 반환하고, 없으면 -1을 반환
+        if (str1.indexOf(str2) != -1) {
+            answer = 1;
+        }else{
+            answer = 2;
+        }
         return answer;
     }
 }
@@ -433,7 +448,24 @@ class Solution037 {
 /*
 
     정답1
-
+class Solution {
+    public int solution(String str1, String str2) {
+        int answer = 0;
+//        // 방법1. String.contains()
+//        if(str1.contains(str2)){
+//            answer = 1;
+//        }else{
+//            answer = 2;
+//        }
+        // 방법2. String.indexOf() : 찾는 문자열이 존재하면 해당 문자열의 인덱스를 반환하고, 없으면 -1을 반환
+        if (str1.indexOf(str2) != -1) {
+            answer = 1;
+        }else{
+            answer = 2;
+        }
+        return answer;
+    }
+}
 
  */
 
