@@ -519,9 +519,10 @@ class Solution038 {
  */
 
 
-// level0 :
+// level0 : 제곱수 판별하기
 /*
 조건
+    n이 제곱수라면 1을 아니라면 2를 return
     1.
     2.
 
@@ -533,12 +534,21 @@ brainstorming
 class Solution039 {
     public static void main(String[] args) {
         Solution039 prbs = new Solution039();
-        int answer = prbs.solution(0, 1);
+        int answer = prbs.solution(144);
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
+    public int solution(int n) {
         int answer = 0;
+
+        double sqrt1 = Math.sqrt(n);
+        int sqrt2 = (int)Math.sqrt(n);
+
+        if(sqrt1 == sqrt2){ // 구한 제곱근을 int로 캐스팅한 제곱근과 원본값 double 제곱근이 같으면 제곱근, 아니면 제곱근X
+            answer = 1;
+        }else{
+            answer = 2;
+        }
         return answer;
     }
 }
@@ -551,10 +561,11 @@ class Solution039 {
  */
 
 
-// level0 :
+// level0 : 세균 증식
 /*
 조건
-    1.
+    세균의 마리수 n과 경과한 시간 t가 매개변수로 주어질 때 t시간 후 세균의 수를 return
+    1.1시간에 두배만큼 증식
     2.
 
 brainstorming
@@ -565,12 +576,19 @@ brainstorming
 class Solution040 {
     public static void main(String[] args) {
         Solution040 prbs = new Solution040();
-        int answer = prbs.solution(0, 1);
+        int answer = prbs.solution(10, 15);
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
-        int answer = 0;
+    public int solution(int n, int t) {
+        int answer = n;
+        if(t > 1){
+            for(int i = 0; i < t; i++){
+                answer = answer * 2;
+            }
+        }else if(t == 1){
+            answer = n * 2;
+        }
         return answer;
     }
 }
@@ -578,7 +596,21 @@ class Solution040 {
 /*
 
     정답1
+class Solution {
+    public int solution(int n, int t) {
+        int answer = n;
 
+        if(t > 1){
+            for(int i = 0; i < t; i++){
+                answer = answer * 2;
+            }
+        }else if(t == 1){
+            answer = n * 2;
+        }
+
+        return answer;
+    }
+}
 
  */
 
