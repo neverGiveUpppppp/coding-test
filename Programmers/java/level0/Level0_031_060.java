@@ -615,7 +615,7 @@ class Solution {
  */
 
 
-// level0 :
+// level0 : 중앙값 구하기
 /*
 조건
     1.
@@ -629,6 +629,322 @@ brainstorming
 class Solution041 {
     public static void main(String[] args) {
         Solution041 prbs = new Solution041();
+        int[] answer = new int[]{2, 9, 5, 7, 6};
+        prbs.solution(answer);
+        System.out.println(answer);
+    }
+
+    public int solution(int[] array) {
+        int answer = 0;
+        // 1.배열 정렬하기
+        Arrays.sort(array);
+        // 2.중앙값의 인덱스 번호 구하기
+        int index = (int)Math.floor(array.length / 2) + 1; //  floor()는 doulbe 반환이라 (int) 캐스팅 필요
+        answer = array[index - 1]; // zero-base index이므로 -1해줘야함
+        System.out.println(answer);
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+import java.util.*;
+
+class Solution {
+    public int solution(int[] array) {
+        int answer = 0;
+        // 1.배열 정렬하기
+        Arrays.sort(array); // order by ASC
+        //        Arrays.sort(array, Collections.reverseOrder());   // order by DESC
+        // 2.중앙값의 인덱스번호 구하기
+        int index = (int)Math.floor(array.length / 2) + 1;  // floor()는 doulbe 반환이라 (int) 캐스팅 필요
+        answer = array[index-1]; // zero-base index이므로 -1해줘야함
+        return answer;
+    }
+}
+
+ */
+
+
+
+// level0 :  
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+class Solution042 {
+    public static void main(String[] args) {
+        Solution042 prbs = new Solution042();
+        int answer = prbs.solution(0, 1);
+        System.out.println(answer);
+    }
+
+    public int solution(int slice, int n) {
+        int answer = 0;
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+// level0 :  
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+class Solution043 {
+    public static void main(String[] args) {
+        Solution043 prbs = new Solution043();
+        int answer = prbs.solution(0, 1);
+        System.out.println(answer);
+    }
+
+    public int solution(int slice, int n) {
+        int answer = 0;
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+// level0 :  
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+class Solution044 {
+    public static void main(String[] args) {
+        Solution044 prbs = new Solution044();
+        int answer = prbs.solution(0, 1);
+        System.out.println(answer);
+    }
+
+    public int solution(int slice, int n) {
+        int answer = 0;
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+// level0 :  
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+class Solution045 {
+    public static void main(String[] args) {
+        Solution045 prbs = new Solution045();
+        int answer = prbs.solution(0, 1);
+        System.out.println(answer);
+    }
+
+    public int solution(int slice, int n) {
+        int answer = 0;
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+// level0 :  
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+class Solution046 {
+    public static void main(String[] args) {
+        Solution046 prbs = new Solution046();
+        int answer = prbs.solution(0, 1);
+        System.out.println(answer);
+    }
+
+    public int solution(int slice, int n) {
+        int answer = 0;
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+// level0 :  
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+class Solution047 {
+    public static void main(String[] args) {
+        Solution047 prbs = new Solution047();
+        int answer = prbs.solution(0, 1);
+        System.out.println(answer);
+    }
+
+    public int solution(int slice, int n) {
+        int answer = 0;
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+// level0 :  
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+class Solution048 {
+    public static void main(String[] args) {
+        Solution048 prbs = new Solution048();
+        int answer = prbs.solution(0, 1);
+        System.out.println(answer);
+    }
+
+    public int solution(int slice, int n) {
+        int answer = 0;
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+// level0 :  
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+class Solution049 {
+    public static void main(String[] args) {
+        Solution049 prbs = new Solution049();
+        int answer = prbs.solution(0, 1);
+        System.out.println(answer);
+    }
+
+    public int solution(int slice, int n) {
+        int answer = 0;
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+
+
+ */
+
+
+// level0 :  
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+class Solution050 {
+    public static void main(String[] args) {
+        Solution050 prbs = new Solution050();
         int answer = prbs.solution(0, 1);
         System.out.println(answer);
     }
