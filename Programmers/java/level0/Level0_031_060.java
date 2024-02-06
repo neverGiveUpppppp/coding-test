@@ -618,12 +618,12 @@ class Solution {
 // level0 : 중앙값 구하기
 /*
 조건
-    1.
-    2.
+    1.정수 배열 중 가운데 값 구하기
+    2.배열 길이는 홀수로만
 
 brainstorming
-    1.
-    2.
+    1.값 받고 일단 오름차순 정렬하기
+    2.배열 길이에서 / 2해서 몫만 구하고, +1하면 중앙 인덱스 도출가능
 
 */
 class Solution041 {
@@ -668,26 +668,32 @@ class Solution {
 
 
 
-// level0 :  
+// level0 : 문자열의 뒤의 n글자
+/*
 /*
 조건
-    1.
+    1.뒤에서부터 n길이만큼 출력
     2.
 
 brainstorming
-    1.
-    2.
+    1.인덱스 필요 : array or arraylist
+    2.받은 문자로 배열로 전환하기
+    3.split()?, substring으로 짤라서 도출하기
+
+*/
 
 */
 class Solution042 {
     public static void main(String[] args) {
         Solution042 prbs = new Solution042();
-        int answer = prbs.solution(0, 1);
+        String answer = prbs.solution("ProgrammerS123", 11);
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
-        int answer = 0;
+    public String solution(String my_string, int n) {
+        String answer = "";
+        int length = my_string.length();
+        answer = my_string.substring(length - n, length);
         return answer;
     }
 }
@@ -695,7 +701,15 @@ class Solution042 {
 /*
 
     정답1
+class Solution {
+    public String solution(String my_string, int n) {
+        String answer = "";
+        int length = my_string.length();
+        answer = my_string.substring(length - n, length);
 
+        return answer;
+    }
+}
 
  */
 
