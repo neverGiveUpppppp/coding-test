@@ -682,7 +682,6 @@ brainstorming
 
 */
 
-*/
 class Solution042 {
     public static void main(String[] args) {
         Solution042 prbs = new Solution042();
@@ -762,20 +761,30 @@ brainstorming
 class Solution044 {
     public static void main(String[] args) {
         Solution044 prbs = new Solution044();
-        int answer = prbs.solution(0, 1);
-        System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
-        int answer = 0;
-        return answer;
+    public void solution(int slice, int n) {
+        Scanner sc = new Scanner(System.in);
+        String a = sc.next();
+        String b = sc.next();
+        System.out.print(a+b);
+
     }
 }
 
 /*
 
     정답1
+import java.util.Scanner;
 
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String a = sc.next();
+        String b = sc.next();
+        System.out.print(a+b);
+    }
+}
 
  */
 
