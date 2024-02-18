@@ -790,7 +790,7 @@ public class Solution {
 
 
 
-// level0 :  
+// level0 : n의 배수
 /*
 조건
     1.
@@ -808,8 +808,13 @@ class Solution045 {
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
+    public int solution(int num, int n) {
         int answer = 0;
+        if(num % n == 0){
+            answer = 1;
+        }else{
+            answer = 0;
+        }
         return answer;
     }
 }
@@ -817,32 +822,52 @@ class Solution045 {
 /*
 
     정답1
-
+class Solution {
+    public int solution(int num, int n) {
+        int answer = 0;
+        if(num % n == 0){
+            answer = 1;
+        }else{
+            answer = 0;
+        }
+        return answer;
+    }
+}
 
  */
 
 
 
-// level0 :  
+// level0 : 정수 찾기
 /*
 조건
-    1.
+    1.num_list 안에 n이 있는 지 없는 지 찾는 문제
     2.
 
 brainstorming
-    1.
+    1.브루트포스 필요
     2.
 
 */
 class Solution046 {
     public static void main(String[] args) {
         Solution046 prbs = new Solution046();
-        int answer = prbs.solution(0, 1);
+        int[] num_list = new int[]{1, 2, 3, 4, 5};
+        int answer = prbs.solution(num_list, 3);
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
+    public int solution(int[] num_list, int n) {
         int answer = 0;
+
+        for (int i = 0; i < num_list.length; i++) {
+            if (num_list[i] == n) {
+                answer = 1;
+                return answer;
+            } else {
+                answer = 0;
+            }
+        }
         return answer;
     }
 }
@@ -850,7 +875,20 @@ class Solution046 {
 /*
 
     정답1
-
+class Solution {
+    public int solution(int[] num_list, int n) {
+        int answer = 0;
+        for (int i = 0; i < num_list.length; i++) {
+            if (num_list[i] == n) {
+                answer = 1;
+                return answer;
+            } else {
+                answer = 0;
+            }
+        }
+        return answer;
+    }
+}
 
  */
 
@@ -998,19 +1036,19 @@ public class Level0_031_060 {
 // Unsolved
 
 // level0 031 :
-class SolutionUnsol31 {
-    public static void main(String[] args) {
-        SolutionUnsol31 prbs = new SolutionUnsol31();
-        int[] arr = {1, 1, 2, 3, 4, 5};
-        int answer = prbs.solution(arr, 1);
-        System.out.println(answer);
-    }
-
-    public int solution(int[] array, int n) {
-        int answer = 0;
-        return answer;
-    }
-}
+//class SolutionUnsol31 {
+//    public static void main(String[] args) {
+//        SolutionUnsol31 prbs = new SolutionUnsol31();
+//        int[] arr = {1, 1, 2, 3, 4, 5};
+//        int answer = prbs.solution(arr, 1);
+//        System.out.println(answer);
+//    }
+//
+//    public int solution(int[] array, int n) {
+//        int answer = 0;
+//        return answer;
+//    }
+//}
 /*
 조건
     1.
