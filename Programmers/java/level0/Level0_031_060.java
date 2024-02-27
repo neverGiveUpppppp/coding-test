@@ -714,26 +714,26 @@ class Solution {
 
 
 
-// level0 :  
+// level0 : 대문자로 바꾸기
 /*
 조건
-    1.
+    1.모든 알파벳을 대문자로 변환
     2.
 
 brainstorming
-    1.
-    2.
+    1.toUppercase()
 
 */
 class Solution043 {
     public static void main(String[] args) {
         Solution043 prbs = new Solution043();
-        int answer = prbs.solution(0, 1);
+        String answer = prbs.solution("abcd");
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
-        int answer = 0;
+    public String solution(String myString) {
+        String answer = "";
+        answer = myString.toUpperCase();
         return answer;
     }
 }
@@ -741,7 +741,13 @@ class Solution043 {
 /*
 
     정답1
-
+class Solution {
+    public String solution(String myString) {
+        String answer = "";
+        answer = myString.toUpperCase();
+        return answer;
+    }
+}
 
  */
 
