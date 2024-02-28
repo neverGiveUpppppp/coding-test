@@ -441,6 +441,59 @@ ORDER BY ID;
 
 
 
+---- 조회수가 가장 많은 중고거래 게시판의 첨부파일 조회하기
+/* 
+조건
+    2022년 10월 5일에 등록된 중고거래 게시물 조회
+    1)FILE ID desc
+    2)루트경로 : /home/grep/src/
+    3)파일 ID, 파일 이름, 파일 확장자 조회
+    
+brainstorming
+    1)
+    2)
+
+*/
+-- 양테이블의 데이터형태 체크
+-- SELECT * FROM USED_GOODS_BOARD
+-- SELECT FILE_ID, FILE_EXT, FILE_NAME, BOARD_ID
+-- FROM USED_GOODS_FILE  A
+-- FETCH FIRST 3 ROWS ONLY
+
+
+-- SELECT B.FILE_ID, B.FILE_EXT, B.FILE_NAME, B.BOARD_ID
+-- FROM USED_GOODS_BOARD A
+--     JOIN USED_GOODS_FILE B ON (A.BOARD_ID = B.BOARD_ID)
+-- ORDER BY B.FILE_ID DESC
+
+-- 요구하는 OUTPUT 형식 만듬
+-- SELECT '/home/grep/src/' || B.BOARD_ID||'/' || B.FILE_ID  || B.FILE_NAME || B.FILE_EXT
+-- FROM USED_GOODS_BOARD A
+--     JOIN USED_GOODS_FILE B ON (A.BOARD_ID = B.BOARD_ID)
+-- ORDER BY B.FILE_ID DESC
+
+
+-- 조회수 가장 높은 게시물 도출
+-- SELECT VIEWS
+-- FROM USED_GOODS_BOARD A
+-- ORDER BY VIEWS DESC -- 전체 정렬 후 1등 뽑는거라 성능은 느릴 듯
+-- FETCH FIRST 1 ROWS ONLY
+
+
+
+-- 정답1 : 인라인뷰(하나의 테이블반환) + ORDER BY + FETCH FRIST
+ SELECT '/home/grep/src/' || B.BOARD_ID ||'/' || B.FILE_ID  || B.FILE_NAME || B.FILE_EXT
+ FROM(
+      SELECT BOARD_ID, VIEWS
+      FROM USED_GOODS_BOARD
+      ORDER BY VIEWS DESC
+      FETCH FIRST 1 ROWS ONLY
+     ) A
+     JOIN USED_GOODS_FILE B ON (A.BOARD_ID = B.BOARD_ID)
+ ORDER BY B.FILE_ID DESC
+
+
+
 
 
 
