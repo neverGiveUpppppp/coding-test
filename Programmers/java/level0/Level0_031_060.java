@@ -753,7 +753,7 @@ class Solution {
 
 
 
-// level0 :  
+// level0 :
 /*
 조건
     1.
@@ -900,26 +900,38 @@ class Solution {
 
 
 
-// level0 :  
+// level0 : n의 배수 고르기
 /*
 조건
-    1.
+    1.numlist에서 n의 배수가 아닌 수들을 제거한 배열을 return
     2.
 
 brainstorming
-    1.
-    2.
+    1.전체 수를 다 체크해야하니 브루트포스
+    2.배열 삭제가 안되므로 새 배열에 담아야할 듯
 
 */
 class Solution047 {
     public static void main(String[] args) {
         Solution047 prbs = new Solution047();
-        int answer = prbs.solution(0, 1);
-        System.out.println(answer);
+        int[] arr = {4, 5, 6, 7, 8, 9, 10, 11, 12};
+        int[] answer = prbs.solution(3, arr);
+        System.out.println(Arrays.toString(answer));
     }
 
-    public int solution(int slice, int n) {
-        int answer = 0;
+    public int[] solution(int n, int[] numlist) {
+        List<Integer> newArr = new ArrayList<>();
+        // 1.n의 배수 아닌 것 제거(n의 배수만 newArr에 담기)
+        for(int i = 0; i < numlist.length; i++){
+            if(numlist[i] % n == 0)
+                newArr.add(numlist[i]);
+        }
+
+        // 2.n의배수가 담긴 List를 array로 변환
+        int[] answer = new int[newArr.size()];
+        for(int j = 0; j < newArr.size(); j++)
+            answer[j] = newArr.get(j);
+        System.out.println(Arrays.toString(String.valueOf(answer[0]).toCharArray()));
         return answer;
     }
 }
@@ -928,6 +940,24 @@ class Solution047 {
 
     정답1
 
+import java.util.*;
+
+class Solution {
+    public int[] solution(int n, int[] numlist) {
+        List<Integer> newArr = new ArrayList<>();
+        // 1.n의 배수 아닌 것 제거(n의 배수만 newArr에 담기)
+        for(int i = 0; i < numlist.length; i++){
+            if(numlist[i] % n == 0)
+                newArr.add(numlist[i]);
+        }
+
+        // 2.n의배수가 담긴 List를 array로 변환
+        int[] answer = new int[newArr.size()];
+        for(int j = 0; j < newArr.size(); j++)
+            answer[j] = newArr.get(j);
+        return answer;
+    }
+}
 
  */
 
