@@ -963,26 +963,32 @@ class Solution {
 
 
 
-// level0 :  
+// level0 : flag에 따라 다른 값 반환하기
 /*
 조건
-    1.
-    2.
+    1.flag가  true면 a + b
+    2.flag가 false면 a - b
 
 brainstorming
-    1.
+    1.flow controll
     2.
-
+    
 */
 class Solution048 {
     public static void main(String[] args) {
         Solution048 prbs = new Solution048();
-        int answer = prbs.solution(0, 1);
+        int answer = prbs.solution(-4, 7, true);
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
+    public int solution(int a, int b, boolean flag) {
         int answer = 0;
+        if(flag){
+            answer = a + b;
+        }else{
+            answer = a - b;
+        }
+
         return answer;
     }
 }
@@ -990,7 +996,18 @@ class Solution048 {
 /*
 
     정답1
+class Solution {
+    public int solution(int a, int b, boolean flag) {
+        int answer = 0;
+        if(flag){
+            answer = a + b;
+        }else{
+            answer = a - b;
+        }
 
+        return answer;
+    }
+}
 
  */
 
