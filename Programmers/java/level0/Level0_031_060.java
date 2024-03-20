@@ -1013,26 +1013,50 @@ class Solution {
 
 
 
-// level0 :  
+// level0 : 공 던지기
 /*
 조건
-    1.
-    2.
+    1.공은 1번부터 시작
+    2.오른쪽으로 한 명을 건너뛰고 그다음 사람에게만 던질 수 있음
 
 brainstorming
-    1.
-    2.
+    1.(끝이 홀수로 끝나는 경우) 첫바퀴는 홀수만 가능하나, 두바퀴 째 짝수로 변함
+    2.(끝이 짝수로 끝나는 경우) 홀수만 가능
+    3.numbers가 얼마나 될지 모름
+    4.numbers 1-6의 길이가 k 홀수보다 크면 처음으로 돌아가게하고 그보다 짧다면 그냥 인덱스번호 추출하기
+
+5까지 k3 = 1 3 5
+7까지 k4 = 1 3 5 7
+9까지 k5 = 1 3 5 7 9
+(numbers.length / 2) >= k : 인덱스로 추출
+(numbers.length / 2) <= k : 두바퀴째로 돌아가서 새로 계산
 
 */
 class Solution049 {
     public static void main(String[] args) {
         Solution049 prbs = new Solution049();
-        int answer = prbs.solution(0, 1);
+        int[] arr = {1,2,3,4,5,6};
+        int answer = prbs.solution(arr, 5);
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
+    public int solution(int[] numbers, int k) {
         int answer = 0;
+        int pointer = 1;
+
+        // 끝수가 홀수
+        // 끝수가 짝수
+        if((numbers.length % 2) == 0){
+            System.out.println("짝수");
+            for(int i = 1; i <= k; i++){ // k만큼 반복
+//                if(numbers)
+
+
+            }
+        }else{
+            System.out.println("홀수");
+        }
+
         return answer;
     }
 }
