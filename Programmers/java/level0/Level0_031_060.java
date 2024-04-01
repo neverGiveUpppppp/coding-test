@@ -1069,26 +1069,36 @@ class Solution049 {
  */
 
 
-// level0 :  
+// level0 : 대문자와 소문자
 /*
 조건
-    1.
+    1.각 글자마다 변환 -> 브루투포스
     2.
 
 brainstorming
-    1.
-    2.
+    1.한 글자씩 전부 체크해야하므로 브루투포스
+    2.StringBuilder 사용?
+    3.해당 글자가 대문자인지 소문자인지 판단 어떻게?
+        if a.equals(a.toUpperCase())
+
 
 */
 class Solution050 {
     public static void main(String[] args) {
         Solution050 prbs = new Solution050();
-        int answer = prbs.solution(0, 1);
+        String answer = prbs.solution("abCdEfghIJ");
         System.out.println(answer);
     }
 
-    public int solution(int slice, int n) {
-        int answer = 0;
+    public String solution(String my_string) {
+        String answer = "";
+        for(int i = 0; i < my_string.length(); i++){
+            if(String.valueOf(my_string.charAt(i)).equals(String.valueOf(my_string.charAt(i)).toUpperCase())){
+                answer += String.valueOf(my_string.charAt(i)).toLowerCase();
+            }else{
+                answer += String.valueOf(my_string.charAt(i)).toUpperCase();
+            }
+        }
         return answer;
     }
 }
