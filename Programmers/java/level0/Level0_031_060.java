@@ -1112,6 +1112,382 @@ class Solution050 {
 
 
 
+// level0 : 개미 군단
+/*
+조건
+    1.적은 병력 수 : 우선순위 5 -> 3 -> 1
+    2.
+
+brainstorming
+    1.5로 먼저 나누고 나머지를 3 그 다음 나머지를 1로
+    2.
+
+
+*/
+class Solution051 {
+    public static void main(String[] args) {
+        Solution051 prbs = new Solution051();
+        int answer = prbs.solution(23);
+        System.out.println(answer);
+    }
+
+    public int solution(int hp) {
+        int answer = 0;
+
+        int generalAnt = hp / 5;
+        hp = hp - (generalAnt * 5);
+
+        int soldierAnt = hp / 3;
+        hp = hp - (soldierAnt * 3);
+
+        int ergate = hp / 1;
+
+        answer = generalAnt + soldierAnt + ergate;
+        return answer;
+
+        // 한줄 코드
+        // return hp / 5 + (hp % 5 / 3) + hp % 5 % 3;
+    }
+}
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+// level0 :
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+class Solution052 {
+    public static void main(String[] args) {
+        Solution052 prbs = new Solution052();
+        String answer = prbs.solution("abCdEfghIJ");
+        System.out.println(answer);
+    }
+
+    public String solution(String my_string) {
+        String answer = "";
+
+
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+// level0 :
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+class Solution053 {
+    public static void main(String[] args) {
+        Solution053 prbs = new Solution053();
+        String answer = prbs.solution("abCdEfghIJ");
+        System.out.println(answer);
+    }
+
+    public String solution(String my_string) {
+        String answer = "";
+
+
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+// level0 :
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+class Solution054 {
+    public static void main(String[] args) {
+        Solution054 prbs = new Solution054();
+        String answer = prbs.solution("abCdEfghIJ");
+        System.out.println(answer);
+    }
+
+    public String solution(String my_string) {
+        String answer = "";
+
+
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+// level0 :
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+class Solution055 {
+    public static void main(String[] args) {
+        Solution055 prbs = new Solution055();
+        String answer = prbs.solution("abCdEfghIJ");
+        System.out.println(answer);
+    }
+
+    public String solution(String my_string) {
+        String answer = "";
+
+
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+
+// level0 :
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+class Solution056 {
+    public static void main(String[] args) {
+        Solution056 prbs = new Solution056();
+        String answer = prbs.solution("abCdEfghIJ");
+        System.out.println(answer);
+    }
+
+    public String solution(String my_string) {
+        String answer = "";
+
+
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+
+// level0 :
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+class Solution057 {
+    public static void main(String[] args) {
+        Solution057 prbs = new Solution057();
+        String answer = prbs.solution("abCdEfghIJ");
+        System.out.println(answer);
+    }
+
+    public String solution(String my_string) {
+        String answer = "";
+
+
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+
+// level0 :
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+class Solution058 {
+    public static void main(String[] args) {
+        Solution058 prbs = new Solution058();
+        String answer = prbs.solution("abCdEfghIJ");
+        System.out.println(answer);
+    }
+
+    public String solution(String my_string) {
+        String answer = "";
+
+
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+
+// level0 :
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+class Solution059 {
+    public static void main(String[] args) {
+        Solution059 prbs = new Solution059();
+        String answer = prbs.solution("abCdEfghIJ");
+        System.out.println(answer);
+    }
+
+    public String solution(String my_string) {
+        String answer = "";
+
+
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+
+// level0 :
+/*
+조건
+    1.
+    2.
+
+brainstorming
+    1.
+    2.
+
+*/
+class Solution060 {
+    public static void main(String[] args) {
+        Solution060 prbs = new Solution060();
+        String answer = prbs.solution("abCdEfghIJ");
+        System.out.println(answer);
+    }
+
+    public String solution(String my_string) {
+        String answer = "";
+
+
+        return answer;
+    }
+}
+
+/*
+
+    정답1
+
+
+ */
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
