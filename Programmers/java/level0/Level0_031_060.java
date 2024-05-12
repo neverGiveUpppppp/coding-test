@@ -2,6 +2,8 @@ package level0;
 
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 // level0 : 중복된 숫자 개수
 /*
@@ -1153,21 +1155,40 @@ class Solution051 {
 /*
 
     정답1
+class Solution {
+    public int solution(int hp) {
+        int answer = 0;
 
+        int generalAnt = hp / 5;
+        hp = hp - (generalAnt * 5);
 
+        int soldierAnt = hp / 3;
+        hp = hp - (soldierAnt * 3);
+
+        int ergate = hp / 1;
+
+        answer = generalAnt + soldierAnt + ergate;
+        return answer;
+    }
+}
+
+    정답2
+    return hp / 5 + (hp % 5 / 3) + hp % 5 % 3;
  */
 
 
 
-// level0 :
+// level0 : 가위 바위 보
 /*
 조건
-    1.
-    2.
+    1.가바보 이기는 수 반환
+    2. 2면 0
+        0이면 5
+        5면 2를 반환
 
 brainstorming
-    1.
-    2.
+    1.atChat()로 하나씩 읽어들이기
+    2.toCharArray()
 
 */
 class Solution052 {
@@ -1177,10 +1198,17 @@ class Solution052 {
         System.out.println(answer);
     }
 
-    public String solution(String my_string) {
+    public String solution(String rsp) {
         String answer = "";
-
-
+        for(char c : rsp.toCharArray()){
+            if(c == '2'){
+                answer += "0";
+            }else if(c == '0'){
+                answer += "5";
+            }else if(c == '5'){
+                answer += "2";
+            }
+        }
         return answer;
     }
 }
@@ -1188,43 +1216,105 @@ class Solution052 {
 /*
 
     정답1
+class Solution {
+    public String solution(String rsp) {
+            String answer = "";
+            for(char c : rsp.toCharArray()){
+                if(c == '2'){
+                    answer += "0";
+                }else if(c == '0'){
+                    answer += "5";
+                }else if(c == '5'){
+                    answer += "2";
+                }
+            }
+            return answer;
+        }
+}
+    정답2
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
-
+class Solution {
+    public String solution(String rsp) {
+        return Arrays.stream(rsp.split(""))
+            .map(s -> s.equals("2") ? "0" : s.equals("0") ? "5" : "2")
+            .collect(Collectors.joining());
+    }
+}
  */
 
 
 
-// level0 :
+// level0 : 암호 해독
 /*
 조건
-    1.
-    2.
+    1. n의배수만 꺼내 return
+    2. zerobase index X : 1부터 시작
 
 brainstorming
-    1.
+    1.toCharArray()
     2.
 
 */
 class Solution053 {
     public static void main(String[] args) {
         Solution053 prbs = new Solution053();
-        String answer = prbs.solution("abCdEfghIJ");
+        String answer = prbs.solution("dfjardstddetckdaccccdegk",4); // dfjardstddetckdaccccdegk
         System.out.println(answer);
     }
 
-    public String solution(String my_string) {
-        String answer = "";
+    public String solution(String cipher, int code) {
+        // 정답1 : ArrayList + StringBuilder()
+//            StringBuilder answer = new StringBuilder();
+//
+//            ArrayList<String> aList = new ArrayList<>();
+//            for(int i = 0; i < cipher.length(); i++){
+//                aList.add(String.valueOf(cipher.charAt(i)));
+//            }
+//            for(int i = 1; i <= aList.size(); i++){
+//                if(i % code == 0){
+//                    answer.append(aList.get(i-1));
+//                }
+//            }
+//            return answer.toString();
 
-
-        return answer;
+        // 정답2 : IntStream.range() + filter() + mapToObj()
+        return IntStream.range(0, cipher.length())
+                .filter(index -> (index + 1) % code == 0)  // 인덱스 조정: 1을 더해 code의 배수를 맞춤
+                .mapToObj(index -> String.valueOf(cipher.charAt(index)))
+                .collect(Collectors.joining());
     }
 }
 
 /*
 
-    정답1
+import java.util.*;
+import java.util.stream.*;
 
+class Solution {
+    public String solution(String cipher, int code) {
+    // 정답1 : ArrayList + StringBuilder()
+    StringBuilder answer = new StringBuilder();
 
+    ArrayList<String> aList = new ArrayList<>();
+    for(int i = 0; i < cipher.length(); i++){
+        aList.add(String.valueOf(cipher.charAt(i)));
+    }
+    for(int i = 1; i <= aList.size(); i++){
+        if(i % code == 0){
+            answer.append(aList.get(i-1));
+        }
+    }
+    return answer.toString();
+
+    // 정답2 : IntStream.range() + filter() + mapToObj()
+    return IntStream.range(0, cipher.length())
+        .filter(index -> (index + 1) % code == 0)  // 인덱스 조정: 1을 더해 code의 배수를 맞춤
+        .mapToObj(index -> String.valueOf(cipher.charAt(index)))
+        .collect(Collectors.joining());
+    }
+}
  */
 
 
